@@ -1,0 +1,214 @@
+% !TEX TS-program = XeLaTeX+MakeIndex+BibTeX
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[12pt]{article}
+
+%\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+
+\usepackage{fontspec}
+\setmainfont{Linux Libertine O}
+\linespread{1.05}
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{amsfonts}
+\usepackage{color}
+%\usepackage{booktabs} % for much better looking tables
+%\usepackage{array} % for better arrays (eg matrices) in maths
+%\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{microtype}
+\usepackage[numbers]{natbib}
+%\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+\usepackage[hidelinks]{hyperref}
+
+% For Computer Modern:
+%\def\Cpp{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
+% For Linux Libertine G
+\def\Cpp{{C\nolinebreak[4]\raisebox{.20ex}{\small\bf++}}}
+
+\newcommand{\todo}[1]{\textsf{\color{red}#1}}
+
+%%% END Article customizations
+
+\title{AUTOMAÇÃO DE INTERFACES GRÁFICAS PARA USOS DIVERSOS COM BASE EM FRAMEWORK DE LINGUAGEM VISUAL}
+\author{Romulo Pulcinelli Benedetti \\ \emph{Universidade Federal de Santa Maria}}
+%\date{} % Activate to display a given date or no date (if empty), otherwise the current date is printed 
+
+\begin{document}
+	\maketitle
+	
+	\section{Identificação}
+	
+	\begin{description} \itemsep 0pt
+		\item[Resumo:] ~\\
+				 
+	A automação de tarefas é uma forma bastante eficiente pela qual podemos reduzir custos e aumentar a produtividade e qualidade da atividade humana. A computação por si é uma ferramenta para atingir a automação de tarefas, com vários exemplos de softwares focados em automatizar tarefas específicas sob comando do usuário, sendo a automatização destes softwares um campo a parte. Observamos a aproximação destes softwares a abordagens mais naturais ao raciocínio humano, por meio de interfaces gráficas e contextualização dos elementos com base no mundo real, tornando estes softwares menos distantes do paradigma de interação do humano com a realidade. Desta forma este trabalho objetiva abordar a utilização de tecnologias voltadas a programação visual para melhorar a abordagem de automação de tarefas genéricas em softwares gráficos, assim inserindo a atividade de automatizar outros software gráficos, dentro do mesmo domínio de abstração que as atividades automatizadas.
+		 
+		\item[Período de execução:] março de 2016 a julho de 2016
+		\item[Unidades participantes:] ~\\ Curso de Ciência da Computação
+		\item[Área de conhecimento:] Ciência da Computação
+		\item[Linha de Pesquisa:] ?
+		\item[Tipo de projeto:] Trabalho de Conclusão de Curso
+		\item[Participantes:] ~\\ Profª Andrea Schwertner Charão -- Orientadora \\ Romulo Pulcinelli Benedetti -- Orientando
+	\end{description}
+	
+	\section{Introdução}
+	
+	No desenvolvimento de software, áreas de conhecimento como engenharia de software e qualidade de software
+investigam processos e normas, com o objetivo de reduzir a quantia de recursos necessários e garantir a qualidade de
+software produzido. Um dos produtos destas áreas, envolvendo automação, foi o campo de conhecimento de testes de software.
+
+Sendo que o software pode realizar diversas tarefas, e estas podem assumir diversos estados, qualquer abordagens
+de teste de software, numa situação ideal deveria avaliar todas estas tarefas e seus estados para fornecer as melhores
+informações possíveis sobre a qualidade do software, o que facilmente pode se tornar uma tarefa repetitiva e de longa
+duração e na maioria dos casos nem sempre e possível, segundo \cite[pag. 10]{myers2011art}.
+
+Embora nem sempre seja possível testar todos os estados possíveis, é possível realizar os testes em uma faixa
+conhecida e finita de estados, nestes casos usar ferramentas como frameworks voltados a automatização destes testes,
+agiliza a tarefa de repetir os testes, como na abordagem de testes de regressão onde todos os testes devem ser
+executados novamente a cada ciclo de desenvolvimento. Não o bastante oferece uma série de vantagens tais como precisão ao reduzir a necessidade da atenção humana durante o andamento da tarefa, agilizando atividades e melhorando o aproveitamento do tempo de trabalho humano.
+
+Alguns destes frameworks, embora voltados a realização de testes, poderiam ser usados para automatizar tarefas genéricas,
+um exemplo é o Robot Framework. Entretanto, são ferramentas que, apesar de cobrirem de forma bastante detalhada a automação de testes, não são as mais adequadas a modelagem de tarefas genéricas em software, dependem de um domínio de assuntos de diversos campos da área de Ciências da computação e em muitos casos, domínio da especificação e arquitetura do software a ser automatizado.
+
+Já outros casos particulares de automatização focada em tarefas de TI são os próprios terminais ou ainda shell e utilitários como o make e afins, ferramentas e linguagens voltadas para automatização do desenvolvimento e de tarefas administrativas, também inadequadas a automatização de tarefas genéricas, seja por serem bastante limitadas a um mundo formalmente textual, pela complexidade de sua sintaxe ou ainda pela abstração focadas em tarefas comuns apenas a profissionais de TI.
+
+Temos também ferramentas focadas na automação de tarefas genéricas, como a linguagem script de automatização Autoit. Ainda assim ferramentas que exigem o domínio de um nível de abstração elevado, factualmente diferente da abstração em que a atividade se da, em um ambiente gráfico, focado em facilidades visuais de interação.
+
+A automatização de tarefas pode ser aproximada do usuário por meio de abordagens mais visuais e sintaxe mais contextualizada a modelagem de tarefas genéricas em interfaces gráficas, com o uso de linguagem visual para descrição das automações.
+	
+	\section{Objetivos}
+	
+	\subsection{Objetivo Geral}
+	
+	Tornar possível a automação de tarefas em interfaces gráficas por meio da simplificação de algum framework já estabelecido, sem a utilização direta de uma linguagem textual formal.
+
+	\subsection{Objetivos Específicos}
+	
+	\begin{itemize}
+		\item produzir uma ferramenta capaz de automatizar a utilização das funcionalidades de uma interface gráfica de qualquer software;
+		\item Fornecer uma solução menos formal e textual de automatização, intuitivamente utilizável, independente da área de atuação final do usuário;
+		\item Publicar uma pesquisa no campo de automatização de tarefas computacionais em interfaces gráficas;
+		\item Fornecer uma ferramenta multiplataforma.
+	\end{itemize}
+	
+	\section{Justificativa}	
+	
+	A automação de tarefas é hoje em dia um processo fundamental para a obtenção de resultados ágeis e de qualidade, tanto na produção de um produto ou no fornecimento de serviços, assim como na execução de tarefas pessoais. Representa também redução de custos, o que abre novas possibilidades permitindo trabalhos mais complexos e maiores chances de sucesso, entretanto ferramentas de automação na computação tem exigido um domínio de abordagens de abstração, que em geral, vão além da abstração com a qual, usuários que usam o computador como meio para outras áreas de conhecimento que não a própria produção de softwares, estão acostumados. Uma abstração mais próxima ao nível em que estas tarefas ocorrem tornaria a automação um processo mais intuitivo. 
+	
+	\section{Revisão de Literatura}
+	Na sequencia serão apresentados conceitos relativos aos conteúdos abordados nesse trabalho, descrevendo a automação, sua utilização dentro computação na área de TI e os resultados até então obtidos na automatização de tarefas mais genéricas, assim como linguagens de programação visual e a ferramenta com a qual este aspecto sera tratado.
+	
+	%Automação 
+    %Automação na Computação     
+    %Teste de Softwares
+    %O que temos hoje     
+      
+    %- o que é necessário para compreender o trabalho
+    %  - o que será usado no trabalho como recurso teórico
+    %  - trabalhos relacionados não atendem o problema identificado
+    %        < bem documentado >
+
+
+	\subsection{Automação}
+	A automação é a execução de tarefas por meio de máquinas e computadores, antes executáveis apenas por humanos \cite{automationlevels}.
+	
+	
+	Segundo \citeauthor{automation2009} \cite[pág. 124]{automation2009}, a automação teve um impacto significante na economia e desenvolvimento tecnológico da sociedade, é um elemento chave para o alcance de produtos e serviços de alta qualidade e baixo custo,.
+	
+	Dentre os vários aspectos da atividade humana. Uma das áreas impactadas pela automação foi a precisão em um ciclo auto alimentado, onde a automação melhora a precisão e por sua vez a precisão melhora a automação \cite{auto2008precision}.
+	
+	
+	\subsection{Automação na Computação}
+	
+	A automação da informação por meio de computadores, segundo \citeauthor{automation2009} \cite[pág. 3]{automation2009} é dentro da automação, um processo dos dias atuais, onde temos vendas automatizadas de passagens, conexões de chamadas em nossos telefones, realizadas de forma automática, dentre outras façanhas formas de automatização, entrado cada vez mais na produção e manufatura por intermédio da robótica. 
+	
+	\subsubsection{Automação de Tarefas}
+
+	\subsubsection{Automação de Interfaces}
+
+	\subsection{Linguagens de programação visual}
+	
+	\subsubsection{Blockly}
+	
+	\section{Metodologia}
+	
+	Este estudo caracteriza-se como uma pesquisa exploratória com realização de um estudo de campo de um grupo de pessoas da área de agrometeorologia no intuito de automatizar pesquisas no campo de climas futuros com simulações em modelos matemáticos. Se utilizando de uma abordagem qualitativa.
+	
+	O Estudo sera realizado com o auxilio de pessoas interessadas na automatização de tarefas no prédio de fitotecnia na Universidade Federal de Santa Maria.
+
+	\subsection{Análise de Requisitos}
+	
+	 Ponto onde serão elencados os requisitos iniciais para a desenvolver o projeto, neste ponto vão ser elencados os casos de uso de automação de tarefas em interfaces gráficas, consistindo em elencar elementos automatizáveis, abordagens de automação e conexão destes elementos automatizáveis em tarefas concretas e meios de interação com a abordagem de automatização. 
+	
+	\subsection{Especificação}
+	Fase em que os requisitos serão utilizados para gerar a especificação inicial do projeto a ser desenvolvido com base nas ferramentas de software que serão usada durante o projeto, a linguagem de programação Java e a biblioteca para construção de editores de programação visual Blockly.
+	
+	
+	\subsection{Implementação, Teste e Revisão}
+	
+	Desenvolvimento que será realizado em milestones semanais com teste de unidade contante assim como constante reintegração e revisão dos requisitos. Com a participação de usuários no processo de teste e revisão de requisitos     
+    
+    
+    \subsection{Verificação e Validação}
+    
+    Integração do usuário ao software de automação desenvolvido com o objetivo de avaliar se a ferramenta é capaz de suprir as necessidades de automação de forma intuitiva, analisando quais as resistências do usuário a metodologia de automação, observando as dificuldades envolvendo os domínios necessários para a ferramenta de automação. Assim como analise da contribuição da ferramenta as atividades do usuário. 
+
+	\section{Plano de Atividades e Cronograma}
+	
+	O cronograma de atividades será composto de 5 etapas, são elas:
+	
+	\begin{enumerate}
+		\item \label{activity:requisitos} \textbf{Recolhimento de requisitos e estudo da abordagem na linguagem visual \emph{Blockly}}
+		Nesta etapa serão recolhidos requisitos suficiente para a proposta inicial do projeto, seguindo para a analise de possíveis abordagens de desenvolvimento do programa e de uma linguagem visual adequada ao projeto com base nas ferramentas definidas e requisitos coletados.
+		\item \label{activity:dev1} \textbf{Desenvolvimento do software base:}
+		Momento em que será desenvolvida a interface gráfica do aplicativo, como sera realizada a detecção de outros programas e como o software ira interagir com estes programas. 
+		\item \label{activity:dev2} \textbf{Desenvolvimento de uma API de visuais:}
+		etapa que em que será desenvolvida a abordagem de automação dos programas, como sera tratada a contextualização, separação entre elementos e tarefas e como estes serão conectados.
+		\item \label{activity:revisão} \textbf{Revisão e teste:}
+		Etapa constante de revisão dos requisitos e especificação do projeto, assim como implementação e realização de testes dos componentes do software em desenvolvimento.
+		\item \label{activity:avaliação} \textbf{Avaliação do software em uso:}
+		Avaliação da competência do software em automatizar modelos matemáticos agronômicos em uso no centro de Fitotecnia, avaliando a resistência ao uso, dependência de treinamento e efetividade na automatização das tarefas.
+	\end{enumerate}
+	
+	\begin{table}[ht]
+		\centering
+		\begin{tabular}{c|ccccc}
+			Etapa & Março & Abril & Maio & Junho & Julho \\ \hline
+			\ref{activity:requisitos} & \checkmark & & & & \\
+			\ref{activity:dev1} & \checkmark & \checkmark & \checkmark & & \\
+			\ref{activity:dev2} & & \checkmark & \checkmark & \checkmark & \\
+			\ref{activity:revisão} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+			\ref{activity:avaliação} & & & & \checkmark & \checkmark \\
+		\end{tabular}
+		\caption{Cronograma de Atividades}
+	\end{table}
+	
+	
+	\section{Recursos}
+	
+	Como recursos físicos serão utilizados nesse trabalho, o computador pessoal do pesquisador e linguagens de programação e bibliotecas open source tradicionais e visuais, para a produção do software, Também serão utilizados programas da área agronômica para modelagem matemática como ambiente de teste para a proposta do projeto.
+
+	O projeto envolvera como usuários da ferramenta estudantes da UFSM na área de Agronomia, do Centro de Fitotecnia da UFSM. 
+
+	\section{Resultados Esperados}
+	
+	É esperado ao fim do projeto, cobrir a automação de tarefas envolvendo elementos básicos de interfaces gráficas sem a necessidade direta de uma linguagem textual formal mas sim por meio da expressão visual proporcionada por uma linguagem de programação visual, embasado no atendimento das necessidades de automação sob modelos agronômicos. 
+
+	\bibliographystyle{abbrvnat}
+	\bibliography{./referências}
+	
+\end{document}
