@@ -31,8 +31,10 @@
 \usepackage[numbers]{natbib}
 %\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 % These packages are all incorporated in the memoir class to one degree or another...
-
 \usepackage[hidelinks]{hyperref}
+
+\usepackage{listings}
+
 
 % For Computer Modern:
 %\def\Cpp{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
@@ -43,7 +45,7 @@
 
 %%% END Article customizations
 
-\title{AUTOMAÇÃO DE INTERFACES GRÁFICAS PARA MODELOS MATEMÁTICOS AGRICOLAS COM BASE EM BIBLIOTECA DE LINGUAGEM VISUAL}
+\title{AUTOMAÇÃO DE INTERFACES GRÁFICAS PARA MODELOS DE SIMULAÇÃO DE CULTURAS AGRÍCOLAS COM BASE EM TECNOLOGIA DE LINGUAGEM VISUAL}
 \author{Romulo Pulcinelli Benedetti \\ \emph{Universidade Federal de Santa Maria}}
 %\date{} % Activate to display a given date or no date (if empty), otherwise the current date is printed 
 
@@ -89,8 +91,7 @@ Temos também ferramentas destinadas a automação de software gráfico, como a 
 
 A automatização de tarefas pode ser aproximada do usuário por meio de abordagens mais visuais e sintaxe mais contextualizada a modelagem de tarefas genéricas em interfaces gráficas, com o uso de linguagem visual para descrição das automações.
 
-Programas de modelagem matemática vem sendo refinados para estarem ao acesso de usuários da área a qual servem, um exemplo peculiar é a modelagem matemática de processos agrícolas, em especial, modelagem do desenvolvimento e produção de cultivares, tais como os SoySim, Simanihot %faltando um modelo
-. Embora estejam se tornando significativamente mais fáceis de interagir por via gráfica, dependendo das atividades realizada e da forma como o modelo as realizas, trabalhar com estes programas pode se tornar uma atividade manual extremamente repetitiva e demorada. Tarefas como previsão de climas futuros é um dos exemplos mais notório desta situação.
+Modelos de simulação de cultivares agrícolas vem sendo refinados para estar ao acesso de usuários da área a qual servem,  alguns exemplos de modelo em uso hoje em dia são SoySim, Simanihot e DSSAT (Decision Support System for Agrotechnology Transfer). Embora estejam se tornando significativamente mais fáceis de interagir por via gráfica, dependendo das atividades realizada e da forma como o modelo as realiza, trabalhar com estes programas pode se tornar uma atividade manual extremamente repetitiva e demorada. Tarefas como previsão de climas futuros é um dos exemplos mais notório desta situação.
 
 A automatização por via de uma abordagem mais visual destes modelos permitiria a obtenção das vantagens aqui discutidas, sem deslocar o utilizador de sua área de domínio, a interface gráfica. 
 	
@@ -98,20 +99,21 @@ A automatização por via de uma abordagem mais visual destes modelos permitiria
 	
 	\subsection{Objetivo Geral}
 	
-	Tornar possível a automação de tarefas em interfaces gráficas por meio da simplificação de uma abordagem visual com base na biblioteca de programação Visual Blocly dentro do contexto de modelos matemáticos agrícolas.
+	Tornar possível a automação de tarefas em interfaces gráficas por meio da simplificação de uma abordagem visual com base na biblioteca de programação Visual Blockly dentro do contexto de modelos de simulação de cultivares agrícolas.
 
 	\subsection{Objetivos Específicos}
 	
 	\begin{itemize}
 		\item Fornecer uma solução menos formal e textual, mais visual e contextualizada, de automatização;
 		\item Automatizar tarefas computacionais em interfaces gráficas no campo de modelagem matemática agrícola;
-		\item Auxiliar o campo de pesquisa e trabalho com modelos matemáticos agrícolas;
+		\item Auxiliar o campo de pesquisa e trabalho com modelos matemáticos de cultivares agrícolas;
 	\end{itemize}
 	
 	\section{Justificativa}	
 	
 	A automação de tarefas é hoje em dia um processo fundamental para a obtenção de resultados ágeis e de qualidade, tanto na produção de um produto ou no fornecimento de serviços, assim como na execução de tarefas pessoais. Representa também redução de custos, o que abre novas possibilidades permitindo trabalhos mais complexos e maiores chances de sucesso, entretanto ferramentas de automação na computação tem exigido um domínio de abordagens de abstração, que em geral, vão além da abstração com a qual, usuários que usam o computador como meio para outras áreas de conhecimento, que não a própria produção de softwares, estão acostumados. Uma abstração mais próxima ao nível em que estas tarefas ocorrem tornaria a automação um processo mais intuitivo.
-	Uma destas áreas de conhecimento é a Fitotecnia, mais especificamente, envolvendo estudos do desenvolvimento da fenologia e produtividade de cultivares que hoje utilizam modelos matemáticos agrícolas para simulam estes processos, tendo evoluído nos últimos anos para programas com interfaces gráficas no intuito de alcançarem e beneficiarem mais pessoas, leigas em computação porem fluentes na área de conhecimento da ferramenta. Em alguns casos, as tarefas realizadas com estes simuladores envolvem interações repetitivas com o objetivo de obter uma grande faixa de amostragem de resultados, tarefas estas que se beneficiariam da automatização e estariam igualmente acessíveis ao domínio de seus usuários, caso esta automatização pudesse ser realizada dentro deste domínio de entendimento, um ambiente e uma metodologia visual.  
+	
+	Uma destas áreas de conhecimento é a Fitotecnia, mais especificamente, envolvendo estudos do desenvolvimento da fenologia e produtividade de cultivares que hoje utilizam modelos de simulação de cultivares agrícolas que simulam estes processos, tendo evoluído nos últimos anos para programas com interfaces gráficas no intuito de alcançarem e beneficiarem mais pessoas, leigas em computação porem fluentes na área de conhecimento da ferramenta. Em alguns casos, as tarefas realizadas com estes simuladores envolvem interações repetitivas com o objetivo de obter uma grande faixa de amostragem de resultados, tarefas estas que se beneficiariam da automatização e estariam igualmente acessíveis ao domínio de seus usuários, caso esta automatização pudesse ser realizada dentro deste domínio de entendimento, um ambiente e uma metodologia visual.  
 	
 	\section{Revisão de Literatura}
 	Na sequencia serão apresentados conceitos relativos aos conteúdos abordados nesse trabalho, descrevendo a automação, sua utilização dentro computação na área de TI e os resultados até então obtidos na automatização de tarefas mais genéricas, assim como linguagens de programação visual e a ferramenta com a qual este aspecto sera tratado.
@@ -131,34 +133,56 @@ A automatização por via de uma abordagem mais visual destes modelos permitiria
 	A automação é a execução de tarefas por meio de máquinas e computadores, antes executáveis apenas por humanos \cite{automationlevels}.
 	
 	
-	Segundo \citeauthor{automation2009} \cite[pág. 124]{automation2009}, a automação teve um impacto significante na economia e desenvolvimento tecnológico da sociedade, é um elemento chave para o alcance de produtos e serviços de alta qualidade e baixo custo,.
+	Segundo \citeauthor{automation2009} \cite[pág. 124]{automation2009}, a automação teve um impacto significante na economia e desenvolvimento tecnológico da sociedade, é um elemento chave para o alcance de produtos e serviços de alta qualidade e baixo custo, .
 	
 	Dentre os vários aspectos da atividade humana. Uma das áreas impactadas pela automação foi a precisão em um ciclo auto alimentado, onde a automação melhora a precisão e por sua vez a precisão melhora a automação \cite{auto2008precision}.
 	
 	
-	\subsection{Automação na Computação}
+	\subsubsection{Automação na Computação}
 	
 	A automação da informação por meio de computadores, segundo \citeauthor{automation2009} \cite[pág. 3]{automation2009} é dentro da automação, um processo dos dias atuais, onde temos vendas automatizadas de passagens, conexões de chamadas em nossos telefones, realizadas de forma automática, dentre outras façanhas formas de automatização, entrado cada vez mais na produção e manufatura por intermédio da robótica. 
-	
-	\subsubsection{Automação de Tarefas}
 
-	\subsubsection{Automação de Interfaces}
 
 	\subsection{Linguagens de programação visual}
 	
 	\subsubsection{Blockly}
 	
-	O blockly é uma biblioteca open source destinada a criação de editores para programação visual, é totalmente web-base e extremamente portável já que além disso é uma ferramenta 100\% client-side, e também extremamente leve e funciona na maioria dos navegadores web e em dispositivos móveis \cite{Blockly}.
+	O blockly é uma biblioteca open source destinada a criação de editores para programação visual, é totalmente web-base e extremamente portável já que além disso é uma ferramenta 100\% client-side, e também extremamente leve funcionando na maioria dos navegadores web e em dispositivos móveis \cite{Blockly}.
+	
+	Pode ser integrado a qualquer aplicação cuja a linguagem ofereça um web widget, e é capaz de oferecer teste de unidade, possibilidade de tradução e inclusive tratamento de eventos a construção de blocos customizáveis. O processo de criação dos consiste em definir o bloco definindo seu formato, campos e pontos de conexão, o que pode ser realizado com o uso do Block Factory ou ainda da API JSON. A definição de blocos permite inclusive mutabilidade. Em seguida é criado o gerador de código para que o novo bloco possa ser exportado para alguma linguagem de programação.
+	
+	~\\
+	Um exemplo tipico de definição de um bloco:
+	
 
-	É voltada ao desenvolvimento e programação com linguagens visuais, apresentando elementos comuns a linguagens de programação tais como funções, variáveis, arrays, checagem básica de tipos e afins. Por ser uma ferramenta para criação de editores de linguagens visual, impossibilita que o usuário caia em erros de sintaxe ao fazer programas via Blockly, oferecendo suporte a diversos idiomas e a extensão por via de blocos customizados, possibilitando que os programas sejam exportados para linguagens convencionais.
+	\begin{lstlisting}[frame=single]
+Blockly.Blocks['text_length'] = {
+  init: function() {
+	this.setColour(160);
+	this.appendValueInput('VALUE')
+		.setCheck('String')
+		.appendField('length of');
+	this.setOutput(true, 'Number');
+	this.setTooltip('Returns number of 
+		letters in the provided text.');
+	this.setHelpUrl('http://www.w3schools.com/
+		jsref/jsref_length_string.asp');
+  }
+};
+    \end{lstlisting}
+    
+	~\\
+	É voltada ao desenvolvimento de programas embora não seja escalável para grandes programas, pode ainda ser usado como um editor de linguagens visuais para áreas especificas, apresentando elementos comuns a linguagens de programação tais como funções, variáveis, arrays, checagem básica de tipos e afins. Por ser uma ferramenta para criação de editores de linguagens visual, impossibilita que o usuário caia em erros de sintaxe ao fazer programas via Blockly, oferecendo suporte a diversos idiomas e a extensão por via de blocos customizados, possibilitando que os programas sejam exportados para linguagens convencionais.
 
-	A flexibilidade da ferramenta é observada na utilização para criação de jogos, apps móveis para android, programação web ou ainda como recurso educacional \cite{blocklyGames,blocklymobile,blocklyJavaScript,blocklyEducation}.
+	A flexibilidade da ferramenta da ferramenta pode ser observada na utilização para criação de jogos, apps móveis para android, programação web ou ainda como recurso educacional \cite{blocklyGames,blocklymobile,blocklyJavaScript,blocklyEducation}.
+	
+	\subsection{Modelos matemáticos agrícolas}
+	
 	
 	
 	\section{Metodologia}
 	
-	Este estudo caracteriza-se como uma pesquisa exploratória com realização de um estudo de campo de um grupo de pessoas da área de agrometeorologia no intuito de automatizar pesquisas no campo de climas futuros com simulações mos modelos matemáticos SoySim, Simanihot e %falta um modelo
-	. Se utilizando de uma abordagem qualitativa.
+	Este estudo caracteriza-se como uma pesquisa exploratória com realização de um estudo de campo de um grupo de pessoas da área de agrometeorologia no intuito de automatizar pesquisas no campo de climas futuros com simulações nos modelos matemáticos SoySim, Simanihot e DSSAT. Se utilizando de uma abordagem qualitativa.
 	
 	O Estudo sera realizado com o auxilio de pessoas interessadas na automatização de tarefas no prédio de fitotecnia na Universidade Federal de Santa Maria.
 
@@ -185,7 +209,7 @@ A automatização por via de uma abordagem mais visual destes modelos permitiria
 	
 	\begin{enumerate}
 		\item \label{activity:requisitos} \textbf{Recolhimento de requisitos e estudo da abordagem na linguagem visual \emph{Blockly}}
-		Nesta etapa serão recolhidos requisitos suficientes para a proposta inicial do projeto de automatizar tarefas em modelos agrícolas, mais especificamente nos simuladores definidos, seguindo para a especificação da abordagem de desenvolvimento do programa e de uma linguagem visual adequada ao projeto com base nas ferramentas definidas e requisitos coletados.
+		Nesta etapa serão recolhidos requisitos suficientes para a proposta inicial do projeto de automatizar tarefas em modelos de simulação de cultivares agrícolas, mais especificamente nos simuladores definidos, seguindo para a especificação da abordagem de desenvolvimento do programa e de uma linguagem visual adequada ao projeto com base nas ferramentas definidas e requisitos coletados.
 		\item \label{activity:dev1} \textbf{Desenvolvimento do software base:}
 		Momento em que será desenvolvida a interface gráfica do aplicativo, como sera realizada a detecção de outros programas e como o software ira interagir com estes programas. 
 		\item \label{activity:dev2} \textbf{Desenvolvimento de uma API de automatização visual:}
@@ -193,7 +217,7 @@ A automatização por via de uma abordagem mais visual destes modelos permitiria
 		\item \label{activity:revisão} \textbf{Revisão e teste:}
 		Etapa constante de revisão dos requisitos e especificação do projeto, assim como implementação e realização de testes dos componentes do software em desenvolvimento.
 		\item \label{activity:avaliação} \textbf{Avaliação do software em uso:}
-		Avaliação da competência do software em automatizar s modelos matemáticos agronômicos sugeridos, em uso no centro de Fitotecnia da Universidade Federal de Santa Maria, avaliando a resistência do usuário a ferramenta, dependência de treinamento e efetividade na automatização das tarefas dos modelos.
+		Avaliação da competência do software em automatizar os modelos de simulação de cultivares agrícolas sugeridos, em uso no centro de Fitotecnia da Universidade Federal de Santa Maria, avaliando a resistência do usuário a ferramenta, dependência de treinamento e efetividade na automatização das tarefas dos modelos.
 	\end{enumerate}
 	
 	\begin{table}[ht]
@@ -218,7 +242,7 @@ A automatização por via de uma abordagem mais visual destes modelos permitiria
 
 	\section{Resultados Esperados}
 	
-	É esperado ao fim do projeto, automatizar tarefas em modelos matemáticos agrícolas sem a necessidade direta de uma linguagem textual formal mas sim por meio da expressão visual proporcionada por uma linguagem de programação visual contextualizada dentro das necessidades dos usuários destes modelos. 
+	É esperado ao fim do projeto, automatizar tarefas em modelos de simulação de cultivares agrícolas sem a necessidade direta de uma linguagem textual formal mas sim por meio da expressão visual proporcionada por uma linguagem de programação visual contextualizada dentro das necessidades dos usuários destes modelos. 
 
 	\bibliographystyle{abbrvnat}
 	\bibliography{./referências}
