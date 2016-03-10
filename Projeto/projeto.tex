@@ -83,7 +83,7 @@ conhecida e finita de estados, nestes casos usar ferramentas como frameworks vol
 agiliza a tarefa de repetir os testes, como na abordagem de testes de regressão onde todos os testes devem ser
 executados novamente a cada ciclo de desenvolvimento. Não o bastante oferece uma série de vantagens tais como precisão ao reduzir a necessidade da atenção humana durante o andamento da tarefa, agilizando atividades e melhorando o aproveitamento do tempo de trabalho humano.
 
-Alguns destas frameworks, embora voltados a realização de testes, poderiam ser usados para automatizar programas gráficos, um exemplo é o Robot Framework. Entretanto, são ferramentas que, apesar de cobrirem de forma bastante detalhada a automação de testes, não são as mais adequadas a modelagem da automatização de softwares gráficos, dependem de um domínio de assuntos de diversos campos da área de Ciências da computação e em muitos casos, domínio da especificação e arquitetura do software a ser automatizado ou ainda alterações a nível de codificação no programa a ser automatizado.
+Alguns destes frameworks, embora voltados a realização de testes, poderiam ser usados para automatizar programas gráficos, um exemplo é o Robot Framework. Entretanto, são ferramentas que, apesar de cobrirem de forma bastante detalhada a automação de testes, não são as mais adequadas a modelagem da automatização de softwares gráficos, dependem de um domínio de assuntos de diversos campos da área de Ciências da computação e em muitos casos, domínio da especificação e arquitetura do software a ser automatizado ou ainda alterações a nível de codificação no programa a ser automatizado.
 
 Já outros casos particulares de automatização focada em tarefas de TI são os próprios terminais ou ainda shell e utilitários como o make e afins, ferramentas e linguagens voltadas para automatização do desenvolvimento e de tarefas administrativas, também inadequadas a automatização de programas gráficos, seja por serem bastante limitadas a um mundo formalmente textual, pela complexidade de sua sintaxe ou ainda pela abstração focadas em tarefas comuns apenas para profissionais de TI e softwares que oferecem interface com estes utilitários.
 
@@ -129,19 +129,20 @@ A automatização por via de uma abordagem mais visual destes modelos permitiria
     %        < bem documentado >
 
 
-	\subsection{Automação}
-	A automação é a execução de tarefas por meio de máquinas e computadores, antes executáveis apenas por humanos \cite{automationlevels}.
+	\subsection{Automação e suas abordagens dentro da computação}
 	
+	A automação é a execução de tarefas por meio de máquinas e computadores, antes executáveis apenas por humanos \cite{automationlevels}.	Segundo \citeauthor{automation2009} \cite[pág. 124]{automation2009}, a automação teve um impacto significante na economia e desenvolvimento tecnológico da sociedade, é um elemento chave para o alcance de produtos e serviços de alta qualidade e baixo custo. Dentre os vários aspectos da atividade humana. Uma das áreas impactadas pela automação foi a precisão em um ciclo auto alimentado, onde a automação melhora a precisão e por sua vez a precisão melhora a automação \cite{auto2008precision}.
 	
-	Segundo \citeauthor{automation2009} \cite[pág. 124]{automation2009}, a automação teve um impacto significante na economia e desenvolvimento tecnológico da sociedade, é um elemento chave para o alcance de produtos e serviços de alta qualidade e baixo custo, .
+	A automação da informação por meio de computadores, segundo \citeauthor{automation2009} \cite[pág. 3]{automation2009} é dentro da automação, um processo dos dias atuais, onde temos vendas automatizadas de passagens, conexões de chamadas em nossos telefones, realizadas de forma automática, dentre outras mudanças advindas da automatização, temos também a produção e manufatura por intermédio da robótica. No final das contas, o impacto da informática promoveu não só uma intensa automatização passiva, mas também, segundo \citeauthor{itEnabledBusiness}\cite{itEnabledBusiness}, tem criado e mantido flexível redes de negócios, inclusive transformando a forma como realizamos negócios e atividades.
 	
-	Dentre os vários aspectos da atividade humana. Uma das áreas impactadas pela automação foi a precisão em um ciclo auto alimentado, onde a automação melhora a precisão e por sua vez a precisão melhora a automação \cite{auto2008precision}.
+	Dentro da área de computação observamos a automação agilizar e refinar tarefas como automação de testes, desenvolvimento e manutenção de projetos, devido ao reconhecimento de que o desenvolvimento de software muitas vezes consiste na criação sistemática de componentes que devem aderir a um conjunto bem específico de restrições \cite{automionSoftEvolutionEffect}.
 	
+	Segundo \citeauthor{automionSoftEvolutionEffect}\cite{automionSoftEvolutionEffect}, a automação do processo de desenvolvimento tem o potencial de reduzir o erro humano em código que deve se adequar a sintaxe e restrições precisas, podendo inclusive produzir software de melhor qualidade que o produzido manualmente, considerando que o talento em desenvolvimento de software é escaço, representando também uma redução de custo. Não o bastante reduz a necessidade de interação humana com tarefas secundárias ou de pouco interesse no desenvolvimento de software, contribuindo para redução da complexidade da tarefa.
 	
-	\subsubsection{Automação na Computação}
-	
-	A automação da informação por meio de computadores, segundo \citeauthor{automation2009} \cite[pág. 3]{automation2009} é dentro da automação, um processo dos dias atuais, onde temos vendas automatizadas de passagens, conexões de chamadas em nossos telefones, realizadas de forma automática, dentre outras façanhas formas de automatização, entrado cada vez mais na produção e manufatura por intermédio da robótica. 
+	Dentre tarefas comuns na Área de TI temos a automatização de tarefas administrativas via linguagens e ferramentas tais como um shell e linguagem script especifica, ou ainda ferramentas de automatização focadas em tarefas de desenvolvimento, como Make, ferramenta de automação de builds , ou como Robot Framework, ferramenta voltada a automação de testes \cite{shell,make,robotFW}.
 
+	Considerando que TI não é a única área onde tarefas repetitivas, bem definidas e restritas ocorrem, o interesse em automatizar estas tarefas resultou em alguns softwares tais como AutoIt, um programa que permite automatizar programas com interface por meio da descrição da automatização em uma linguagem script especifica para a tarefa. ou ainda o Automator que permite automatizar tarefas repetitivas em plataformas Macintosh que permite construir workflows por meio de unidades modulares chamadas ações; apesar de conter diversas ações pre estabelecidas, é possível inserir novas ações por meio de linguagens como AppleScript e Objective-C \cite{autoit,automator}.
+	
 
 	\subsection{Linguagens de programação visual}
 	
@@ -195,7 +196,7 @@ Blockly.Blocks['text_length'] = {
 
 	\subsection{Análise de Requisitos}
 	
-	 Ponto onde serão elencados os requisitos iniciais para a desenvolver o projeto, neste ponto vão ser elencados os casos de uso de automação de tarefas nas interfaces gráficas dos modelos sugeridos, consistindo em elencar elementos automatizáveis, abordagens de automação e conexão destes elementos automatizáveis em tarefas concretas e meios de interação com a abordagem de automatização, requisitos estes descritos em casos de teste. 
+	 Ponto onde serão elencados os requisitos iniciais para a desenvolver o projeto, neste ponto vão ser elencados os casos de uso de automação de tarefas nas interfaces gráficas dos modelos sugeridos, consistindo em elencar elementos automatizáveis, abordagens de automação e conexão destes elementos automatizáveis em tarefas concretas e meios de interação com a abordagem de automatização, requisitos estes descritos em casos de teste.
 	
 	\subsection{Especificação}
 	Fase em que os requisitos serão utilizados para gerar a especificação inicial do projeto a ser desenvolvido com base nas ferramentas de software que serão usadas durante o projeto, a linguagem de programação Java e a biblioteca para construção de editores de programação visual Blockly.
