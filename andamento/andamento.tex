@@ -33,7 +33,10 @@
 % These packages are all incorporated in the memoir class to one degree or another...
 \usepackage[hidelinks]{hyperref}
 
+
 \usepackage{listings}
+\usepackage{hhline}
+
 
 
 % For Computer Modern:
@@ -127,11 +130,6 @@ A automatização destes modelos via uma abordagem mais visual permitiria a obte
     %Teste de Softwares
     %O que temos hoje     
       
-    %- o que é necessário para compreender o trabalho
-    %  - o que será usado no trabalho como recurso teórico
-    %  - trabalhos relacionados não atendem o problema identificado
-    %        < bem documentado >
-
 
 	\subsection{Automação e suas abordagens dentro da computação}
 	
@@ -198,72 +196,139 @@ Blockly.Blocks['text_length'] = {
 	
 	Já o DSSAT, por sua vez, é um programa que engloba diversos modelos de simulação de culturas agrícolas, num total de 42 culturas. Oferece suporte ao manejamento de solo, clima e culturas assim como dados experimentais, por via também de utilitários e outros programas. Os modelos disponíveis simulam o crescimento, desenvolvimento e potencial como uma função de condições agrometeorológicas, tendo sido usado tanto no refino de manejo, em fazendas ou para análise de impacto climático sobre as culturas suportadas \cite{dssat}.
 	
-	
-	\section{Metodologia}
-	
-	Este estudo caracteriza-se como uma pesquisa exploratória, com realização de um estudo de campo de um grupo de pessoas da área de agrometeorologia, no intuito de automatizar pesquisas no campo de climas futuros com simulações nos modelos matemáticos SoySim, Simanihot e DSSAT. Se utiliza de uma abordagem qualitativa.
-	
-	O estudo será realizado com o auxílio de pessoas interessadas na automatização de tarefas no Departamento de Fitotecnia na Universidade Federal de Santa Maria.
 
-	\subsection{Análise de Requisitos}
-	
-	 Nesta etapa serão elencados os requisitos iniciais para a desenvolver o projeto. Neste ponto vão ser definidos os casos de uso de automação de tarefas nas interfaces gráficas dos modelos sugeridos, consistindo em elencar elementos automatizáveis, abordagens de automação e conexão destes elementos automatizáveis em tarefas concretas e meios de interação com a abordagem de automatização, requisitos estes descritos em casos de teste.
-	
-	\subsection{Especificação}
-	Nesta fase, os requisitos serão utilizados para gerar a especificação inicial do projeto a ser desenvolvido, com base nas ferramentas de software que serão usadas durante o projeto: a linguagem de programação Java e a biblioteca para construção de editores de programação visual Blockly.
-	
-	
-	\subsection{Implementação, Teste e Revisão}
-	
-	Desenvolvimento que será realizado em \emph{milestones} semanais com teste de unidade constantes, assim como constante reintegração e revisão dos requisitos. Haverá participação de usuários no processo de teste e revisão de requisitos     
-    
-    
-    \subsection{Verificação e Validação}
-    
-    Integração do usuário ao software de automação desenvolvido, com o objetivo de avaliar se a ferramenta é capaz de suprir as necessidades de automação de forma intuitiva, analisando quais as resistências do usuário a metodologia de automação, observando as dificuldades envolvendo os domínios necessários para a ferramenta de automação. Também será verificada a contribuição da ferramenta as atividades do usuário. 
+	\section{Desenvolvimento}
 
-	\section{Plano de Atividades e Cronograma}
+	Na sequência serão descritas as tarefas desenvolvidas no intuito de se chegar nos objetivos propostos por este trabalho. Serão apresentados os casos de uso obtidos e estrutura das soluções encontradas ao longo do desenvolvimento to projeto.
 	
-	O cronograma de atividades será composto de 5 etapas. São elas:
+	\subsection {Casos de uso}
+	
+	Foram realizadas reuniões semanais no primeiro mês para a discussão e coletas de três casos de uso com estudantes da área de agrometeorologia no Departamento de Fitotecnia da UFSM, com o objetivo de entender as necessidades de automatização dos estudantes em cada um dos modelos com o qual trabalham. 
+	
+	O primeiro caso de uso é referente as necessidades da Engenheira Agrônoma Amanda thirza Lima, mestranda no programa de Pós-Graduação em Agronomia da UFSM, nas atividades de seu projeto de dissertação com o objetivo de indicar um novo zoneamento agroclimático para a cultura de mandioca no estado do Rio Grande do Sul utilizando o programa Simanihot, modelo de simulação da cultura da mandioca.
+	
+	No segundo caso de uso foi tratado o objetivo da Jossana Ceolin Cera, Meteorologista e Doutora em Engenharia Agrícola pela Universidade Federal de Santa Maria, objetivo já realizado durante seu doutorado de forma completamente manual, onde foi usado o modelo SoySim para simular o crescimento, desenvolvimento e produtividade de Soja para o estado do Rio Grande do sul.
+
+	O ultimo caso de uso foi referente a tese de Cesar Augusto Fensterseifer, graduado em Engenharia Ambiental, Mestre em engenharia civil e ambiental e atualmente aluno de doutorado do programa de pós-graduação em engenharia agrícola da UFSM, com o objetivo de gerar previsões de safra de soja para auxiliar no planejamento agrícola do Estado do Rio grande do Sul 
+	
+	Em todos os casos de uso as pré e pós condições são as mesmas, no caso a ferramenta deve iniciar em condição de realizar uma automatização e finalizar em um estado capaz de iniciar novamente a mesma automatização. Os três casos de uso são descritos em ordem:
+	\bigskip \bigskip \bigskip \bigskip
+
+	%caso 1
+
+	\hrule \bigskip
+
+	{\bf Caso de Uso 1:} Automatização de simulações no modelo Simanihot para novo zoneamento agroclimático para a cultura de mandioca 
+	\bigskip
+	
+	{\bf breve descrição:} Para o desenvolvimento da tarefa é preciso fazer muitas simulações para que se possa indicar os melhores dias de plantio em uma série histórica de anos agrícolas. Para que sejam realizadas essas indicações é necessário que sejam realizadas simulações diárias da data de plantio desde 1º de julho a 31 de dezembro para todos os anos desde 1960 a 2015, para 18 locais utilizando 4 cultivares, é necessário também se fazer uma simulação para uma cultivar, em uma única data de plantio, um local e ano especifico. 
+	\bigskip
+	
+	{\bf Fluxo Principal:}
 	
 	\begin{enumerate}
-		\item \label{activity:requisitos} \textbf{Levantamento de requisitos e estudo da abordagem na linguagem visual \emph{Blockly}}
-		Nesta etapa serão recolhidos requisitos suficientes para a proposta inicial do projeto de automatizar tarefas em modelos de simulação de culturas agrícolas, mais especificamente nos simuladores definidos, seguindo para a especificação da abordagem de desenvolvimento do programa e de uma linguagem visual adequada ao projeto com base nas ferramentas definidas e requisitos coletados.
-		\item \label{activity:dev1} \textbf{Desenvolvimento do software base:}
-		Momento em que será desenvolvida a interface gráfica do aplicativo, como será realizada a detecção de outros programas e como o software irá interagir com estes programas. 
-		\item \label{activity:dev2} \textbf{Desenvolvimento de uma API de automatização visual:}
-		Etapa que em que será desenvolvida a abordagem de automação dos programas, como será tratada a contextualização, separação entre elementos e tarefas e como estes serão conectados.
-		\item \label{activity:revisão} \textbf{Revisão e teste:}
-		Etapa constante de revisão dos requisitos e especificação do projeto, assim como implementação e realização de testes dos componentes do software em desenvolvimento.
-		\item \label{activity:avaliação} \textbf{Avaliação do software em uso:}
-		Avaliação da competência do software em automatizar os modelos de simulação de culturas agrícolas sugeridos, em uso no Departamento de Fitotecnia da Universidade Federal de Santa Maria, avaliando a resistência do usuário a ferramenta, dependência de treinamento e efetividade na automatização das tarefas dos modelos.
+		\item Os seguintes campos são preenchidos, mas não variam: concentração de dióxido de carbono (CO2) – 400ppm, densidade de plantio - 15625 plantas por hectare, simulação a partir do plantio, data de colheita (15/06), modelo de balanço hídrico de Thornthwaite e Mather e respectivamente neste modelo de balanço hídrico, a profundidade de maniva – 8 cm e profundidade máxima de raiz – 30cm.
+		\item Será inserido um arquivo de entrada para cada local (Bagé, Bento Gonçalves, Bom Jesus, Caxias do Sul, Cruz Alta, Encruzilhado do Sul, Irai, Lagoa Vermelha, Passo Fundo, Pelotas, Porto Alegre, Rio Grande, Santa Maria, Santa Vitória do Palmar, Santana do Livramento, São Luiz Gonzaga, Torres, Uruguaiana). Para cada arquivo será utilizado um tipo especifico de solo e será selecionado o local especifico.
+		\item As simulações serão realizadas para 3 cultivares, sendo elas FEPAGRO – RS13, Estrangeira e São José. 
+		\item Para cada arquivo de entrada, serão realizadas simulações eu variam de n = 1° de agosto até 31 de dezembro, com n+1=n+1 dia.
+		\item A data de colheita não irá variar com as simulações, será sempre dia 15 de junho.
+		\item Depois de completar todos esses passo, finalmente clicará no botão “SIMULAR”. 
 	\end{enumerate}
 	
-	\begin{table}[ht]
-		\centering
-		\begin{tabular}{c|ccccc}
-			Etapa & Março & Abril & Maio & Junho & Julho \\ \hline
-			\ref{activity:requisitos} & \checkmark & & & & \\
-			\ref{activity:dev1} & \checkmark & \checkmark & \checkmark & & \\
-			\ref{activity:dev2} & & \checkmark & \checkmark & \checkmark & \\
-			\ref{activity:revisão} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
-			\ref{activity:avaliação} & & & & \checkmark & \checkmark \\
-		\end{tabular}
-		\caption{Cronograma de Atividades}
-	\end{table}
+	{\bf Fluxo Secundário:}
 	
+	\begin{enumerate}
+		\item no caso de encontrar algum alerta conhecido do modelo tais como alerta de defeito no arquivo de entrada ou inserção de algum campo incorretamente, encerrar a automação e envia o usuário para a pós condição.
+	\end{enumerate}
+		
+	{\bf Fluxo de exceção:}
 	
-	\section{Recursos}
+	\begin{enumerate}
+		\item Em caso de qualquer interação do usuário durante a tarefa de automação, pausar a simulação e esperar que o usuário recomece a automação ou cancele.
+	\end{enumerate}
 	
-	Como recursos físicos, serão utilizados nesse trabalho o computador pessoal do pesquisador e linguagens de programação e bibliotecas de código aberto para a produção do software. Também serão utilizados os programas definidos neste projeto da área agronômica para modelagem matemática, como ambiente de teste para a proposta do projeto.
+	\bigskip \hrule \bigskip
+	
+	%caso 2	
+	
+	{\bf Caso de Uso 2:} Automação de simulações no modelo SoySim para simular o crescimento, desenvolvimento e produtividade de Soja para o estado do Rio Grande do sul
+	\bigskip
+	
+	{\bf breve descrição:} Fazer simulações para 37 pontos espalhados no Rio Grande do Sul (37 arquivo de dados meteorológicos), com 120 anos de dados em cada arquivo, de 1980 a 2099, utilizando 7 datas de semeadura (01/08, 01/09, 01/10, 01/11, 01/12, 01/01 e 01/02) e 3 grupos de maturação (4.8, 5.5 e 6.0), em 2 cenários climáticos futuros. Dois conjuntos de dados com 37 arquivos de dados meteorológicos cada um. Dividindo cada um desses 37 arquivos em 3 arquivos com 45 anos de dados, pois o modelo SoySim não suporta fazer a simulação com um arquivo de dados tão extenso.
+	\bigskip
+	
+	{\bf Fluxo Principal:}
+	
+	\begin{enumerate}
+		\item Os seguintes campos não precisam ser preenchidos: Ambient CO2 setting, Cultivar>Generic>Stem Termination, Plant PopulationDensity>at emergence, Early Growth Conditions, Water.
+		\item Será inserido um arquivo de entrada para cada ponto (27\underline51 - 1960\underline2007, 27\underline51 - 2006\underline2053, 27\underline51 - 2052\underline2099, 27\underline52 - 1960\underline2007, 27\underline52 - 2006\underline2053, 27\underline52 - 2052\underline2099 e assim por diante).
+		\item As simulações serão realizadas para e grupos de maturação (4.8, 5.5 e 6.0).
+		\item Para cada arquivo de entrada serão realizadas simulações que variam de 01 de agosto até 01 de fevereiro, iniciando na semeadura, n+1 = n+1 mês
+		\item A densidade de população de plantas precisa ser modificada para 315.
+		\item Depois de preencher estes campos, clica-se no botão “run”.
+		\item O que fazer com os arquivos de saída (resultados):
+				Nome do arquivos é: “TmpOut.txt”
+				Do fluxo específico, copiar os dados a partir da linha 14 a 59.
+				No fluxo secundário, copiar a linha 35.
+	\end{enumerate}
+	
+	{\bf Fluxo Secundário:}
+	
+	\begin{enumerate}
+		\item reiniciar as condições da automação
+		\item alterar A automação par que a mesma não seja rodada na função de multilos anos mas sim seja rodada na função de anos individuais, onde cada ano precisa ser definido na interface.
+	\end{enumerate}
+	
+	{\bf Fluxo de exceção:}
+	
+	\begin{enumerate}
+		\item Caso o modelo apresente um alerta rodando no fluxo principal o programa passar para o fluxo secundário e caso o alerta seja recebido enquanto o modelo já esta no fluxo secundário, passar para o ano seguinte da automação.
+		\item Em caso de qualquer interação do usuário durante a tarefa de automação, pausar a simulação e esperar que o usuário recomece a automação ou cancele.
+	\end{enumerate}
+	
+	\bigskip \hrule \bigskip
 
-	O projeto envolverá como usuários da ferramenta estudantes da UFSM na área de Agronomia, do Departamento de Fitotecnia da UFSM. 
-
-	\section{Resultados Esperados}
+	%caso 3
 	
-	É esperado, ao fim do projeto, automatizar tarefas em modelos de simulação de culturas agrícolas sem a necessidade direta de uma linguagem textual formal, mas sim por meio da expressão visual proporcionada por uma linguagem de programação visual, contextualizada dentro das necessidades dos usuários destes modelos. 
+	{\bf Caso de Uso 3:} Automação de de simulações no modelo DSSAT para gerar previsões de safra de soja para auxiliar no planejamento agrícola do Estado do Rio grande do Sul
+	\bigskip
+	
+	{\bf breve descrição:} O RS é um dos Estados brasileiros que mais sente os efeitos dos fenômenos El Nino e La Nina, e atualmente é o terceiro maior responsável pela produção de soja do País. O principal objetivo do meu projeto de tese é gerar previsões de safra de soja para auxiliar no planejamento agrícola do Estado do Rio grande do Sul (RS). gerando varias simulações no modelo para diversas datas de semeadura.
+	\bigskip
+	
+	{\bf Fluxo Principal:}
+	
+	\begin{enumerate}
+		\item  Abrir o DSSAT, esperar carregar e clicar em Crop Management Data. A partir dessa ação, o programa XBuild irá inicializar, e o usuário deve então clicar em New (para começar a criar um novo experimento).
+		\item  Criar um nome inexistente para o experimento. Institute Code (SM para UFSM), Site Code (RS se for dentro do RS), Year (2013), Experiment Number (99 datas de semeadura), por exemplo. Lembrando que o usuário é livre para escolher a forma de preencher as lacunas dessa etapa do experimento, de uma forma que o torne auto-explicativo. No campo Crop (selecione Soybean). As demais lacunas podem ser preenchidas com -99.
+		\item Nessa etapa o usuário clica em Environment e depois em Fields. Aqui basicamente deve ser informado qual a série meteorológica o experimento vai utilizar, se existe algum tipo de drenagem e as características do solo daquela região. Ao rodar o modelo para outro local, o usuário deve adicionar mais um “level” e repetir o preenchimento com a série meteorológica e as características do segundo local, e assim sucessivamente.  
+		\item O usuário clica em Management e seleciona Cultivars, a tela sera redirecionada para uma seção onde deve ser selecionada a cultivar ou as cultivares que serão utilizadas nas rodadas do modelo. Lembrando que essas já devem estar devidamente calibradas pois caso contrário, o nome da cultivar não aparecera na lista de seleção.
+		\item inserção da data ou datas de semeadura, data de emergência, o método utilizado, a forma de distribuição das sementes, a densidade de sementes na semeadura, a densidade de plantas na emergencia, o espacamento entre linhas adotado, a direção das linhas em relação ao Norte e a profundidade de semeadura utilizada para um ou vários experimentos. Lembrando que se o experimento possui alguma característica diferente, esse deve ser inserido como um Novo Level.
+		\item Determinar a data que o modelo vai começar a simulação do balanço hídrico ou de nutrientes no solo. É aconselhado começar o balanço hídrico no solo entre 20 e 30 dias antes da data de semeadura, buscando uma simulação mais precisa das condições do solo na hora da semeadura.
+		\item selecionar os balanços que gostaria que o modelo realizasse em cada experimento. Aqui pode ser ativado ou não o balanço hídrico, de nitrogênio entre outras. Esses detalhes podem aumentar o desempenho das simulações.
+		\item decidir os métodos que serão utilizados nos balanços que foram selecionados no passo anterior. Se o balanço hídrico foi selecionado, aqui o usuário deve selecionar o método que o modelo deve utilizar para as rodadas em cada experimento. Essa regra também vale para os outros balanços que o usuário deseja que o modelo realize.
+		\item Caso o usuário tenha dados mais específicos ou tenha utilizado irrigação em algum dos experimentos que deseja simular, essa e a etapa em que vai inserir as características do manejo utilizado. 
+		\item seleciona as informações que serão exibidas no final das rodadas como: Crescimento de massa seca diária, balanço hídrico....entre outros.
+		\item caracterizar cada experimento, identificando cada experimento que vai utilizar a primeira estação meteorológica por exemplo, ou o solo número 1 entre outras informações.
+		\item Após realizar essas etapas o usuário deve clicar no botão Refresh, que irá atualizar as novas informações e posteriormente pode abrir o programa DSSAT e começar a rodar os experimentos cadastrados.
 
+	\end{enumerate}
+	
+	{\bf Fluxo de exceção:}
+	
+	\begin{enumerate}
+		\item  
+	\end{enumerate}
+	
+	\bigskip \hrule \bigskip
+	
+
+	\subsection {Visão geral da Solução}
+	
+	\section{Próximas etapas}
+	
 	\bibliographystyle{abbrvnat}
-	\bibliography{projeto} 
+	\bibliography{andamento} 
+
 	
 \end{document}
