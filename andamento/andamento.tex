@@ -17,7 +17,7 @@
 % \geometry{landscape} % set up the page for landscape
 
 \usepackage{graphicx} % support the \includegraphics command and options
-
+\usepackage{array}
 % \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
 
 %%% PACKAGES
@@ -147,6 +147,8 @@ A automatização destes modelos via uma abordagem mais visual permitiria a obte
 % REVISAO (Andrea): o parágrafo abaixo tinha frases enormes, muito longas e difíceis de ler.
 	Considerando que TI não é a única área onde tarefas repetitivas, bem definidas e restritas ocorrem, o interesse em automatizar estas tarefas resultou em software tal como o AutoIt\cite{autoit}, para plataforma Windows, um programa que permite automatizar programas com interface por meio da descrição da automatização em uma linguagem \emph{script}, podendo gerar executáveis independentes que rodam em computadores que não tenham o AutoIt instalado. Essa ferramenta tem à disposição uma grande diversidade de bibliotecas com funções prontas, tendo inclusive uma IDE voltada para sua linguagem de automação. Outro exemplo é o Automator, que permite automatizar tarefas repetitivas em plataformas Macintosh, permitindo construir \emph{workflows} por meio de unidades modulares chamadas ações; apesar de conter diversas ações pre estabelecidas, é possível inserir novas ações por meio de linguagens como AppleScript e Objective-C \cite{automator}.
 	
+	Existem outras ferramentas que se propõem a solucionar este problemas de automatização em interfaces gráficas, com características diversas, algumas delas proprietárias, outras com uma linguagem mais visual e informal que linguagens \emph{script} e código tradicional, tais como o UiPath, Sekulix e o TestComplete \cite{uipath,testcomplete,sikuli}, ferramentas que abordam a automação de uma forma mais abstrata, porem com uma flexibilidade lógica limitada por esta abstração. 
+	
 
 	\subsection{Programação visual}
 	
@@ -260,23 +262,20 @@ Blockly.Blocks['text_length'] = {
 	{\bf Fluxo Principal:}
 	
 	\begin{enumerate}
-		\item Os seguintes campos não precisam ser preenchidos: Ambient CO2 setting, Cultivar>Generic>Stem Termination, Plant PopulationDensity>at emergence, Early Growth Conditions, Water.
-		\item Será inserido um arquivo de entrada para cada ponto (27\underline51 - 1960\underline2007, 27\underline51 - 2006\underline2053, 27\underline51 - 2052\underline2099, 27\underline52 - 1960\underline2007, 27\underline52 - 2006\underline2053, 27\underline52 - 2052\underline2099 e assim por diante).
-		\item As simulações serão realizadas para e grupos de maturação (4.8, 5.5 e 6.0).
-		\item Para cada arquivo de entrada serão realizadas simulações que variam de 01 de agosto até 01 de fevereiro, iniciando na semeadura, n+1 = n+1 mês
-		\item A densidade de população de plantas precisa ser modificada para 315.
-		\item Depois de preencher estes campos, clica-se no botão “run”.
-		\item O que fazer com os arquivos de saída (resultados):
-				Nome do arquivos é: “TmpOut.txt”
-				Do fluxo específico, copiar os dados a partir da linha 14 a 59.
-				No fluxo secundário, copiar a linha 35.
+		\item inserir um arquivo de entrada para cada ponto (27\underline51 - 1960\underline2007, 27\underline51 - 2006\underline2053, 27\underline51 - 2052\underline2099, 27\underline52 - 1960\underline2007, 27\underline52 - 2006\underline2053, 27\underline52 - 2052\underline2099 e assim por diante).
+		\item Realizar as simulações para os grupos de maturação (4.8, 5.5 e 6.0).
+		\item Para cada arquivo de entrada realizar simulações que variam de 01 de agosto até 01 de fevereiro, iniciando na semeadura, n+1 = n+1 mês
+		\item Modificar a densidade de população de plantas para 315.
+		\item Depois de preencher estes campos, clicar no botão “run”.
+		\item copiar os dados a partir da linha 14 a 59 do arquivo de resultado “TmpOut.txt” e adicionalos, filtrar items específicos e gerar um arquivo de resultado com o mesmo.
 	\end{enumerate}
 	
 	{\bf Fluxo Secundário:}
 	
 	\begin{enumerate}
 		\item reiniciar as condições da automação
-		\item alterar A automação par que a mesma não seja rodada na função de multilos anos mas sim seja rodada na função de anos individuais, onde cada ano precisa ser definido na interface.
+		\item alterar A automação para que a mesma não seja rodada na função de múltiplos anos mas sim seja rodada na função de anos individuais, onde cada ano precisa ser definido na interface.
+		\item  copiar a linha 35 do arquivo resultante “TmpOut.txt” e adicioná-la ao final de um arquivo de resultado único.
 	\end{enumerate}
 	
 	{\bf Fluxo de exceção:}
@@ -299,7 +298,7 @@ Blockly.Blocks['text_length'] = {
 	{\bf Fluxo Principal:}
 	
 	\begin{enumerate}
-		\item  Abrir o DSSAT, esperar carregar e clicar em Crop Management Data. A partir dessa ação, o programa XBuild irá inicializar, e o usuário deve então clicar em New (para começar a criar um novo experimento).
+		\item  Abrir o DSSAT, esperar carregar e clicar em \emph{Crop Management Data}. A partir dessa ação, o programa XBuild irá inicializar, e o usuário deve então clicar em New (para começar a criar um novo experimento).
 		\item  Criar um nome inexistente para o experimento. Institute Code (SM para UFSM), Site Code (RS se for dentro do RS), Year (2013), Experiment Number (99 datas de semeadura), por exemplo. Lembrando que o usuário é livre para escolher a forma de preencher as lacunas dessa etapa do experimento, de uma forma que o torne auto-explicativo. No campo Crop (selecione Soybean). As demais lacunas podem ser preenchidas com -99.
 		\item Nessa etapa o usuário clica em Environment e depois em Fields. Aqui basicamente deve ser informado qual a série meteorológica o experimento vai utilizar, se existe algum tipo de drenagem e as características do solo daquela região. Ao rodar o modelo para outro local, o usuário deve adicionar mais um “level” e repetir o preenchimento com a série meteorológica e as características do segundo local, e assim sucessivamente.  
 		\item O usuário clica em Management e seleciona Cultivars, a tela sera redirecionada para uma seção onde deve ser selecionada a cultivar ou as cultivares que serão utilizadas nas rodadas do modelo. Lembrando que essas já devem estar devidamente calibradas pois caso contrário, o nome da cultivar não aparecera na lista de seleção.
@@ -311,21 +310,136 @@ Blockly.Blocks['text_length'] = {
 		\item seleciona as informações que serão exibidas no final das rodadas como: Crescimento de massa seca diária, balanço hídrico....entre outros.
 		\item caracterizar cada experimento, identificando cada experimento que vai utilizar a primeira estação meteorológica por exemplo, ou o solo número 1 entre outras informações.
 		\item Após realizar essas etapas o usuário deve clicar no botão Refresh, que irá atualizar as novas informações e posteriormente pode abrir o programa DSSAT e começar a rodar os experimentos cadastrados.
-
 	\end{enumerate}
 	
+	{\bf Fluxo Secundário:}
+	
+	\begin{enumerate}
+		\item no caso de encontrar algum alerta conhecido do modelo tais como alerta de temperatura máxima menor que a mínima, encerrar a automação e envia o usuário para a pós condição.
+	\end{enumerate}
+		
 	{\bf Fluxo de exceção:}
 	
 	\begin{enumerate}
-		\item  
+		\item Em caso de qualquer interação do usuário durante a tarefa de automação, pausar a simulação e esperar que o usuário recomece a automação ou cancele.
 	\end{enumerate}
 	
 	\bigskip \hrule \bigskip
 	
+	\subsection {Aplicação dos casos de uso com outras ferramentas de automação}
 
-	\subsection {Visão geral da Solução}
+	Após a coleta, os casos de uso foram testados em outras ferramentas de automação de tarefas em interfaces gráficas, objetivando compreender em que nível, outras ferramentas dispostas a solucionas o problema exposto nesse projeto, conseguem solucionar os problemas expostos nos casos de uso.
+	
+	Como forma de avaliação da inteligibilidade destas ferramentas e o quanto elas se mostram acessíveis aos domínios de conhecimento do usuário, foi proposto aos atores dos casos de uso, que estes tentassem utilizar 3 das ferramentas de automação descritas na revisão literária, descrevendo a experiência de forma objetiva em prós e contras, analisando se foi obtido sucesso ou não e onde os problemas responsáveis pelas falhas se originaram, caso encontrado algum. 
+	\bigskip
+	
+	Analise dos casos de uso em 3 programas de automação discutidos na revisão bibliográfica:
+	\bigskip
+
+		{\centering \begin{tabular}{ | m{14cm} | }
+		\hline \\
+	
+		{\bf UiPath:} \\ \\
+		{\bf Prós:} O programa permite virtualmente a realização de qualquer tarefa, algumas delas intuitivamente, tais como construir o fluxo completo de interação com a interface dos modelos fornecendo inclusive lógica suficiente para as repetições e interações necessárias. Nos casos em que foram necessários mover ou reorganizar arquivos também não houve problemas e foi possível organizar intuitivamente. \\ \\
+		{\bf Contras:} Definir reações em caso de uma exceção no modelo é uma tarefa complexa e confusa no início, o programa apresenta diversos elementos minimamente diferentes para a realização de tarefas similares, tendo elementos muito carregados e complexos. Sendo intensamente abstrato na programação e contendo poucas funções genéricas comuns a uma linguagem de programação, o UiPath depende completamente do invocamento de métodos externos ao programa para tarefas complexas, podendo recorrer inclusive ao \emph{powershell}. \\ \\
+	
+		\hline \hline \\
+	
+		{\bf Sikuli:} \\ \\
+		{\bf Prós:} O programa é extremamente simples e fácil de entender, é capaz de realizar as tarefas básicas tais como interagir com a interface do modelo, esperar por eventos e afins. \\ \\
+		{\bf Contras:} Foi ineficaz em todos os casos de uso por não possuir funcionalidades de lógica básica que permitissem a criação de repetição de eventos, movimentação e criação de arquivos ou ainda processamento mais complexo de texto. \\ \\
+	
+		\hline \end{tabular}} \\
+	{\centering \begin{tabular}{ | m{14cm} | }
+		 \hline \\
+	
+		{\bf AutoIt} \\ \\
+		{\bf Prós:} O programa é extremamente simples e fácil de entender, é capaz de realizar as tarefas básicas tais como interagir com a interface do modelo, esperar por eventos e afins. \\ \\
+		{\bf Contras:}  O programa é totalmente dependente de linguagem \emph{script} tipo BASIC própria, para tarefas mais complexas como as descritas nos casos de uso, quanto a reorganização de resultado, a automação se torna um desafio onde o usuário precisa conhecer com certa profundidade o funcionamento do AutoIt e sua linguagem. \\ \\
+		
+		\hline
+	\end{tabular}}
+	
+	\bigskip
+	Analise do caso de uso 2 sendo realizado pelo ator de forma direta e intuitiva nos 3 programas de automação sugeridos sem intervenção de terceiros ou qualquer pessoa do domínio da área: \\
+	\bigskip
+	
+	{\centering \begin{tabular}{ | m{14cm} | }
+		\hline \\
+		
+		{\centering {\bf Caso de uso 2 Analisado pelo ator} \\}
+		
+		\begin{center} Automação de simulações no modelo SoySim para simular o crescimento, desenvolvimento e produtividade de Soja para o estado do Rio Grande do sul. \end{center} 
+		
+		\\ \hline \hline \\
+	
+		{\bf UiPath:} \\ \\
+		{\bf Prós:} conseguiu fazer com que o software rodasse o SoySim para SingleYear e LongTermRun. \\ \\
+		{\bf Contras:} Não conseguiu inserir um \emph{looping} para que multiplas rodadas fossem feitas e nem com que mudassem os arquivos de entrada. Além disso, não coseguiu fazer com que o programa entendesse a janela de erro do SoySim. \\ \\
+	
+		\hline \end{tabular}} \\ {\centering \begin{tabular}{ | m{14cm} | } \hline \\
+	
+		{\bf Sikuli:} \\ \\
+		{\bf Prós:} consegui montar o scrit que é no mesmo formato do UiPath. \\ \\
+		{\bf Contras:} Na hora de rodar, o programa apresenta um erro que o ator não consegue interpretar, erro apresentado na figura \ref{fig:erroSikuli}. \\ \\
+	
+		\hline \hline \\
+	
+		{\bf AutoIt} \\ \\
+		O ator não conseguiu compreender a ferramenta como um todo, por não ter profundo contato com linguagens de programação ou BASIC \emph{script}. \\ \\
+		
+		\hline
+	\end{tabular}}
+
+	\begin{figure}[!htb]
+		{\centering
+		\includegraphics[width=0.8\textwidth]{sikuli_error}
+		\caption{Erro obtido pelo autor no programa Sikuli.}
+		\label{fig:erroSikuli}}
+	\end{figure}	
+	
+	\subsubsection {Funcionalidades Elencadas}
+
+	Após a análise dos casos de uso foram elencados alguns requisitos.
+	
+	Requisitos funcionais:
+	
+	\begin{enumerate}
+		\item algo
+	\end{enumerate}
+	
+	Requisitos não-funcionais:
+	
+	\begin{enumerate}
+		\item
+	\end{enumerate}
+	
+	 
+	\subsection {Visão geral da Modelagem da Solução}
+	
+		Visando solucionar de uma forma simples os problemas de automatização encontrados nos casos de uso elencados, com base nas limitações e dificuldades encontradas durante a análise dos mesmos em outros programas, decidiu-se por focar-se na simplicidade máxima da interface.
+
+		O programa irá disponibilizar a possibilidade de montar as tarefas que envolvem os casos de uso com blocos mais abstratos para interação com o sistema e tarefas encontradas nos casos de uso, com foco na genericidade e aproximação de uma linguagem informal simples.
+
+		As interações com o sistema serão realizadas por meio de reconhecimento e pesquisa de imagens na tela, assim como funções básicas como abertura, fechamento e manipulação de arquivos a nível de sistema.
+		
+	
 	
 	\section{Próximas etapas}
+	
+	As seguintes tarefas serão realizadas, como continuação do trabalho que foi realizado até o momento:
+	
+	\begin{enumerate}
+	
+		\item Discutir novamente o caso de uso 3, visando se aproximar mais das tarefas que representam o objetivo do projeto do ator do caso de uso.
+		
+		\item investigar mais profundamente o embasamento do projeto em cima das ferramentas já existentes, citadas no projeto.
+		
+		\item Desenvolver a ferramenta, criando uma interface simples que permita as interações e funcionalidades discutidas e investigadas durante a analise dos casos de uso e modelagem da solução, com revisão e teste constantes.
+		
+		\item realizar testes com os atores dos casos de uso a fim de investigar a competência do software desenvolvido em automatizar os modelos de simulação de culturas agrícolas estudados nos casos de uso, observando se ocorreram dificuldades no uso pelos atores, quanto estes dependem de um treinamento ou suporte e quão efetivo foi o software na tarefa de automatizar os modelos.
+		 
+	\end{enumerate}
 	
 	\bibliographystyle{abbrvnat}
 	\bibliography{andamento} 
