@@ -1,9 +1,7 @@
 % !TEX TS-program = XeLaTeX+MakeIndex+BibTeX
 % !TEX encoding = UTF-8 Unicode
 
-\documentclass[12pt]{article}
-
-\usepackage[utf8]{inputenc}
+\documentclass[tg]{mdtufsm}
 \usepackage[brazilian]{babel}
 
 \usepackage{fontspec}
@@ -28,16 +26,11 @@
 %\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{microtype}
-\usepackage[numbers]{natbib}
 %\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 % These packages are all incorporated in the memoir class to one degree or another...
-\usepackage[hidelinks]{hyperref}
-
 
 \usepackage{listings}
 \usepackage{hhline}
-
-
 
 % For Computer Modern:
 %\def\Cpp{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
@@ -48,29 +41,45 @@
 
 %%% END Article customizations
 
-\title{Automação de Interfaces Gráficas para Modelos de Simulação de Culturas Agrícolas com Base em Linguagem de Programação Visual}
-\author{Romulo Pulcinelli Benedetti \\ \emph{Universidade Federal de Santa Maria}}
 %\date{} % Activate to display a given date or no date (if empty), otherwise the current date is printed 
 
+\title{Automação de Interfaces Gráficas para Modelos de Simulação de Culturas Agrícolas com Base em Linguagem de Programação Visual}
+\author{Benedetti}{Romulo Pulcinelli}
+\course{Curso de Ciência da Computação}
+\altcourse{Curso de Ciência da Computação}
+\institute{Centro de Tecnologia}
+\degree{Bacharel em Ciência da Computação}
+
+\trabalhoNumero{}
+\advisor[Profª.]{Drª.}{Charão}{Andrea Schwertner}
+\orientadoratrue
+
+\committee[Profª. Dr.]{Streck}{Nereu Augusto}{UFSM}
+\committee[MSc.]{Lima}{João Vicente Ferreira Lima}{UFSM}
+
+\date{25}{Maio}{2016}
+
+\keyword{Automação de Software}
+\keyword{Linguagens de Programação Visual}
+\keyword{Modelos de Simulação de Culturas Agrícolas}
+\keyword{Automação de Interfaces Gráficas}
+\keyword{Blockly}
+
+%\date{} % Activate to display a given date or no date (if empty), otherwise the current date is printed
+
 \begin{document}
-	\maketitle
+\maketitle
+\makeapprove
 	
-	\section{Identificação}
-	
-	\begin{description} \itemsep 0pt
-		\item[Resumo:] ~\\
-				 
+\begin{abstract} 				 
 	A automação de tarefas é uma forma bastante eficiente pela qual podemos reduzir custos e aumentar a produtividade e qualidade da atividade humana. A computação por si é uma ferramenta para atingir a automação de tarefas, com vários exemplos de softwares focados em automatizar tarefas específicas sob comando do usuário, sendo a automatização destes softwares um campo a parte. Observamos a aproximação destes softwares a abordagens mais naturais ao raciocínio humano, por meio de interfaces gráficas e contextualização dos elementos com base no mundo real, tornando estes softwares menos distantes do paradigma de interação do humano com a realidade. Desta forma este trabalho objetiva abordar a utilização de tecnologias voltadas a programação visual para melhorar a abordagem de automação de tarefas, com foco em softwares gráficos de modelagem matemática agrícola, assim inserindo a atividade de automatizar estes softwares gráficos, dentro do mesmo domínio de abstração que as atividades destes softwares ocorrem.
-		 
-		\item[Período de execução:] março de 2016 a julho de 2016
-		\item[Unidades participantes:] ~\\ Curso de Ciência da Computação
-		\item[Área de conhecimento:] Ciência da Computação
-		\item[Linha de Pesquisa:] Sistemas Paralelos e Distribuídos
-		\item[Tipo de projeto:] Trabalho de Conclusão de Curso
-		\item[Participantes:] ~\\ Profª Andrea Schwertner Charão -- Orientadora \\ Romulo Pulcinelli Benedetti -- Orientando
-	\end{description}
-	
-	\section{Introdução}
+\end{abstract}		 
+
+\tableofcontents
+
+\setlength{\baselineskip}{1.5\baselineskip}
+
+\chapter{Introdução}
 	
 	No desenvolvimento de software, áreas de conhecimento como engenharia de software e qualidade de software
 investigam processos e normas, com o objetivo de reduzir a quantia de recursos necessários e garantir a qualidade de
@@ -122,7 +131,7 @@ A automatização destes modelos via uma abordagem mais visual permitiria a obte
 	
 	Uma destas áreas de conhecimento é a Fitotecnia, mais especificamente, estudos do desenvolvimento da fenologia e produtividade de culturas que hoje utilizam modelos de simulação de culturas agrícolas. Essa área evoluiu em direção a programas com interfaces gráficas, no intuito de alcançarem e beneficiarem mais pessoas, leigas em computação porém fluentes na área de conhecimento da ferramenta. Em alguns casos, as tarefas realizadas com estes simuladores envolvem interações repetitivas com o objetivo de obter uma grande faixa de amostragem de resultados, tarefas estas que se beneficiariam da automatização e estariam igualmente acessíveis ao domínio de seus usuários, caso esta automatização pudesse ser realizada dentro deste domínio de entendimento, um ambiente e uma metodologia visual.  
 	
-	\section{Revisão de Literatura}
+	\chapter{Revisão de Literatura}
 	Na sequência serão apresentados conceitos relativos aos conteúdos abordados nesse trabalho, descrevendo a automação, sua utilização dentro computação na área de TI e os resultados até então obtidos na automatização de tarefas mais genéricas, assim como linguagens de programação visual e a ferramenta com a qual este aspecto será tratado.
 	
 	%Automação 
@@ -199,7 +208,7 @@ Blockly.Blocks['text_length'] = {
 	Já o DSSAT, por sua vez, é um programa que engloba diversos modelos de simulação de culturas agrícolas, num total de 42 culturas. Oferece suporte ao manejamento de solo, clima e culturas assim como dados experimentais, por via também de utilitários e outros programas. Os modelos disponíveis simulam o crescimento, desenvolvimento e potencial como uma função de condições agrometeorológicas, tendo sido usado tanto no refino de manejo, em fazendas ou para análise de impacto climático sobre as culturas suportadas \cite{dssat}.
 	
 
-	\section{Desenvolvimento}
+	\chapter{Desenvolvimento}
 
 	Na sequência serão descritas as tarefas desenvolvidas no intuito de se chegar nos objetivos propostos por este trabalho. Serão apresentados os casos de uso obtidos e estrutura das soluções encontradas ao longo do desenvolvimento to projeto.
 	
@@ -425,7 +434,7 @@ Blockly.Blocks['text_length'] = {
 		
 	
 	
-	\section{Próximas etapas}
+	\chapter{Próximas etapas}
 	
 	As seguintes tarefas serão realizadas, como continuação do trabalho que foi realizado até o momento:
 	
