@@ -1,12 +1,34 @@
 % !TEX TS-program = XeLaTeX+MakeIndex+BibTeX
 % !TEX encoding = UTF-8 Unicode
 
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{naturalnames}{hyperref}
+
 \documentclass[tg]{mdtufsm}
 \usepackage[brazilian]{babel}
 
-\usepackage{fontspec}
-\setmainfont{Linux Libertine O}
-\linespread{1.05}
+\usepackage[T1]{fontenc}
+\usepackage{fix-cm}
+\usepackage{times, color}
+\usepackage[utf8]{inputenc}
+
+\usepackage{fix-cm}
+\usepackage{times, color}
+
+\usepackage{graphicx}
+\usepackage{amsmath,latexsym,amssymb}
+
+\usepackage[hidelinks,
+            bookmarksopen=true,linktoc=none,colorlinks=true,
+            linkcolor=black,citecolor=black,filecolor=magenta,urlcolor=blue,
+            pdftitle={Automação de Interfaces Gráficas para Modelos de Simulação de Culturas Agrícolas com Base em Linguagem de Programação Visual},
+            pdfauthor={Romulo Pulcinelli Benedetti},
+            pdfsubject={Trabalho de Graduação},
+            pdfkeywords={Automação de Software, Linguagens de Programação Visual, Modelos de Simulação de Culturas Agrícolas, Automação de Interfaces Gráficas, Blockly}
+            ]{hyperref}
+
+\usepackage[inner=30mm,outer=20mm,top=30mm,bottom=20mm]{geometry}
+\usepackage{epstopdf}
 
 %%% PAGE DIMENSIONS
 \usepackage{geometry} % to change the page dimensions
@@ -25,12 +47,33 @@
 %\usepackage{array} % for better arrays (eg matrices) in maths
 %\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
-\usepackage{microtype}
+%\usepackage{microtype}
 %\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 % These packages are all incorporated in the memoir class to one degree or another...
 
 \usepackage{listings}
 \usepackage{hhline}
+
+\lstset{
+	basicstyle=\scriptsize\ttfamily,
+	tabsize=2,
+	frame=single,
+	breaklines=true,
+	breakatwhitespace=true,
+	xleftmargin=0cm,
+	xrightmargin=0cm,
+	literate=
+		{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+		{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+		{à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+		{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+		{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+		{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+		{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+		{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+		{ã}{{\~a}}1 {Ã}{{\~A}}1
+		{ç}{{\c c}}1 {Ç}{{\c C}}1
+}
 
 % For Computer Modern:
 %\def\Cpp{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
@@ -54,8 +97,8 @@
 \advisor[Profª.]{Drª.}{Charão}{Andrea Schwertner}
 \orientadoratrue
 
-\committee[Profª. Dr.]{Streck}{Nereu Augusto}{UFSM}
-\committee[MSc.]{Lima}{João Vicente Ferreira Lima}{UFSM}
+\committee[Prof. Dr.]{Streck}{Nereu Augusto}{UFSM}
+\committee[Prof. Dr.]{Lima}{João Vicente Ferreira}{UFSM}
 
 \date{25}{Maio}{2016}
 
@@ -129,7 +172,7 @@ A automatização destes modelos via uma abordagem mais visual permitiria a obte
 	
 	A automação de tarefas é hoje em dia um processo fundamental para a obtenção de resultados ágeis e de qualidade, tanto na produção de um produto ou no fornecimento de serviços, assim como na execução de tarefas pessoais. Representa também redução de custos, o que abre novas possibilidades permitindo trabalhos mais complexos e maiores chances de sucesso. Entretanto, ferramentas de automação na computação têm exigido um domínio de abordagens de abstração que, em geral, vão além da abstração com a qual usuários finais de outras áreas estão acostumados. Uma abstração mais próxima ao nível em que estas tarefas ocorrem tornaria a automação um processo mais intuitivo.
 	
-	Uma destas áreas de conhecimento é a Fitotecnia, mais especificamente, estudos do desenvolvimento da fenologia e produtividade de culturas que hoje utilizam modelos de simulação de culturas agrícolas. Essa área evoluiu em direção a programas com interfaces gráficas, no intuito de alcançarem e beneficiarem mais pessoas, leigas em computação porém fluentes na área de conhecimento da ferramenta. Em alguns casos, as tarefas realizadas com estes simuladores envolvem interações repetitivas com o objetivo de obter uma grande faixa de amostragem de resultados, tarefas estas que se beneficiariam da automatização e estariam igualmente acessíveis ao domínio de seus usuários, caso esta automatização pudesse ser realizada dentro deste domínio de entendimento, um ambiente e uma metodologia visual.  
+	Uma destas áreas de conhecimento é a Fitotecnia, mais especificamente, estudos do desenvolvimento da fenologia e produtividade de culturas que hoje utilizam modelos de simulação de culturas agrícolas. Essa área evoluiu para programas com interfaces gráficas, objetivando alcançarem e beneficiarem mais pessoas, leigas em computação porém fluentes na área de conhecimento da ferramenta. Em alguns casos, as tarefas realizadas com estes simuladores envolvem interações repetitivas para obter uma grande faixa de amostragem de resultados, tarefas estas que se beneficiariam da automatização e estariam igualmente acessíveis ao domínio de seus usuários, caso esta automatização pudesse ser realizada dentro deste domínio de entendimento, um ambiente e uma metodologia visual.  
 	
 	\chapter{Revisão de Literatura}
 	Na sequência serão apresentados conceitos relativos aos conteúdos abordados nesse trabalho, descrevendo a automação, sua utilização dentro computação na área de TI e os resultados até então obtidos na automatização de tarefas mais genéricas, assim como linguagens de programação visual e a ferramenta com a qual este aspecto será tratado.
@@ -210,19 +253,19 @@ Blockly.Blocks['text_length'] = {
 
 	\chapter{Desenvolvimento}
 
-	Na sequência serão descritas as tarefas desenvolvidas no intuito de se chegar nos objetivos propostos por este trabalho. Serão apresentados os casos de uso obtidos e estrutura das soluções encontradas ao longo do desenvolvimento to projeto.
+	Na sequência, serão descritas as tarefas desenvolvidas com o intuito de chegar nos objetivos propostos por este trabalho. Serão apresentados os casos de uso obtidos assim como uma analise com 3 ferramentas já existentes para automatização de tarefas em programas com interface gráfica, o UiPath, o Sikuli e o Autoit, focando em embasar escolhas de desenvolvimento que se diferenciem das existentes atualmente e ajudem na tomada de melhores decisões quanto aos requisitos. 
 	
 	\subsection {Casos de uso}
 	
-	Foram realizadas reuniões semanais no primeiro mês para a discussão e coletas de três casos de uso com estudantes da área de agrometeorologia no Departamento de Fitotecnia da UFSM, com o objetivo de entender as necessidades de automatização dos estudantes em cada um dos modelos com o qual trabalham. 
+	Com a realizadas reuniões semanais no primeiro mês, foram discutidos e coletados três casos de uso com estudantes da área de agrometeorologia no Departamento de Fitotecnia da UFSM, procurando entender as necessidades de automatização dos estudantes em cada um dos modelos com o qual trabalham. 
 	
-	O primeiro caso de uso é referente as necessidades da Engenheira Agrônoma Amanda thirza Lima, mestranda no programa de Pós-Graduação em Agronomia da UFSM, nas atividades de seu projeto de dissertação com o objetivo de indicar um novo zoneamento agroclimático para a cultura de mandioca no estado do Rio Grande do Sul utilizando o programa Simanihot, modelo de simulação da cultura da mandioca.
+	O primeiro caso de uso é referente as necessidades da Engenheira Agrônoma Amanda thirza Lima, mestranda no programa de Pós-Graduação em Agronomia da UFSM, nas atividades de seu projeto de dissertação para indicar um novo zoneamento agroclimático para a cultura de mandioca no estado do Rio Grande do Sul utilizando o programa Simanihot, modelo de simulação da cultura da mandioca.
 	
-	No segundo caso de uso foi tratado o objetivo da Jossana Ceolin Cera, Meteorologista e Doutora em Engenharia Agrícola pela Universidade Federal de Santa Maria, objetivo já realizado durante seu doutorado de forma completamente manual, onde foi usado o modelo SoySim para simular o crescimento, desenvolvimento e produtividade de Soja para o estado do Rio Grande do sul.
+	No segundo caso de uso foi tratado o objetivo da Jossana Ceolin Cera, Meteorologista e Doutora em Engenharia Agrícola pela Universidade Federal de Santa Maria, com objetivo já realizado durante seu doutorado de forma completamente manual, onde foi usado o modelo SoySim para simular o crescimento, desenvolvimento e produtividade de Soja para o estado do Rio Grande do sul.
 
-	O ultimo caso de uso foi referente a tese de Cesar Augusto Fensterseifer, graduado em Engenharia Ambiental, Mestre em engenharia civil e ambiental e atualmente aluno de doutorado do programa de pós-graduação em engenharia agrícola da UFSM, com o objetivo de gerar previsões de safra de soja para auxiliar no planejamento agrícola do Estado do Rio grande do Sul 
+	O ultimo caso de uso foi referente a tese de Cesar Augusto Fensterseifer, graduado em Engenharia Ambiental, Mestre em engenharia civil e ambiental e atualmente aluno de doutorado do programa de pós-graduação em engenharia agrícola da UFSM, que deseja gerar previsões de safra de soja para auxiliar no planejamento agrícola do Estado do Rio grande do Sul. 
 	
-	Em todos os casos de uso as pré e pós condições são as mesmas, no caso a ferramenta deve iniciar em condição de realizar uma automatização e finalizar em um estado capaz de iniciar novamente a mesma automatização. Os três casos de uso são descritos em ordem:
+	Em todos os casos de uso as pré e pós condições são as mesmas, no caso, a ferramenta deve iniciar em condição de realizar uma automatização e finalizar em um estado capaz de iniciar novamente a mesma automatização. Os três casos de uso são descritos em ordem:
 	\bigskip \bigskip \bigskip \bigskip
 
 	%caso 1
@@ -232,16 +275,16 @@ Blockly.Blocks['text_length'] = {
 	{\bf Caso de Uso 1:} Automatização de simulações no modelo Simanihot para novo zoneamento agroclimático para a cultura de mandioca 
 	\bigskip
 	
-	{\bf breve descrição:} Para o desenvolvimento da tarefa é preciso fazer muitas simulações para que se possa indicar os melhores dias de plantio em uma série histórica de anos agrícolas. Para que sejam realizadas essas indicações é necessário que sejam realizadas simulações diárias da data de plantio desde 1º de julho a 31 de dezembro para todos os anos desde 1960 a 2015, para 18 locais utilizando 4 cultivares, é necessário também se fazer uma simulação para uma cultivar, em uma única data de plantio, um local e ano especifico. 
+	{\bf breve descrição:} Para o desenvolvimento da tarefa é preciso fazer muitas simulações para que se possa indicar os melhores dias de plantio em uma série histórica de anos agrícolas. Para que sejam realizadas essas indicações é necessário que sejam realizadas simulações diárias da data de plantio de 1º de julho a 31 de dezembro para todos os anos desde 1960 a 2015, para 18 locais utilizando 4 cultivares; é necessário também fazer uma simulação para uma cultivar, em uma única data de plantio, local e ano especifico. 
 	\bigskip
 	
 	{\bf Fluxo Principal:}
 	
 	\begin{enumerate}
-		\item Os seguintes campos são preenchidos, mas não variam: concentração de dióxido de carbono (CO2) – 400ppm, densidade de plantio - 15625 plantas por hectare, simulação a partir do plantio, data de colheita (15/06), modelo de balanço hídrico de Thornthwaite e Mather e respectivamente neste modelo de balanço hídrico, a profundidade de maniva – 8 cm e profundidade máxima de raiz – 30cm.
-		\item Será inserido um arquivo de entrada para cada local (Bagé, Bento Gonçalves, Bom Jesus, Caxias do Sul, Cruz Alta, Encruzilhado do Sul, Irai, Lagoa Vermelha, Passo Fundo, Pelotas, Porto Alegre, Rio Grande, Santa Maria, Santa Vitória do Palmar, Santana do Livramento, São Luiz Gonzaga, Torres, Uruguaiana). Para cada arquivo será utilizado um tipo especifico de solo e será selecionado o local especifico.
+		\item Os seguintes campos são preenchidos, mas não variam: concentração de dióxido de carbono (CO2) – 400ppm, densidade de plantio - 15625 plantas por hectare, simulação a partir do plantio, data de colheita (15/06), modelo de balanço hídrico de \emph{Thornthwaite} e \emph{Mather} e respectivamente neste modelo de balanço hídrico, a profundidade de maniva – 8 cm e profundidade máxima de raiz – 30cm.
+		\item Será inserido um arquivo de entrada para cada local (Bagé, Bento Gonçalves, Bom Jesus, Caxias do Sul, Cruz Alta, Encruzilhado do Sul, Irai, Lagoa Vermelha, Passo Fundo, Pelotas, Porto Alegre, Rio Grande, Santa Maria, Santa Vitória do Palmar, Santana do Livramento, São Luiz Gonzaga, Torres, Uruguaiana). Para cada arquivo será utilizado um tipo específico de solo e será selecionado o local específico.
 		\item As simulações serão realizadas para 3 cultivares, sendo elas FEPAGRO – RS13, Estrangeira e São José. 
-		\item Para cada arquivo de entrada, serão realizadas simulações eu variam de n = 1° de agosto até 31 de dezembro, com n+1=n+1 dia.
+		\item Para cada arquivo de entrada, serão realizadas simulações qeu variam de n = 1° de agosto até 31 de dezembro, com variando de um em um dia.
 		\item A data de colheita não irá variar com as simulações, será sempre dia 15 de junho.
 		\item Depois de completar todos esses passo, finalmente clicará no botão “SIMULAR”. 
 	\end{enumerate}
@@ -249,17 +292,26 @@ Blockly.Blocks['text_length'] = {
 	{\bf Fluxo Secundário:}
 	
 	\begin{enumerate}
-		\item no caso de encontrar algum alerta conhecido do modelo tais como alerta de defeito no arquivo de entrada ou inserção de algum campo incorretamente, encerrar a automação e envia o usuário para a pós condição.
+		\item Nenhum
 	\end{enumerate}
 		
 	{\bf Fluxo de exceção:}
 	
 	\begin{enumerate}
 		\item Em caso de qualquer interação do usuário durante a tarefa de automação, pausar a simulação e esperar que o usuário recomece a automação ou cancele.
+		\item no caso de encontrar algum alerta de campo preenchido incorretamente, encerrar a automação e envia o usuário para a pós condição.
 	\end{enumerate}
 	
-	\bigskip \hrule \bigskip
+	\bigskip \hrule \bigskip 
 	
+	\begin{figure}[!htbp]
+		{\centering
+		\includegraphics[width=0.4\textwidth]{SimanihotFlux}
+		\caption{Fluxograma do caso de uso 1.}
+		\label{fig:SimanihotFlux}}
+	\end{figure}	
+	
+	\bigskip \hrule \bigskip
 	%caso 2	
 	
 	{\bf Caso de Uso 2:} Automação de simulações no modelo SoySim para simular o crescimento, desenvolvimento e produtividade de Soja para o estado do Rio Grande do sul
@@ -271,65 +323,76 @@ Blockly.Blocks['text_length'] = {
 	{\bf Fluxo Principal:}
 	
 	\begin{enumerate}
-		\item inserir um arquivo de entrada para cada ponto (27\underline51 - 1960\underline2007, 27\underline51 - 2006\underline2053, 27\underline51 - 2052\underline2099, 27\underline52 - 1960\underline2007, 27\underline52 - 2006\underline2053, 27\underline52 - 2052\underline2099 e assim por diante).
+		\item Inserir um arquivo de entrada para cada ponto (27\underline51 - 1960\underline2007, 27\underline51 - 2006\underline2053, 27\underline51 - 2052\underline2099, 27\underline52 - 1960\underline2007, 27\underline52 - 2006\underline2053, 27\underline52 - 2052\underline2099 e assim por diante).
 		\item Realizar as simulações para os grupos de maturação (4.8, 5.5 e 6.0).
-		\item Para cada arquivo de entrada realizar simulações que variam de 01 de agosto até 01 de fevereiro, iniciando na semeadura, n+1 = n+1 mês
+		\item Para cada arquivo de entrada realizar simulações que variam de 01 de agosto até 01 de fevereiro, iniciando na semeadura, de um em um mês
 		\item Modificar a densidade de população de plantas para 315.
-		\item Depois de preencher estes campos, clicar no botão “run”.
-		\item copiar os dados a partir da linha 14 a 59 do arquivo de resultado “TmpOut.txt” e adicionalos, filtrar items específicos e gerar um arquivo de resultado com o mesmo.
+		\item Depois de preencher estes campos, clicar no botão \emph{run}.
+		\item Copiar os dados a partir da linha 14 a 59 do arquivo de resultado “TmpOut.txt” e arazenar todos em um só resultado filtrando itens específicos e gerar um arquivo de resultado com o mesmo.
 	\end{enumerate}
 	
 	{\bf Fluxo Secundário:}
 	
 	\begin{enumerate}
-		\item reiniciar as condições da automação
-		\item alterar A automação para que a mesma não seja rodada na função de múltiplos anos mas sim seja rodada na função de anos individuais, onde cada ano precisa ser definido na interface.
-		\item  copiar a linha 35 do arquivo resultante “TmpOut.txt” e adicioná-la ao final de um arquivo de resultado único.
+		\item Reiniciar a automação alterando a automação para que a mesma não seja rodada na função de \emph{multiple years} mas sim seja rodada na função de \emph{single years}, onde cada ano precisa ser definido na interface.
+		\item Copiar a linha 35 do arquivo resultante “TmpOut.txt” e adicioná-la ao final de um arquivo de resultado único.
 	\end{enumerate}
 	
 	{\bf Fluxo de exceção:}
 	
 	\begin{enumerate}
-		\item Caso o modelo apresente um alerta rodando no fluxo principal o programa passar para o fluxo secundário e caso o alerta seja recebido enquanto o modelo já esta no fluxo secundário, passar para o ano seguinte da automação.
+		\item No caso de encontrar algum alerta de campo preenchido incorretamente, encerrar a automação e envia o usuário para a pós condição.
+		\item Caso o modelo apresente um alerta rodando no fluxo principal o programa deve passar para o fluxo secundário
+		\item Caso o alerta seja recebido enquanto o modelo já esta no fluxo secundário, passar para o ano seguinte da lista de anos da automação.
 		\item Em caso de qualquer interação do usuário durante a tarefa de automação, pausar a simulação e esperar que o usuário recomece a automação ou cancele.
 	\end{enumerate}
 	
 	\bigskip \hrule \bigskip
+	
+	\begin{figure}[!htb]
+		{\centering
+		\includegraphics[width=1.0\textwidth]{SoysimFlux}
+		\caption{Fluxograma do caso de uso 2.}
+		\label{fig:SoysimFlux}}
+	\end{figure}	
+
+	\bigskip \hrule \bigskip
 
 	%caso 3
 	
-	{\bf Caso de Uso 3:} Automação de de simulações no modelo DSSAT para gerar previsões de safra de soja para auxiliar no planejamento agrícola do Estado do Rio grande do Sul
+	{\bf Caso de Uso 3:} Automação de simulações no modelo DSSAT para gerar previsões de safra de soja para auxiliar no planejamento agrícola do Estado do Rio grande do Sul
 	\bigskip
 	
-	{\bf breve descrição:} O RS é um dos Estados brasileiros que mais sente os efeitos dos fenômenos El Nino e La Nina, e atualmente é o terceiro maior responsável pela produção de soja do País. O principal objetivo do meu projeto de tese é gerar previsões de safra de soja para auxiliar no planejamento agrícola do Estado do Rio grande do Sul (RS). gerando varias simulações no modelo para diversas datas de semeadura.
+	{\bf breve descrição:} O RS é um dos Estados brasileiros que mais sente os efeitos dos fenômenos El Nino e La Nina, e atualmente é o terceiro maior responsável pela produção de soja do País. É necessário gerar previsões de safra de soja para auxiliar no planejamento agrícola do Estado do Rio grande do Sul (RS). gerando varias simulações no modelo para diversas datas de semeadura.
 	\bigskip
 	
 	{\bf Fluxo Principal:}
 	
 	\begin{enumerate}
 		\item  Abrir o DSSAT, esperar carregar e clicar em \emph{Crop Management Data}. A partir dessa ação, o programa XBuild irá inicializar, e o usuário deve então clicar em New (para começar a criar um novo experimento).
-		\item  Criar um nome inexistente para o experimento. Institute Code (SM para UFSM), Site Code (RS se for dentro do RS), Year (2013), Experiment Number (99 datas de semeadura), por exemplo. Lembrando que o usuário é livre para escolher a forma de preencher as lacunas dessa etapa do experimento, de uma forma que o torne auto-explicativo. No campo Crop (selecione Soybean). As demais lacunas podem ser preenchidas com -99.
-		\item Nessa etapa o usuário clica em Environment e depois em Fields. Aqui basicamente deve ser informado qual a série meteorológica o experimento vai utilizar, se existe algum tipo de drenagem e as características do solo daquela região. Ao rodar o modelo para outro local, o usuário deve adicionar mais um “level” e repetir o preenchimento com a série meteorológica e as características do segundo local, e assim sucessivamente.  
-		\item O usuário clica em Management e seleciona Cultivars, a tela sera redirecionada para uma seção onde deve ser selecionada a cultivar ou as cultivares que serão utilizadas nas rodadas do modelo. Lembrando que essas já devem estar devidamente calibradas pois caso contrário, o nome da cultivar não aparecera na lista de seleção.
-		\item inserção da data ou datas de semeadura, data de emergência, o método utilizado, a forma de distribuição das sementes, a densidade de sementes na semeadura, a densidade de plantas na emergencia, o espacamento entre linhas adotado, a direção das linhas em relação ao Norte e a profundidade de semeadura utilizada para um ou vários experimentos. Lembrando que se o experimento possui alguma característica diferente, esse deve ser inserido como um Novo Level.
+		\item  Criar um nome inexistente para o experimento. \emph{Institute Code} (SM para UFSM), \emph{Site Code} (RS se for dentro do RS), \emph{Year} (2013), \emph{Experiment Number} (99 datas de semeadura), por exemplo. Lembrando que o usuário é livre para escolher a forma de preencher as lacunas dessa etapa do experimento, de uma forma que o torne auto-explicativo. No campo \emph{Crop} (selecione \emph{Soybean}). As demais lacunas podem ser preenchidas com -99.
+		\item Nessa etapa o usuário clica em \emph{Environment} e depois em \emph{Fields}. Aqui basicamente deve ser informado qual a série meteorológica o experimento vai utilizar, se existe algum tipo de drenagem e as características do solo daquela região. Ao rodar o modelo para outro local, o usuário deve adicionar mais um “\emph{level}” e repetir o preenchimento com a série meteorológica e as características do segundo local, e assim sucessivamente.  
+		\item O usuário clica em \emph{Management} e seleciona \emph{Cultivars}, a tela sera redirecionada para uma seção onde deve ser selecionada a cultivar ou as cultivares que serão utilizadas nas rodadas do modelo. Lembrando que essas já devem estar devidamente calibradas pois caso contrário, o nome da cultivar não aparecera na lista de seleção.
+		\item Inserção da data ou datas de semeadura, data de emergência, o método utilizado, a forma de distribuição das sementes, a densidade de sementes na semeadura, a densidade de plantas na emergência, o espaçamento entre linhas adotado, a direção das linhas em relação ao Norte e a profundidade de semeadura utilizada para um ou vários experimentos. Lembrando que se o experimento possui alguma característica diferente, esse deve ser inserido como um Novo \emph{Level}.
 		\item Determinar a data que o modelo vai começar a simulação do balanço hídrico ou de nutrientes no solo. É aconselhado começar o balanço hídrico no solo entre 20 e 30 dias antes da data de semeadura, buscando uma simulação mais precisa das condições do solo na hora da semeadura.
-		\item selecionar os balanços que gostaria que o modelo realizasse em cada experimento. Aqui pode ser ativado ou não o balanço hídrico, de nitrogênio entre outras. Esses detalhes podem aumentar o desempenho das simulações.
-		\item decidir os métodos que serão utilizados nos balanços que foram selecionados no passo anterior. Se o balanço hídrico foi selecionado, aqui o usuário deve selecionar o método que o modelo deve utilizar para as rodadas em cada experimento. Essa regra também vale para os outros balanços que o usuário deseja que o modelo realize.
-		\item Caso o usuário tenha dados mais específicos ou tenha utilizado irrigação em algum dos experimentos que deseja simular, essa e a etapa em que vai inserir as características do manejo utilizado. 
-		\item seleciona as informações que serão exibidas no final das rodadas como: Crescimento de massa seca diária, balanço hídrico....entre outros.
-		\item caracterizar cada experimento, identificando cada experimento que vai utilizar a primeira estação meteorológica por exemplo, ou o solo número 1 entre outras informações.
-		\item Após realizar essas etapas o usuário deve clicar no botão Refresh, que irá atualizar as novas informações e posteriormente pode abrir o programa DSSAT e começar a rodar os experimentos cadastrados.
+		\item Selecionar os balanços que gostaria que o modelo realizasse em cada experimento. Aqui pode ser ativado ou não o balanço hídrico, de nitrogênio entre outras. Esses detalhes podem aumentar o desempenho das simulações.
+		\item Decidir os métodos que serão utilizados nos balanços que foram selecionados no passo anterior. Se o balanço hídrico foi selecionado, aqui o usuário deve selecionar o método que o modelo deve utilizar para as rodadas em cada experimento. Essa regra também vale para os outros balanços que o usuário deseja que o modelo realize.
+		\item Caso o usuário tenha dados mais específicos ou tenha utilizado irrigação em algum dos experimentos que deseja simular, essa é a etapa em que vai inserir as características do manejo utilizado. 
+		\item Seleciona as informações que serão exibidas no final das rodadas como: Crescimento de massa seca diária, balanço hídrico....entre outros.
+		\item Caracterizar cada experimento, identificando cada experimento que vai utilizar a primeira estação meteorológica por exemplo, ou o solo número 1 entre outras informações.
+		\item Após realizar essas etapas o usuário deve clicar no botão \emph{Refresh}, que irá atualizar as novas informações e posteriormente pode abrir o programa DSSAT e começar a rodar os experimentos cadastrados.
 	\end{enumerate}
 	
 	{\bf Fluxo Secundário:}
 	
 	\begin{enumerate}
-		\item no caso de encontrar algum alerta conhecido do modelo tais como alerta de temperatura máxima menor que a mínima, encerrar a automação e envia o usuário para a pós condição.
+		\item Nenhum
 	\end{enumerate}
 		
 	{\bf Fluxo de exceção:}
 	
 	\begin{enumerate}
+		\item No caso de encontrar algum alerta conhecido do modelo tais como alerta de temperatura máxima menor que a mínima, encerrar a automação e envia o usuário para a pós condição.
 		\item Em caso de qualquer interação do usuário durante a tarefa de automação, pausar a simulação e esperar que o usuário recomece a automação ou cancele.
 	\end{enumerate}
 	
@@ -337,43 +400,41 @@ Blockly.Blocks['text_length'] = {
 	
 	\subsection {Aplicação dos casos de uso com outras ferramentas de automação}
 
-	Após a coleta, os casos de uso foram testados em outras ferramentas de automação de tarefas em interfaces gráficas, objetivando compreender em que nível, outras ferramentas dispostas a solucionas o problema exposto nesse projeto, conseguem solucionar os problemas expostos nos casos de uso.
+	Após a coleta, os casos de uso foram testados em outras ferramentas de automação de tarefas em interfaces gráficas, objetivando compreender em que nível, outras ferramentas indicadas para solucionar o problema exposto nesse projeto, conseguem solucionar os problemas expostos nos casos de uso.
 	
 	Como forma de avaliação da inteligibilidade destas ferramentas e o quanto elas se mostram acessíveis aos domínios de conhecimento do usuário, foi proposto aos atores dos casos de uso, que estes tentassem utilizar 3 das ferramentas de automação descritas na revisão literária, descrevendo a experiência de forma objetiva em prós e contras, analisando se foi obtido sucesso ou não e onde os problemas responsáveis pelas falhas se originaram, caso encontrado algum. 
 	\bigskip
 	
-	Analise dos casos de uso em 3 programas de automação discutidos na revisão bibliográfica:
-	\bigskip
 
-		{\centering \begin{tabular}{ | m{14cm} | }
+		{\centering \begin{tabular}{ | m{15.6cm} | }
 		\hline \\
 	
 		{\bf UiPath:} \\ \\
-		{\bf Prós:} O programa permite virtualmente a realização de qualquer tarefa, algumas delas intuitivamente, tais como construir o fluxo completo de interação com a interface dos modelos fornecendo inclusive lógica suficiente para as repetições e interações necessárias. Nos casos em que foram necessários mover ou reorganizar arquivos também não houve problemas e foi possível organizar intuitivamente. \\ \\
-		{\bf Contras:} Definir reações em caso de uma exceção no modelo é uma tarefa complexa e confusa no início, o programa apresenta diversos elementos minimamente diferentes para a realização de tarefas similares, tendo elementos muito carregados e complexos. Sendo intensamente abstrato na programação e contendo poucas funções genéricas comuns a uma linguagem de programação, o UiPath depende completamente do invocamento de métodos externos ao programa para tarefas complexas, podendo recorrer inclusive ao \emph{powershell}. \\ \\
+		{\bf Prós:} O programa permite virtualmente a realização de qualquer tarefa, algumas delas intuitivamente sem recorrer a manuais ou tutoriais, tais como construir o fluxo completo de interação com a interface dos modelos fornecendo inclusive lógica suficiente para as repetições e interações necessárias. Nos casos em que foram necessários mover ou reorganizar arquivos para que as rodadas continuassem, também não houve problemas e foi possível organizar intuitivamente. \\ \\
+		{\bf Contras:} Definir reações em caso de uma exceção no modelo é uma tarefa complexa e confusa no início, o programa apresenta diversos elementos minimamente diferentes para a realização de tarefas similares, tendo elementos muito carregados e complexos. Sendo intensamente abstrato na programação e contendo poucas funções genéricas comuns a uma linguagem de programação, o UiPath depende completamente do invocamento de métodos externos ao programa para tarefas complexas, podendo recorrer inclusive ao \emph{powershell}. A tarefa de organização dos dados de saida no caso de teste 2 foi simplificada para um manejamento de arquivos. \\ \\
 	
 		\hline \hline \\
 	
 		{\bf Sikuli:} \\ \\
-		{\bf Prós:} O programa é extremamente simples e fácil de entender, é capaz de realizar as tarefas básicas tais como interagir com a interface do modelo, esperar por eventos e afins. \\ \\
-		{\bf Contras:} Foi ineficaz em todos os casos de uso por não possuir funcionalidades de lógica básica que permitissem a criação de repetição de eventos, movimentação e criação de arquivos ou ainda processamento mais complexo de texto. \\ \\
+		{\bf Prós:} O programa é extremamente simples e fácil de entender, é capaz de realizar as tarefas básicas tais como interagir com a interface do modelo e esperar por eventos. \\ \\
+		{\bf Contras:} Foi ineficaz em todos os casos de uso por não possuir funcionalidades de lógica básica que permitissem a criação de repetição de eventos de forma sucinta, movimentação e criação de arquivos ou ainda processamento mais complexo de texto necessário a extração dos dados dos arquivos de resultado. \\ \\
 	
 		\hline \end{tabular}} \\
-	{\centering \begin{tabular}{ | m{14cm} | }
+	{\centering \begin{tabular}{ | m{15.6cm} | }
 		 \hline \\
 	
 		{\bf AutoIt} \\ \\
-		{\bf Prós:} O programa é extremamente simples e fácil de entender, é capaz de realizar as tarefas básicas tais como interagir com a interface do modelo, esperar por eventos e afins. \\ \\
-		{\bf Contras:}  O programa é totalmente dependente de linguagem \emph{script} tipo BASIC própria, para tarefas mais complexas como as descritas nos casos de uso, quanto a reorganização de resultado, a automação se torna um desafio onde o usuário precisa conhecer com certa profundidade o funcionamento do AutoIt e sua linguagem. \\ \\
+		{\bf Prós:} Novamente um programa capaz de realizar virtualmente qualquer tarefa. \\ \\
+		{\bf Contras:}  O programa é totalmente dependente de linguagem \emph{script} tipo BASIC própria, para tarefas mais complexas como as descritas nos casos de uso (\emph{loops},leitura de arquivos, quebra de texto), a automação se torna um desafio possivelmente tão grande quanto o problema original, já que o usuário precisa conhecer com certa profundidade o funcionamento do AutoIt, linguagens de programação, e em especifico a sintaxe e conjunto léxico peculiar usados pela linguagem do programa. \\ \\
 		
 		\hline
 	\end{tabular}}
 	
 	\bigskip
-	Analise do caso de uso 2 sendo realizado pelo ator de forma direta e intuitiva nos 3 programas de automação sugeridos sem intervenção de terceiros ou qualquer pessoa do domínio da área: \\
+	Analise do caso de uso 2 realizada pelo autor de forma direta nos 3 programas de automação sugeridos sem intervenção de terceiros ou qualquer pessoa do domínio da área:
 	\bigskip
 	
-	{\centering \begin{tabular}{ | m{14cm} | }
+	{\centering \begin{tabular}{ | m{15.6cm} | }
 		\hline \\
 		
 		{\centering {\bf Caso de uso 2 Analisado pelo ator} \\}
@@ -383,55 +444,29 @@ Blockly.Blocks['text_length'] = {
 		\\ \hline \hline \\
 	
 		{\bf UiPath:} \\ \\
-		{\bf Prós:} conseguiu fazer com que o software rodasse o SoySim para SingleYear e LongTermRun. \\ \\
-		{\bf Contras:} Não conseguiu inserir um \emph{looping} para que multiplas rodadas fossem feitas e nem com que mudassem os arquivos de entrada. Além disso, não coseguiu fazer com que o programa entendesse a janela de erro do SoySim. \\ \\
+		{\bf Prós:} Conseguiu fazer com que o software rodasse o SoySim para SingleYear e LongTermRun. Uma rodada sozinha. \\ \\
+		{\bf Contras:} Não conseguiu inserir um \emph{loop} para que múltiplas rodadas fossem feitas e apontando que também não conseguiu fazer com que o programa mudassem os arquivos de entrada automaticamente. Além disso, não conseguiu fazer com que o programa entendesse a janela de erro do SoySim. \\ \\
 	
-		\hline \end{tabular}} \\ {\centering \begin{tabular}{ | m{14cm} | } \hline \\
+		\hline \end{tabular}} \\ {\centering \begin{tabular}{ | m{15.6cm} | } \hline \\
 	
 		{\bf Sikuli:} \\ \\
-		{\bf Prós:} consegui montar o scrit que é no mesmo formato do UiPath. \\ \\
-		{\bf Contras:} Na hora de rodar, o programa apresenta um erro que o ator não consegue interpretar, erro apresentado na figura \ref{fig:erroSikuli}. \\ \\
+		{\bf Prós:} consegui montar o scrit que é no mesmo formato do UiPath (visual).  \\ \\
+		{\bf Contras:} Na hora de rodar, o programa apresentou um erro que o ator não consegue interpretar, erro apresentado na figura \ref{fig:erroSikuli}. Desistiu da ferramenta devido ao erro. \\ \\
 	
 		\hline \hline \\
 	
 		{\bf AutoIt} \\ \\
-		O ator não conseguiu compreender a ferramenta como um todo, por não ter profundo contato com linguagens de programação ou BASIC \emph{script}. \\ \\
+		O ator não conseguiu compreender como a ferramenta funciona, foi capaz de perceber que o programa usa código textual para automatizar as tarefas mas por não ter profundo contato com linguagens de programação ou BASIC, não foi capaz de encontrar uma solução intuitivamente ou em tempo hábil no manual do programa. Desistiu da ferramenta devido a dificuldade. \\ \\
 		
 		\hline
 	\end{tabular}}
 
 	\begin{figure}[!htb]
 		{\centering
-		\includegraphics[width=0.8\textwidth]{sikuli_error}
+		\includegraphics[width=1.0\textwidth]{sikuli_error}
 		\caption{Erro obtido pelo autor no programa Sikuli.}
 		\label{fig:erroSikuli}}
 	\end{figure}	
-	
-	\subsubsection {Funcionalidades Elencadas}
-
-	Após a análise dos casos de uso foram elencados alguns requisitos.
-	
-	Requisitos funcionais:
-	
-	\begin{enumerate}
-		\item algo
-	\end{enumerate}
-	
-	Requisitos não-funcionais:
-	
-	\begin{enumerate}
-		\item
-	\end{enumerate}
-	
-	 
-	\subsection {Visão geral da Modelagem da Solução}
-	
-		Visando solucionar de uma forma simples os problemas de automatização encontrados nos casos de uso elencados, com base nas limitações e dificuldades encontradas durante a análise dos mesmos em outros programas, decidiu-se por focar-se na simplicidade máxima da interface.
-
-		O programa irá disponibilizar a possibilidade de montar as tarefas que envolvem os casos de uso com blocos mais abstratos para interação com o sistema e tarefas encontradas nos casos de uso, com foco na genericidade e aproximação de uma linguagem informal simples.
-
-		As interações com o sistema serão realizadas por meio de reconhecimento e pesquisa de imagens na tela, assim como funções básicas como abertura, fechamento e manipulação de arquivos a nível de sistema.
-		
 	
 	
 	\chapter{Próximas etapas}
@@ -442,16 +477,15 @@ Blockly.Blocks['text_length'] = {
 	
 		\item Discutir novamente o caso de uso 3, visando se aproximar mais das tarefas que representam o objetivo do projeto do ator do caso de uso.
 		
-		\item investigar mais profundamente o embasamento do projeto em cima das ferramentas já existentes, citadas no projeto.
+		\item Elencar funcionalidades e investigar a modelagem e estruturação dos componentes da ferramenta (melhor forma de interagir com o usuário, melhor forma de interagir com o sistema e melhor abordagem para os requisitos dos casos no blockly) embasado na discussão com os atores dos casos de uso, observando experiências obtidas com ferramentas da área de automação de interfaces gráficas.
 		
-		\item Desenvolver a ferramenta, criando uma interface simples que permita as interações e funcionalidades discutidas e investigadas durante a analise dos casos de uso e modelagem da solução, com revisão e teste constantes.
+		\item Desenvolver a ferramenta, de forma que permita as interações e funcionalidades discutidas e investigadas durante a analise dos casos de uso e modelagem da solução, com revisão e teste constantes.
 		
-		\item realizar testes com os atores dos casos de uso a fim de investigar a competência do software desenvolvido em automatizar os modelos de simulação de culturas agrícolas estudados nos casos de uso, observando se ocorreram dificuldades no uso pelos atores, quanto estes dependem de um treinamento ou suporte e quão efetivo foi o software na tarefa de automatizar os modelos.
+		\item realizar testes com os atores dos casos de uso a fim de investigar a competência do software desenvolvido em automatizar os modelos de simulação de culturas agrícolas estudados nos casos de uso, observando se ocorreram dificuldades no uso pelos atores, quanto estes dependeram de um treinamento ou suporte e quão efetivo foi o software na tarefa de automatizar os modelos.
 		 
 	\end{enumerate}
 	
-	\bibliographystyle{abbrvnat}
+	\setlength{\baselineskip}{\baselineskip}
+	\bibliographystyle{abnt}
 	\bibliography{andamento} 
-
-	
 \end{document}
