@@ -44,7 +44,7 @@ public class Main extends Application {
     {
         Util.loadRessources();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            Util.unloadResources();
+            //Util.unloadResources();
         }, "Shutdown-thread"));
         launch();
     }

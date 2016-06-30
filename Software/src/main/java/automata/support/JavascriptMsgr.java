@@ -60,9 +60,10 @@ public class JavascriptMsgr {
      *************************************************************/
 
     public void setClickImageInBlockly(String imagesrc, int width, int height){
+        String src = StringEscapeUtils.escapeEcmaScript( pathPrefx +imagesrc);
         engine.executeScript("setImageButtonByID(\"" + currentID + "\", " +
                 String.valueOf(width) + ", " + String.valueOf(height) + ", \"" +
-                pathPrefx + imagesrc + "\")");
+                src + "\")");
     }
 
     public synchronized void getCode(){
@@ -100,6 +101,7 @@ public class JavascriptMsgr {
 
     public boolean clickIn(String src, int times) {
         try {
+            System.out.println(src);
             BufferedImage target = ImageIO.read(new File(src.substring(3)));
             BufferedImage screenshot = robot.createScreenCapture(primaryScreenBounds);
             ImageSearch is = new ImageSearch(target);

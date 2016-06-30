@@ -1,10 +1,10 @@
 SOURCE=andamento
 
 all:
-	xelatex $(SOURCE).tex
+	xelatex -synctex=1 $(SOURCE).tex
 	bibtex $(SOURCE)
-	xelatex $(SOURCE).tex
-	xelatex $(SOURCE).tex
+	xelatex -synctex=1 $(SOURCE).tex
+	xelatex -synctex=1 $(SOURCE).tex
 
 
 clean:

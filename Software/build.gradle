@@ -15,7 +15,7 @@ jar {
     manifest {
         attributes 'Implementation-Title': 'Automata',
                 'Main-Class': 'automata.graphic.Main',
-                'Class-Path': '. lib/jnativehook-2.0.2.jar marvin/framework/marvin_1.5.3.jar',
+                'Class-Path': '. lib/jnativehook-2.0.2.jar lib/commons-lang3-3.1.jar',
                 'Implementation-Version': version
     }
 }

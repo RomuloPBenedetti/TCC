@@ -15,5 +15,4 @@
 *.synctex.gz
 .idea
 .gradle
-build/*
 .classpath
