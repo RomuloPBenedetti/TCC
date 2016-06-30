@@ -1,0 +1,6 @@
+
+task build
+build.dependsOn("Software:build")
+
+task run
+build.dependsOn("Software:run")

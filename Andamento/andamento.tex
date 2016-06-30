@@ -8,15 +8,17 @@
 \usepackage[brazilian]{babel}
 
 \usepackage[T1]{fontenc}
-\usepackage{fix-cm}
-\usepackage{times, color}
 \usepackage[utf8]{inputenc}
 
 \usepackage{fix-cm}
-\usepackage{times, color}
-
+\usepackage{times}
 \usepackage{graphicx}
-\usepackage{amsmath,latexsym,amssymb}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{hhline}
+
+\usepackage[inner=30mm,outer=20mm,top=30mm,bottom=20mm]{geometry}
+\geometry{a4paper}
 
 \usepackage[hidelinks,
             bookmarksopen=true,linktoc=none,colorlinks=true,
@@ -27,64 +29,8 @@
             pdfkeywords={Automação de Software, Linguagens de Programação Visual, Modelos de Simulação de Culturas Agrícolas, Automação de Interfaces Gráficas, Blockly}
             ]{hyperref}
 
-\usepackage[inner=30mm,outer=20mm,top=30mm,bottom=20mm]{geometry}
-\usepackage{epstopdf}
-
-%%% PAGE DIMENSIONS
-\usepackage{geometry} % to change the page dimensions
-\geometry{a4paper} % or letterpaper (US) or a5paper or....
-% \geometry{margin=2in} % for example, change the margins to 2 inches all round
-% \geometry{landscape} % set up the page for landscape
-
-\usepackage{graphicx} % support the \includegraphics command and options
-\usepackage{array}
-% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
-
-%%% PACKAGES
-\usepackage{amsfonts}
-\usepackage{color}
-%\usepackage{booktabs} % for much better looking tables
-%\usepackage{array} % for better arrays (eg matrices) in maths
-%\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
-\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
-%\usepackage{microtype}
-%\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
-% These packages are all incorporated in the memoir class to one degree or another...
-
-\usepackage{listings}
-\usepackage{hhline}
-
-\lstset{
-	basicstyle=\scriptsize\ttfamily,
-	tabsize=2,
-	frame=single,
-	breaklines=true,
-	breakatwhitespace=true,
-	xleftmargin=0cm,
-	xrightmargin=0cm,
-	literate=
-		{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
-		{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
-		{à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
-		{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
-		{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
-		{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
-		{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
-		{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
-		{ã}{{\~a}}1 {Ã}{{\~A}}1
-		{ç}{{\c c}}1 {Ç}{{\c C}}1
-}
-
-% For Computer Modern:
-%\def\Cpp{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
-% For Linux Libertine G
-\def\Cpp{{C\nolinebreak[4]\raisebox{.20ex}{\small\bf++}}}
-
-\newcommand{\todo}[1]{\textsf{\color{red}#1}}
 
 %%% END Article customizations
-
-%\date{} % Activate to display a given date or no date (if empty), otherwise the current date is printed
 
 \title{Automação de Interfaces Gráficas para Modelos de Simulação de Culturas Agrícolas com Base em Linguagem de Programação Visual}
 \author{Benedetti}{Romulo Pulcinelli}
@@ -158,7 +104,7 @@ A automatização destes modelos via uma abordagem mais visual permitiria a obte
 
 	\subsection{Objetivo Geral}
 
-	O principal objetivo deste trabalho é tornar possível a automação de tarefas em interfaces gráficas por meio da simplificação de uma abordagem visual com base na biblioteca de programação visual Blockly~\cite{blockly}, dentro do contexto de modelos de simulação de culturas agrícolas.
+	O principal objetivo deste trabalho é tornar possível a automação de tarefas em interfaces gráficas por meio da simplificação de uma abordagem visual com base na biblioteca de programação visual Blockly~\cite{blocklyResource}, dentro do contexto de modelos de simulação de culturas agrícolas.
 
 	\subsection{Objetivos Específicos}
 
@@ -206,7 +152,7 @@ A automatização destes modelos via uma abordagem mais visual permitiria a obte
 
 	Segundo \citeauthor{visualProgram}\cite{visualProgram}, programação visual é "o uso de representações gráficas significativas no processo de programação" realizada em uma linguagem que \citeauthor{visualProgram} define como "uma linguagem que utiliza alguma representação visual para completar o que outrora deveria ser escrito em uma linguagem uni-dimensional tradicional". Esta definição hoje tem se mostrado um tanto ampla e tem apresentado diversas contextualizações como podemos ver em \cite{visualProgAuth}, que apresenta programação visual no contexto de autoria multimídia.
 
-	No contexto do presente projeto, programação visual representa a programação de tarefas de automatização de programas com interface gráfica, com base em elementos visuais por meio do Blockly~\cite{blockly}. Esta é uma biblioteca de código aberto destinada à criação de editores para programação visual, totalmente baseada em tecnologias web e portável. Trata-se de uma ferramenta que executa do lado do cliente, funcionando na maioria dos navegadores web e em dispositivos móveis \cite{blockly}.
+	No contexto do presente projeto, programação visual representa a programação de tarefas de automatização de programas com interface gráfica, com base em elementos visuais por meio do Blockly~\cite{blocklyResource}. Esta é uma biblioteca de código aberto destinada à criação de editores para programação visual, totalmente baseada em tecnologias web e portável. Trata-se de uma ferramenta que executa do lado do cliente, funcionando na maioria dos navegadores web e em dispositivos móveis \cite{blocklyResource}.
 
 	Blockly pode ser integrado a qualquer aplicação cuja a linguagem ofereça um componente web e é capaz de oferecer teste de unidade, possibilidade de tradução, tratamento de eventos e construção de blocos customizáveis. O processo de criação dos blocos consiste em definir seu formato, campos e pontos de conexão, o que pode ser realizado com o uso do Block Factory ou ainda da API JSON.
 	%A definição de blocos permite inclusive mutabilidade.
@@ -306,7 +252,7 @@ Blockly.Blocks['text_length'] = {
 
 	\begin{figure}[!htbp]
 		{\centering
-		\includegraphics[width=0.4\textwidth]{SimanihotFlux}
+		\includegraphics[width=0.4\textwidth]{imagens/SimanihotFlux}
 		\caption{Fluxograma do caso de uso 1.}
 		\label{fig:SimanihotFlux}}
 	\end{figure}
@@ -351,7 +297,7 @@ Blockly.Blocks['text_length'] = {
 
 	\begin{figure}[!htb]
 		{\centering
-		\includegraphics[width=1.0\textwidth]{SoysimFlux}
+		\includegraphics[width=1.0\textwidth]{imagens/SoysimFlux}
 		\caption{Fluxograma do caso de uso 2.}
 		\label{fig:SoysimFlux}}
 	\end{figure}
@@ -463,7 +409,7 @@ Blockly.Blocks['text_length'] = {
 
 	\begin{figure}[!htb]
 		{\centering
-		\includegraphics[width=1.0\textwidth]{sikuli_error}
+		\includegraphics[width=1.0\textwidth]{imagens/sikuli_error}
 		\caption{Erro obtido pelo autor no programa Sikuli.}
 		\label{fig:erroSikuli}}
 	\end{figure}
@@ -477,7 +423,7 @@ Blockly.Blocks['text_length'] = {
 
 		\item Discutir novamente o caso de uso 3, visando se aproximar mais das tarefas que representam o objetivo do projeto do ator do caso de uso.
 
-		\item Elencar funcionalidades e investigar a modelagem e estruturação dos componentes da ferramenta (melhor forma de interagir com o usuário, melhor forma de interagir com o sistema e melhor abordagem para os requisitos dos casos no blockly) embasado na discussão com os atores dos casos de uso, observando experiências obtidas com ferramentas da área de automação de interfaces gráficas.
+		\item Elencar funcionalidades e investigar a modelagem e estruturação dos componentes da ferramenta (melhor forma de interagir com o usuário, melhor forma de interagir com o sistema e melhor abordagem para os requisitos dos casos no blocklyResource) embasado na discussão com os atores dos casos de uso, observando experiências obtidas com ferramentas da área de automação de interfaces gráficas.
 
 		\item Desenvolver a ferramenta, de forma que permita as interações e funcionalidades discutidas e investigadas durante a analise dos casos de uso e modelagem da solução, com revisão e teste constantes.
 
