@@ -1,0 +1,48 @@
+apply plugin: 'application'
+
+mainClassName = "automata.graphic.Main"
+applicationDefaultJvmArgs = ["-Dprism.text=t2k -Dprism.lcdtext=true" +
+                             " -Xms256m "]
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+if (!hasProperty('mainClass')) {
+    ext.mainClass = 'automata.graphic.Main'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Automata',
+                'Main-Class': 'automata.graphic.Main',
+                'Class-Path': '. lib/jnativehook-2.0.2.jar marvin/framework/marvin_1.5.3.jar',
+                'Implementation-Version': version
+    }
+}
+
+// dependencies ------------------------------------------------------>
+
+repositories
+        {
+            mavenCentral()
+            maven { url "https://mvnrepository.com/" }
+        }
+
+dependencies {
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
+    compile group: 'com.1stleg', name: 'jnativehook', version: '2.+'
+}
+
+task copyToLib(type: Copy) {
+    into "lib"
+    from configurations.runtime
+}
+
+task copyLibToRess (type:Copy) {
+    from 'lib/'
+    into 'src/main/resources/'
+}
+build.dependsOn("copyLibToRess")
+copyLibToRess.dependsOn("copyToLib")
+
+run.dependsOn("build")
