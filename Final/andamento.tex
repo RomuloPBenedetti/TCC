@@ -16,10 +16,68 @@
 \usepackage{array}
 \usepackage{listings}
 \usepackage{hhline}
-
+\usepackage{amsmath,latexsym,amssymb}
+\usepackage{siunitx}
+\usepackage{pdfpages}
 \usepackage[inner=30mm,outer=20mm,top=30mm,bottom=20mm]{geometry}
-\geometry{a4paper}
+\usepackage{subcaption}
 
+\lstdefinelanguage{Java}{
+  keywords={public, private, new, true, boolean, false, catch, void, return, null, for, switch, var, if, in, while, else, case, break, class,
+  	Funcionalidade, Contexto, Dado, Quando, E, Entao, Cenario, Delineacao, Exemplos},
+  keywordstyle=\color[rgb]{0.2,0.4,0.55}\bfseries,
+  ndkeywords={export, throw, implements, import, this,
+    @Before, @Test, @After, @Dado, @Quando, @E, @Entao, @Documented, @Retention, @Target, @Teste, @aceitacao, @rejeicao, codigoDis, nomeNovaDisciplina, relevancia, siglaInst, msgErro},
+  %ndkeywords={Add, Num},
+  ndkeywordstyle=\color[RGB]{218,202,66}\bfseries,
+  %identifierstyle=\color{black},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+ % stringstyle=\color[rgb]{0.0,0.4,0.65}\ttfamily,
+  stringstyle=\color[RGB]{34,128,24}\ttfamily,
+  %morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+	language=Java,
+	basicstyle=\tiny,
+	commentstyle=\color[rgb]{0,0.2,0}\normalfont,
+	frame=single,
+	%texcl=true,
+	numbers=left,
+	showstringspaces=false,
+}
+
+\lstset{
+	basicstyle=\scriptsize\ttfamily,
+	tabsize=2,
+	frame=single,
+	breaklines=true,
+	breakatwhitespace=true,
+	xleftmargin=0cm,
+	xrightmargin=0cm,
+	literate=
+		{Ã¡}{{\'a}}1 {Ã©}{{\'e}}1 {Ã­}{{\'i}}1 {Ã³}{{\'o}}1 {Ãº}{{\'u}}1
+		{Ã}{{\'A}}1 {Ã}{{\'E}}1 {Ã}{{\'I}}1 {Ã}{{\'O}}1 {Ã}{{\'U}}1
+		{Ã }{{\`a}}1 {Ã¨}{{\`e}}1 {Ã¬}{{\`i}}1 {Ã²}{{\`o}}1 {Ã¹}{{\`u}}1
+		{Ã}{{\`A}}1 {Ã}{{\'E}}1 {Ã}{{\`I}}1 {Ã}{{\`O}}1 {Ã}{{\`U}}1
+		{Ã¤}{{\"a}}1 {Ã«}{{\"e}}1 {Ã¯}{{\"i}}1 {Ã¶}{{\"o}}1 {Ã¼}{{\"u}}1
+		{Ã}{{\"A}}1 {Ã}{{\"E}}1 {Ã}{{\"I}}1 {Ã}{{\"O}}1 {Ã}{{\"U}}1
+		{Ã¢}{{\^a}}1 {Ãª}{{\^e}}1 {Ã®}{{\^i}}1 {Ã´}{{\^o}}1 {Ã»}{{\^u}}1
+		{Ã}{{\^A}}1 {Ã}{{\^E}}1 {Ã}{{\^I}}1 {Ã}{{\^O}}1 {Ã}{{\^U}}1
+		{Ã£}{{\~a}}1 {Ã}{{\~A}}1 {Ãµ}{{\~o}}1 {Ã}{{\~O}}1
+		{Ã§}{{\c c}}1 {Ã}{{\c C}}1,
+	texcl=true,
+	%numbers=left,
+	showstringspaces=false,
+	commentstyle=\normalfont
+}
+
+\captionsetup{compatibility=false}
+\geometry{a4paper}
 \usepackage[hidelinks,
             bookmarksopen=true,linktoc=none,colorlinks=true,
             linkcolor=black,citecolor=black,filecolor=magenta,urlcolor=blue,
@@ -53,6 +111,17 @@
 \keyword{Modelos de Simulação de Culturas Agrícolas}
 \keyword{Automação de Interfaces Gráficas}
 \keyword{Blockly}
+
+% For Computer Modern:
+%\def\Cpp{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
+% For Linux Libertine G
+\def\Cpp{{C\nolinebreak[4]\raisebox{.20ex}{\small\bf++}}}
+
+%\newcommand{\todo}[1]{\textsf{\color{red}#1}}
+\newcommand{\todo}[1]{}
+\graphicspath{{./images/}}
+
+\input{macros/bugcaption}
 
 %\date{} % Activate to display a given date or no date (if empty), otherwise the current date is printed
 
@@ -437,7 +506,8 @@ Blockly.Blocks['text_length'] = {
     O desenvolvimento do software foi dividido em 3 problemas que definem as principais necessidades do software para que seja possível obter as funcionalidades previstas durante a discução dos requisitos funcionais.
 
     O primeiro problema a ser solucionado foi a utilização da biblioteca Blockly em uma aplicação local com o objetivo de ter maior acesso aos recursos do sistema.
-    Em seguida foi solucionado como realizar a interação com o sistema operacional e as entradas de baixo nível tais como mouse e teclado com o objetivo de automatizar a interação com o sistema operacional. Por fim foi criado um metodo para analizar a interface gráfica do sistema operacinal com o objetivo de observar mudanças visuais, sendo assim, possível esperar por mudanças visuais na interface do sistema ou encontrar as posições onde clicar.
+
+    Em seguida foi solucionado como realizar a interação com o sistema operacional e as entradas de baixo nível tais como mouse e tecladdo, assim como um método para analizar e pesquisar em imagens para encontrar os locais selecionados pelo usuário onde clicar.
 
     \subsubsection {Delimitação do escopo}
 
@@ -456,12 +526,144 @@ Blockly.Blocks['text_length'] = {
 
     O software ao iniciar carrega a a pagina da aplicação web desenvolvida com base na biblioteca Blockly em uma instância da classe \texttt{WebEngine}, contida na plataforma JavaFX, sendo que esta instância pertencente a um objeto da classe \texttt{WebView} também contida na plataforma JavaFX, responsável pela gestão e renderização da página na interface gráfica de uma aplicação JavaFX.
 
-    Foi utilizada a funcionalidade LiveConnect, presente na maioria dos navegador web, que permite a comunicação entre o navegador e aplicativos java para conectar o software e a aplicação web. Foi desenvolvida a classe \texttt{JavascriptMsgr} com o objetivo de estabelecer os métos de comunicação entre a aplicação web e o software, contendo uma referência para o objeto instanciado da classe \texttt{javafx.scene.web.WebEngine} com o qual cria um objeto \texttt{netscape.javascript.JSObject} com o objetivo de tornar a classe \texttt{JavascriptMsgr} visível para a aplicação web.
+    Foi utilizada a funcionalidade LiveConnect, presente na maioria dos navegador web, que permite a comunicação entre o navegador e aplicativos java para conectar o software e a aplicação web. Foi desenvolvida a classe \texttt{JavascriptMsgr} com o objetivo de estabelecer os métos de comunicação entre a aplicação web e o software, contendo uma referência para o objeto instanciado da classe \texttt{javafx.scene.web.WebEngine} com o qual cria um objeto \texttt{netscape.javascript.JSObject} que tornar a classe \texttt{JavascriptMsgr} visível para a aplicação web.
 
-    \subsubsection {Pesquisa por regiões na tela do sistema operacional}
+    A classe \texttt{JavascriptMsgr} trata tanto as mensagens vindas da aplicação web como as mensagens enviadas do software, a imagem \ref{code:javascriptmsg.java} apresenta dois exemplos de métodos presentes na classe \texttt{JavascriptMsgr} em trechos distintos\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/main/java/automata}, onde o primeiro envia uma mensagem para a aplicação web e o segundo recebe uma mensagem.
 
-    
-agrargagr
+
+\begin{figure}[!htb]
+\begin{lstlisting}
+    // método que envia uma String contendo o arquivo xml gerado na ultima vez em que foi
+    // salvo a blockly.mainWorkspace
+
+    public void loadBlocks(String xml) {
+        com.sun.javafx.application.PlatformImpl.runAndWait(() ->{
+            String escaped = StringEscapeUtils.escapeEcmaScript(xml);
+            engine.executeScript("loadBlocks(\""+ escaped +"\")");
+        });
+    }
+
+    // método que recebe um pedido para esperar enquanto não localizar uma imagem na
+    // pasta raiz, recebe um endereço relativo na pasta raiz do software e um valor
+    // de intervalo em milisegundos que deve esperar a cada procura sem sucesso
+    public void waitImg (String imgSrc, int milisec){
+        try {
+            BufferedImage target = null;
+            target = ImageIO.read(new File(imgSrc.substring(3)));
+            BufferedImage screenshot =
+                robot.createScreenCapture(primaryScreenBounds);
+            ImageSearch is = new ImageSearch(target);
+
+            while(is.search(screenshot)[0] == -1){
+                screenshot = robot.createScreenCapture(primaryScreenBounds);
+                System.out.println("tried");
+                Thread.sleep(milisec);
+            }
+            System.out.println("match!");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+\end{lstlisting}
+    \caption{2 métodos da classe mediadora da comunicação entre a aplicação web e o software}
+	\label{code:javascriptmsg.java}
+\end{figure}
+
+    A classe possui diversos métodos que extentem as funcionalidades da aplicação web e permitem ao foftware utilizar a biblioteca blockly para fornecer a biblioteca visual, gerar e executar código.
+
+    \subsubsection {Interação e pesquisa por regiões na tela do sistema operacional}
+
+    A interação com o Sistema operacional é realizada por instâncias da classe import \texttt{java.awt.Robot} capaz de gerar eventos de sistema nativos. Apesar de ter sido desenvolvida com o objetivo principal de realizar testes automatizados e aplicações auto-executáveis, por ser capaz de manipular mouse e teclado a nível de sistema, pode ser utilizada para qualquer tarefa que busque automatizar o controle do sistema operacional.
+
+    Para encontrar as áreas a serem clicadas ou regiões a serem observadas na espera de uma mudança, foi desenvolvida a classe \texttt{ImageSearch} com uma solução própria de pesquisa otimizada para imagens, que analiza uma imagem capturada da tela do sistema em busca de referências exatas das áres escolhidas pelos usuários.
+
+    Diversas outras soluções foram analizadas como a biblioteca OpenCV\cite{openCV} ou ainda o framework brasileiro de processamento de imagens em Java, Marvin\cite{marvin}. Porêm outras soluções traziam diversos problemas que não se justificavam, variando da necessidade de mais bibliotecas, adaptação a uma abordagem mais complicada e distante da necessidade do projeto ou ainda limitações em termos de plataformas
+
+    A abordagem é descrita na figura \ref{fig:ImageSearch} se trata de extrair da área selecionada pelo usuário, dois pixels, um com o maior valor de cor RGB dentre todos e outro com o menor valor dentre todos, assim como a distância 'x' e 'y' destes dois pixels da origem. Por questões de otimização as cores nas imagens são analizadas como se fossem inteiros absolutos de 32 bits.
+
+    Posteriormente percorre todos os pixels da imagem que dão acesso a uma região do tamanho da áre capturada (de x = 0 até x = (larguraCaptura - larguraArea)), usando a posição em que se encontra como ancora para verificar nas posições salvas se os 2 pixels extraidos da área são iguais aos pixels na posição da imagem.
+
+    Os métodos principais da classe \texttt{ImageSearch}\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/main/java/automata}, podem ser observados na imagem \ref{code:ImageSearch.java}.
+
+    \begin{figure}[!htb]
+        {\centering
+        \includegraphics[width=0.5\textwidth]{imagens/searchImage.png}
+        \caption{Estrutura geral da solução.}
+        \label{fig:ImageSearch}}
+    \end{figure}
+
+    \begin{figure}[!htb]
+    \begin{lstlisting}
+
+        public final void storeTarget(BufferedImage t) {
+        this.t = t; int rgb; tWidth = t.getWidth(); tHeight = t.getHeight();
+        for(int x = 0; x < tWidth; x++) {
+            for (int y = 0; y < tHeight; y++) {
+                rgb = t.getRGB(x, y);
+                if (Integer.compareUnsigned(rgb, max)>0) { max = rgb; maxX = x; maxY = y; }
+                if (Integer.compareUnsigned(rgb, max)<0) { min = rgb; minX = x; minY = y; }
+            }
+        }
+    }
+
+    public final int[] search(BufferedImage i) {
+
+        int iWidth, iHeight, point[] = new int[2];
+        point[0] = -1; point[1] = -1;
+        int startX[] = new int[cores], endX[] = new int[cores];
+        int startY[] = new int[cores], endY[] = new int[cores];
+
+        iWidth = i.getWidth()-tWidth; iHeight = i.getHeight()-tHeight;
+        ExecutorService executor = Executors.newFixedThreadPool(cores);
+
+        for (int q = 0 ; q < cores ; q++){
+            startX[q] = (iWidth/cores)*q; startY[q] = 0;
+            endX[q] = (iWidth/cores)*(q+1); endY[q] = iHeight;
+            int fQuad = q;
+
+            executor.execute(() -> {
+                Thread.currentThread().setName("thread" + fQuad);
+                int difference = 100; int rgbC;
+                for (int x = startX[fQuad]; x < endX[fQuad]; x++) {
+                    for (int y = startY[fQuad]; y < endY[fQuad]; y++) {
+                        rgbC = i.getRGB(x + maxX, y + maxY);
+                        if (rgbC == max) {
+                            rgbC = i.getRGB(x + minX, y + minY);
+                            if (rgbC == min) {
+                                difference = 0;
+                                for (int ty = 0; ty < tHeight; ty = ty +3) {
+                                    for (int tx = 0; tx < tWidth; tx = tx +3) {
+                                        difference += t.getRGB(tx, ty) - i.getRGB(x+tx, y+ty);
+                                    }
+                                }
+                                if (difference == 0) {
+                                    point[0] = x; point[1] = y;
+                                    executor.shutdownNow();
+                                }
+                            }
+                        }
+                        if (difference == 0) break;
+                    }
+                    if (difference == 0) break;
+                }
+            });
+        }
+        try {
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return point;
+    }
+
+    \end{lstlisting}
+        \caption{Métodos que analizam a imagem da área e a imagem capturada da tela do sistema}
+    	\label{code:ImageSearch.java}
+    \end{figure}
+
+    \subsubsection {modelagem das funcionalidades no softwares}
+
+
     \subsubsection {Validando solução com os casos de teste}
 
 

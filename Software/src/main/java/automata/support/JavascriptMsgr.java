@@ -1,7 +1,6 @@
 package automata.support;
 
 import automata.control.TransparentDottedFXController;
-import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
@@ -73,7 +72,6 @@ public class JavascriptMsgr {
     }
 
     public void loadBlocks(String xml) {
-
         com.sun.javafx.application.PlatformImpl.runAndWait(() ->{
             String escaped = StringEscapeUtils.escapeEcmaScript(xml);
             engine.executeScript("loadBlocks(\""+ escaped +"\")");
