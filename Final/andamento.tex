@@ -489,7 +489,7 @@
 
     Como escopo foram delimitados alguns pré-requisitos necessários para utilizar a solução proposta neste trabalho, onde, o software deve ser uma aplicação desenvolvida usando Java e JavaScript.
 
-    \subsubsection {Blockly em uma aplicação Java}
+    \subsection {Blockly em uma aplicação Java}
 
     Em um primeiro momento, com o objetivo de rodar o Blockly, uma biblioteca JavaScript 100\% \emph{client side} dependente de um ambiente web, em uma aplicação java, optou-se por uma solução que envolve uma aplicação JavaFX com um cliente \emph{web} embutido, descrita de forma geral na imagem \ref{fig:struct}.
 
@@ -547,7 +547,7 @@
 
     A classe possui diversos métodos que estendem as funcionalidades da aplicação \emph{web} e permitem ao software utilizar a biblioteca blockly para fornecer a biblioteca visual, gerar e executar código.
 
-    \subsubsection {Interação e pesquisa por regiões na tela do sistema operacional}
+    \subsection {Interação e pesquisa por regiões na tela do sistema operacional}
 
     A interação com o Sistema operacional é realizada por instâncias da classe \texttt{java.awt.Robot} capaz de gerar eventos de sistema, nativos. Apesar de ter sido desenvolvida com o objetivo principal de realizar testes automatizados e aplicações autoexecutáveis, por ser capaz de manipular \emph{mouse} e teclado em nível de sistema, pode ser utilizada para qualquer tarefa que busque automatizar o controle do sistema operacional.
 
@@ -642,7 +642,7 @@
 
     Já o método \texttt{search} procura pelo máximo ou mínimo na imagem capturada pelo software, quando encontra a área que contem nas mesmas posições o valor máximo e mínimo, analisa a área um pixel a cada três, caso a soma de todas as diferenças da área de um valor 0 todas as \emph{threads} são paradas e a posição do \emph{pixel} âncora ou origem da área é retornado. A tarefa também é dividia entre os núcleos do processador do usuário para obter melhor performance e o método apenas retorna quando o todas as \emph{threads} iniciadas pela pesquisa terminarem.
 
-    \subsubsection {modelagem das funcionalidades no softwares}
+    \subsection {modelagem das funcionalidades no softwares}
 
     A interface do software foi desenvolvida para ser o mais simples e limpa possível com o objetivo de diminuir duvidas ou confusão dos usuários, existem, além do botão nativo de lixeira, mais três botões, um para executar a simulação, um para carregar um quebra-cabeças que tenha sido salvo e outro para salvar um quebra-cabeças atualmente no software. O programa utiliza o único formato de armazenamento em arquivo disponível na biblioteca Blockly, a linguagem de marcação XML. É possível ver a interface na figura \ref{fig:app}.
 
