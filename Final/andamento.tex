@@ -232,15 +232,14 @@
 
 	\chapter{Desenvolvimento}
 
-        Na sequência, serão descritas as tarefas desenvolvidas com o intuito de chegar nos objetivos propostos por este trabalho. Serão apresentados os casos de uso obtidos assim como uma análise com 3 ferramentas já existentes para automatização de tarefas em programas com interface gráfica, o UiPath, o Sikuli e o Autoit, focando em embasar escolhas de desenvolvimento que se diferenciem das existentes atualmente e ajudem na tomada de melhores decisões quanto aos requisitos.
+        Na sequência, serão descritas as tarefas desenvolvidas para se chegar no objetivo proposto por este trabalho.
+        Na primeira etapa será realizada a concepção do software automatizador, onde serão analisados problemas de automação em softwares de simulação de culturas agrícolas e soluções existentes para automatização de interfaces gráficas, levantando os requisitos necessários para a solução dos problemas de automação destes softwares, dentro do objetivo proposto.
+        Após a concepção Será modelada uma solução, procurando compreender que componentes são necessários e por qual motivo eles necessitam ser criados.
+        Finalmente será realizado o desenvolvimento do software, verificando as diversas abordagens para criação dos componentes, discutindo as escolhas realizadas apos verificação das abordagens possíveis.
 
         \section {Concepção}
 
-            \subsection {Analise prévia do problema}
-
-            % analisar uma solução basica do problema "automatizar interfaces gráficas", de que é preciso interagir com o software, de que essa interação em geral é repetitiva e pode ocorre em um fluxo definido por condições e que essa isso exige lógica básica.
-
-            % analise superficial de funções já disponíveis no blockly e na linguagem base do programa além de pq usar java.
+            Nesta etapa serão apresentados casos de uso obtidos com três atores, e posteriormente, uma análise com três ferramentas já existentes para automação de tarefas em programas com interface gráfica, o UiPath, o Sikuli e o Autoit, procurando embasar o objetivo deste projeto, os requisitos da solução e as decisões tomadas durante a modelagem e desenvolvimento do software.
 
             \subsection {Elaboração dos Casos de uso}
 
@@ -470,7 +469,7 @@
                 \begin{enumerate}
                    \item Linguagens de programação tradicional não contribuem para os atores solucionarem seus problemas e inclusive dificultam a obtenção de uma solução em alguns casos.
 
-                   \item Apesar de possibilitar a solução, teoricamente, de qualquer problema inclusive fora da automação de interfaces gráficas, linguagens de programação tradicional são desnecessariamente complexas para os atores e inclusive, para o problema deste projeto, aumentaram as duvidas dos atores e problemas que eles precisavam considerar durante a obtenção de uma solução, tal como a validade sintatica de suas soluções assim como coleta de informações em outras fontes com relação a vocabulos e semântica da linguagem.
+                   \item Apesar de possibilitar a solução, teoricamente, de qualquer problema inclusive fora da automação de interfaces gráficas, linguagens de programação tradicional são desnecessariamente complexas para os atores e inclusive, para o problema deste projeto, aumentaram as duvidas dos atores e problemas que eles precisavam considerar durante a obtenção de uma solução, tal como a validade sintática de suas soluções assim como coleta de informações em outras fontes com relação a vocábulos e semântica da linguagem.
 
                    \item Os momentos em que os atores mais se beneficiaram das ferramentas analisadas foi quando as mesmas ofereceram, componentes sucintos e autoexplicativos, ou seja, que descreviam o que fazem, como usá-los e como não usá-los.
 
@@ -481,410 +480,438 @@
 
             \subsection {Coleta dos requisitos funcionais}
 
-                Com base nas informações obtidas durante a analise prévia do problema, dos casos de uso, analise de ferramentas existentes, assim como discussão com os atores envolvidos, surgiram idéias de funcionalidades viáveis, das quais foram selecionados alguns requisitos funcionais mínimos para a solução dos problemas descritos nos casos de uso.
+                Com base nas informações obtidas durante a analise prévia do problema, dos casos de uso, analise de ferramentas existentes, assim como discussão com os atores envolvidos, surgiram ideias de funcionalidades, das quais foram selecionados alguns requisitos funcionais mínimos para se chegar ao objetivo deste projeto assim como a solução dos problemas principais nos casos de uso.
 
                 \begin{enumerate}
 
-            		\item Deve ser possível executar, salvar ou carregar automações construídos pelo ator de forma que se possa reutilizar estas automações, construídas anteriormente no programa.
+            		\item Deve ser possível executar, salvar ou carregar automações construídas pelo ator de forma que se possa reutilizar estas automações, construídas anteriormente no programa. Também é preciso que seja possível descartar a automação.
 
-            		\item Dois elementos, um capaz de executar a ação de clicar uma vez em uma área da tela e outro capaz de executar a ação de clicar duas vezes em uma área da tela, o ator deve ser capaz de escolher a área da tela para cada instancia do elemento e o elemento deve representar a área onde irá realizar a ação.
+            		\item Dois elementos, um capaz de executar a ação de clicar uma vez em uma área da tela e outro capaz de executar a ação de clicar duas vezes em uma área da tela; o ator deve ser capaz de escolher a área da tela para cada instância do elemento e o elemento deve representar a área onde irá realizar a ação.
 
             		\item Um elemento capaz de esperar por uma alteração na tela que indique que a automatização pode prosseguir para as próximas tarefas definidas pelo ator.
 
                    \item Um elemento capaz de digitar textos nos campos do programa a ser automatizado, como se fosse o usuário digitando.
 
+                   \item Elementos complementares que consigam expressar a lógica, condições, repetições ações e valores tais como números e textos.
+
+                   \item Um elemento capaz de ler ou gravar um arquivo de texto de forma que se possa alterar o texto lido ou que se possa apenas copiar o arquivo para outro lugar, podendo mudar o nome.
+
+                   \item Um elemento que permita tomar decisões que alterem o fluxo de automação.
+
+                   \item Uma forma de pausar ou continuar a simulação.
+
             	\end{enumerate}
 
         \section {Modelagem}
 
-            \subsection{Como interagir com os softwares a serem automatizados}
+            Para que um software possa automatizar outro software com interface gráfica, é necessário que o software que realiza a automação possa enviar informação para o software a ser automatizado assim como sua interface gráfica. Analogamente, é preciso que o software automatizador possa receber informação do software a ser automatizado.
 
-            \subsection{Abordagem de um método de automação}
+            Possibilitar que o software automatizador envie e receba informações para o software a ser automatizado inicialmente envolve estabelecer quais são as possíveis entradas e saídas de informação do software a ser automatizado sabendo que este desconhece a existência do automatizador, para em seguida, definirmos as entradas e saídas necessárias para que o software automatizador possa estabelecer a comunicação necessária com o software a ser automatizado por meio de suas entradas e saídas.
 
-                %como integrar ações, condições, lógica e interação
+            Após conhecermos as entradas e saídas do software a ser automatizado é possível modelar as entradas e saídas do software automatizador, visando enviar e receber informações do software que queremos automatizar. Ao mesmo tempo, será modelada a entrada, saída e os componentes internos que dão ao software automatizador, as condições necessárias para realizar as funcionalidades concebidas durante a coleta de requisitos, observando também, a proposta deste projeto e conhecimentos obtidos analisando outras ferramentas existentes durante o estudo dos casos de uso. A entrada e saída precisará também ser modelada considerando como o ator ou usuário irá interagir com o software automatizador para que este realize a automação necessária.
 
-            \subsection{Utilização do Blockly na busca de uma linguagem visual de automação}
+            \subsection{Entradas e saidas do software a ser autoamatizado}
 
-                %qual o papel do blockly neste metodo de automação
+                \begin{figure}[!htb]
+                    {\centering
+                    \includegraphics[width=1.0\textwidth]{imagens/modelIO}
+                    \caption{Erro obtido pelo autor no programa Sikuli.}
+                    \label{fig:modelIO}}
+                \end{figure}
 
-        \section {Codificação}
+            \subsection{Modelagem do software Automatizador}
 
-        O desenvolvimento do software foi dividido em 3 problemas que definem as principais necessidades do software para que seja possível obter as funcionalidades previstas durante a discussão dos requisitos funcionais.
+                \begin{figure}[!htb]
+                    {\centering
+                    \includegraphics[width=1.0\textwidth]{imagens/automatIO}
+                    \caption{Erro obtido pelo autor no programa Sikuli.}
+                    \label{fig:automatIO}}
+                \end{figure}
 
-        O primeiro problema a ser solucionado foi a utilização da biblioteca Blockly em uma aplicação local com o objetivo de ter maior acesso aos recursos do sistema.
+        \section {Desenvolvimento do software}
 
-        Em seguida foi solucionado como realizar a interação com o sistema operacional e as entradas de baixo nível tais como \emph{mouse} e teclado, assim como um método para analisar e pesquisar em imagens para encontrar os locais selecionados pelo usuário onde clicar.
+            \subsection {Interação entre automatizador e software a ser automatizado}
 
-        Como escopo foram delimitados alguns pré-requisitos necessários para utilizar a solução proposta neste trabalho, onde, o software deve ser uma aplicação desenvolvida usando Java e JavaScript.
+            \subsection {Construção de automatizações}
 
-        \subsection {Blockly em uma aplicação Java}
+            \subsection {Codificação}
 
-        Em um primeiro momento, com o objetivo de rodar o Blockly, uma biblioteca JavaScript 100\% \emph{client side} dependente de um ambiente web, em uma aplicação java, optou-se por uma solução que envolve uma aplicação JavaFX com um cliente \emph{web} embutido, descrita de forma geral na imagem \ref{fig:struct}.
+                O desenvolvimento do software foi dividido em 3 problemas que definem as principais necessidades do software para que seja possível obter as funcionalidades previstas durante a discussão dos requisitos funcionais.
 
-        \begin{figure}[!htb]
-            {\centering
-            \includegraphics[width=1.0\textwidth]{imagens/struct.png}
-            \caption{Estrutura geral da solução.}
-            \label{fig:struct}}
-        \end{figure}
+                O primeiro problema a ser solucionado foi a utilização da biblioteca Blockly em uma aplicação local com o objetivo de ter maior acesso aos recursos do sistema.
 
-        O software ao iniciar carrega a página da aplicação web desenvolvida com base na biblioteca Blockly em uma instância da classe \texttt{WebEngine}, contida na plataforma JavaFX, sendo que esta instância pertencente a um objeto da classe \texttt{WebView} também oriunda da plataforma JavaFX, responsável pela gestão e renderização da página \emph{web} na interface gráfica de uma aplicação JavaFX.
+                Em seguida foi solucionado como realizar a interação com o sistema operacional e as entradas de baixo nível tais como \emph{mouse} e teclado, assim como um método para analisar e pesquisar em imagens para encontrar os locais selecionados pelo usuário onde clicar.
 
-        Foi utilizada a funcionalidade LiveConnect, presente na maioria dos navegadores web, que permite a comunicação entre o navegador e aplicativos java para conectar o software e a aplicação web. Foi desenvolvida a classe \texttt{JavascriptMsgr} com o objetivo de estabelecer os métodos de comunicação entre a aplicação web e o software, contendo uma referência para o objeto instanciado da classe \texttt{javafx.scene.web.WebEngine} com o qual cria um objeto \texttt{netscape.javascript.JSObject} que torna a classe \texttt{JavascriptMsgr} visível para a aplicação \emph{web}.
+                Como escopo foram delimitados alguns pré-requisitos necessários para utilizar a solução proposta neste trabalho, onde, o software deve ser uma aplicação desenvolvida usando Java e JavaScript.
 
-        A classe \texttt{JavascriptMsgr} trata tanto as mensagens vindas da aplicação \emph{web} como as mensagens enviadas do software, a imagem \ref{code:javascriptmsg.java} apresenta dois exemplos de métodos presentes na classe \texttt{JavascriptMsgr} em trechos distintos\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}, onde o primeiro envia uma mensagem para a aplicação web e o segundo recebe uma mensagem.
+                \subsection {Blockly em uma aplicação Java}
+
+                Em um primeiro momento, com o objetivo de rodar o Blockly, uma biblioteca JavaScript 100\% \emph{client side} dependente de um ambiente web, em uma aplicação java, optou-se por uma solução que envolve uma aplicação JavaFX com um cliente \emph{web} embutido, descrita de forma geral na imagem \ref{fig:struct}.
+
+                \begin{figure}[!htb]
+                    {\centering
+                    \includegraphics[width=1.0\textwidth]{imagens/struct.png}
+                    \caption{Estrutura geral da solução.}
+                    \label{fig:struct}}
+                \end{figure}
+
+                O software ao iniciar carrega a página da aplicação web desenvolvida com base na biblioteca Blockly em uma instância da classe \texttt{WebEngine}, contida na plataforma JavaFX, sendo que esta instância pertencente a um objeto da classe \texttt{WebView} também oriunda da plataforma JavaFX, responsável pela gestão e renderização da página \emph{web} na interface gráfica de uma aplicação JavaFX.
+
+                Foi utilizada a funcionalidade LiveConnect, presente na maioria dos navegadores web, que permite a comunicação entre o navegador e aplicativos java para conectar o software e a aplicação web. Foi desenvolvida a classe \texttt{JavascriptMsgr} com o objetivo de estabelecer os métodos de comunicação entre a aplicação web e o software, contendo uma referência para o objeto instanciado da classe \texttt{javafx.scene.web.WebEngine} com o qual cria um objeto \texttt{netscape.javascript.JSObject} que torna a classe \texttt{JavascriptMsgr} visível para a aplicação \emph{web}.
+
+                A classe \texttt{JavascriptMsgr} trata tanto as mensagens vindas da aplicação \emph{web} como as mensagens enviadas do software, a imagem \ref{code:javascriptmsg.java} apresenta dois exemplos de métodos presentes na classe \texttt{JavascriptMsgr} em trechos distintos\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}, onde o primeiro envia uma mensagem para a aplicação web e o segundo recebe uma mensagem.
 
 
-        \begin{figure}[!htb]
-        \begin{lstlisting}
-            // método que envia uma String contendo o arquivo XML gerado na ultima vez em que foi
-            // salvo a blockly.mainWorkspace
+                \begin{figure}[!htb]
+                \begin{lstlisting}
+                    // método que envia uma String contendo o arquivo XML gerado na ultima vez em que foi
+                    // salvo a blockly.mainWorkspace
 
-            public void loadBlocks(String xml) {
-                com.sun.javafx.application.PlatformImpl.runAndWait(() ->{
-                    String escaped = StringEscapeUtils.escapeEcmaScript(xml);
-                    engine.executeScript("loadBlocks(\""+ escaped +"\")");
-                });
-            }
-
-            // método que recebe um pedido para esperar enquanto não localizar uma imagem na
-            // pasta raiz, recebe um endereço relativo na pasta raiz do software e um valor
-            // de intervalo em milissegundos que deve esperar a cada procura sem sucesso
-            public void waitImg (String imgSrc, int milisec){
-                try {
-                    BufferedImage target = null;
-                    target = ImageIO.read(new File(imgSrc.substring(3)));
-                    BufferedImage screenshot =
-                        robot.createScreenCapture(primaryScreenBounds);
-                    ImageSearch is = new ImageSearch(target);
-
-                    while(is.search(screenshot)[0] == -1){
-                        screenshot = robot.createScreenCapture(primaryScreenBounds);
-                        System.out.println("tried");
-                        Thread.sleep(milisec);
+                    public void loadBlocks(String xml) {
+                        com.sun.javafx.application.PlatformImpl.runAndWait(() ->{
+                            String escaped = StringEscapeUtils.escapeEcmaScript(xml);
+                            engine.executeScript("loadBlocks(\""+ escaped +"\")");
+                        });
                     }
-                    System.out.println("match!");
-                } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
+
+                    // método que recebe um pedido para esperar enquanto não localizar uma imagem na
+                    // pasta raiz, recebe um endereço relativo na pasta raiz do software e um valor
+                    // de intervalo em milissegundos que deve esperar a cada procura sem sucesso
+                    public void waitImg (String imgSrc, int milisec){
+                        try {
+                            BufferedImage target = null;
+                            target = ImageIO.read(new File(imgSrc.substring(3)));
+                            BufferedImage screenshot =
+                                robot.createScreenCapture(primaryScreenBounds);
+                            ImageSearch is = new ImageSearch(target);
+
+                            while(is.search(screenshot)[0] == -1){
+                                screenshot = robot.createScreenCapture(primaryScreenBounds);
+                                System.out.println("tried");
+                                Thread.sleep(milisec);
+                            }
+                            System.out.println("match!");
+                        } catch (IOException | InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                \end{lstlisting}
+                    \caption{Dois métodos da classe mediadora da comunicação entre a aplicação web e o software}
+                	\label{code:javascriptmsg.java}
+                \end{figure}
+
+                A classe possui diversos métodos que estendem as funcionalidades da aplicação \emph{web} e permitem ao software utilizar a biblioteca blockly para fornecer a biblioteca visual, gerar e executar código.
+
+                \subsection {Interação e pesquisa por regiões na tela do sistema operacional}
+
+                A interação com o Sistema operacional é realizada por instâncias da classe \texttt{java.awt.Robot} capaz de gerar eventos de sistema, nativos. Apesar de ter sido desenvolvida com o objetivo principal de realizar testes automatizados e aplicações autoexecutáveis, por ser capaz de manipular \emph{mouse} e teclado em nível de sistema, pode ser utilizada para qualquer tarefa que busque automatizar o controle do sistema operacional.
+
+                Para encontrar as áreas a serem clicadas ou regiões a serem observadas na espera de uma mudança, foi desenvolvida a classe \texttt{ImageSearch} com uma solução própria de pesquisa otimizada para imagens, que analisa uma imagem capturada da tela do sistema em busca de referências exatas das áreas escolhidas pelos usuários.
+
+                Diversas outras soluções foram analisadas como a biblioteca OpenCV~\cite{openCV} ou ainda o \emph{framework} brasileiro de processamento de imagens em Java, Marvin~\cite{marvin}. Porém outras soluções traziam diversos problemas que não se justificavam, variando da necessidade de mais bibliotecas, adaptação a uma abordagem mais complicada e distante da necessidade do projeto ou ainda limitações em termos de plataformas.
+
+                A abordagem é descrita na figura \ref{fig:ImageSearch}, se trata de extrair da área selecionada pelo usuário, dois \emph{pixels}, um com o maior valor de cor RGB dentre todos e outro com o menor valor dentre todos, assim como a distância 'x' e 'y' destes dois \emph{pixels} da origem. Por questões de otimização as cores nas imagens são analisadas como se fossem inteiros absolutos de 32 bits.
+
+                Posteriormente percorre quase todos os \emph{pixels} da imagem capturada da tela do sistma, de x = 0 até x = (larguraCaptura - larguraArea), usando a posição em que se encontra como âncora para verificar nas posições salvas dos \emph{pixels} extraídos da área são iguais aos \emph{pixels} na posição da imagem.
+
+                Caso os 2 \emph{pixels} sejam iguais, inicia-se uma análise de uma malha esparsa de \emph{pixels} na área, onde é somado a diferença dos \emph{pixels} da imagem extraída pelo usuário e a imagem capturada da tela, caso a diferença no final for zero, significa que foi encontrado uma área na imagem capturada igual à imagem da área que o usuário escolheu e neste caso a função retorna a posição 'x' 'y' da âncora.
+
+                Os métodos principais da classe \texttt{ImageSearch}\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}, podem ser observados na imagem \ref{code:ImageSearch.java}.
+
+                \begin{figure}[!htb]
+                    {\centering
+                    \includegraphics[width=0.3\textwidth]{imagens/searchImage.png}
+                    \caption{descrição visual da tarefa realizada pela classe \texttt{ImageSearch}.}
+                    \label{fig:ImageSearch}}
+                \end{figure}
+
+                \begin{figure}[!htb]
+                \begin{lstlisting}
+
+                    public final void storeTarget(BufferedImage t) {
+                    this.t = t; int rgb; tWidth = t.getWidth(); tHeight = t.getHeight();
+                    for(int x = 0; x < tWidth; x++) {
+                        for (int y = 0; y < tHeight; y++) {
+                            rgb = t.getRGB(x, y);
+                            if (Integer.compareUnsigned(rgb, max)>0) { max = rgb; maxX = x; maxY = y; }
+                            if (Integer.compareUnsigned(rgb, max)<0) { min = rgb; minX = x; minY = y; }
+                        }
+                    }
                 }
-            }
-        \end{lstlisting}
-            \caption{Dois métodos da classe mediadora da comunicação entre a aplicação web e o software}
-        	\label{code:javascriptmsg.java}
-        \end{figure}
 
-        A classe possui diversos métodos que estendem as funcionalidades da aplicação \emph{web} e permitem ao software utilizar a biblioteca blockly para fornecer a biblioteca visual, gerar e executar código.
+                public final int[] search(BufferedImage i) {
 
-        \subsection {Interação e pesquisa por regiões na tela do sistema operacional}
+                    int iWidth, iHeight, point[] = new int[2];
+                    point[0] = -1; point[1] = -1;
+                    int startX[] = new int[cores], endX[] = new int[cores];
+                    int startY[] = new int[cores], endY[] = new int[cores];
 
-        A interação com o Sistema operacional é realizada por instâncias da classe \texttt{java.awt.Robot} capaz de gerar eventos de sistema, nativos. Apesar de ter sido desenvolvida com o objetivo principal de realizar testes automatizados e aplicações autoexecutáveis, por ser capaz de manipular \emph{mouse} e teclado em nível de sistema, pode ser utilizada para qualquer tarefa que busque automatizar o controle do sistema operacional.
+                    iWidth = i.getWidth()-tWidth; iHeight = i.getHeight()-tHeight;
+                    ExecutorService executor = Executors.newFixedThreadPool(cores);
 
-        Para encontrar as áreas a serem clicadas ou regiões a serem observadas na espera de uma mudança, foi desenvolvida a classe \texttt{ImageSearch} com uma solução própria de pesquisa otimizada para imagens, que analisa uma imagem capturada da tela do sistema em busca de referências exatas das áreas escolhidas pelos usuários.
+                    for (int q = 0 ; q < cores ; q++){
+                        startX[q] = (iWidth/cores)*q; startY[q] = 0;
+                        endX[q] = (iWidth/cores)*(q+1); endY[q] = iHeight;
+                        int fQuad = q;
 
-        Diversas outras soluções foram analisadas como a biblioteca OpenCV~\cite{openCV} ou ainda o \emph{framework} brasileiro de processamento de imagens em Java, Marvin~\cite{marvin}. Porém outras soluções traziam diversos problemas que não se justificavam, variando da necessidade de mais bibliotecas, adaptação a uma abordagem mais complicada e distante da necessidade do projeto ou ainda limitações em termos de plataformas.
-
-        A abordagem é descrita na figura \ref{fig:ImageSearch}, se trata de extrair da área selecionada pelo usuário, dois \emph{pixels}, um com o maior valor de cor RGB dentre todos e outro com o menor valor dentre todos, assim como a distância 'x' e 'y' destes dois \emph{pixels} da origem. Por questões de otimização as cores nas imagens são analisadas como se fossem inteiros absolutos de 32 bits.
-
-        Posteriormente percorre quase todos os \emph{pixels} da imagem capturada da tela do sistma, de x = 0 até x = (larguraCaptura - larguraArea), usando a posição em que se encontra como âncora para verificar nas posições salvas dos \emph{pixels} extraídos da área são iguais aos \emph{pixels} na posição da imagem.
-
-        Caso os 2 \emph{pixels} sejam iguais, inicia-se uma análise de uma malha esparsa de \emph{pixels} na área, onde é somado a diferença dos \emph{pixels} da imagem extraída pelo usuário e a imagem capturada da tela, caso a diferença no final for zero, significa que foi encontrado uma área na imagem capturada igual à imagem da área que o usuário escolheu e neste caso a função retorna a posição 'x' 'y' da âncora.
-
-        Os métodos principais da classe \texttt{ImageSearch}\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}, podem ser observados na imagem \ref{code:ImageSearch.java}.
-
-        \begin{figure}[!htb]
-            {\centering
-            \includegraphics[width=0.3\textwidth]{imagens/searchImage.png}
-            \caption{descrição visual da tarefa realizada pela classe \texttt{ImageSearch}.}
-            \label{fig:ImageSearch}}
-        \end{figure}
-
-        \begin{figure}[!htb]
-        \begin{lstlisting}
-
-            public final void storeTarget(BufferedImage t) {
-            this.t = t; int rgb; tWidth = t.getWidth(); tHeight = t.getHeight();
-            for(int x = 0; x < tWidth; x++) {
-                for (int y = 0; y < tHeight; y++) {
-                    rgb = t.getRGB(x, y);
-                    if (Integer.compareUnsigned(rgb, max)>0) { max = rgb; maxX = x; maxY = y; }
-                    if (Integer.compareUnsigned(rgb, max)<0) { min = rgb; minX = x; minY = y; }
-                }
-            }
-        }
-
-        public final int[] search(BufferedImage i) {
-
-            int iWidth, iHeight, point[] = new int[2];
-            point[0] = -1; point[1] = -1;
-            int startX[] = new int[cores], endX[] = new int[cores];
-            int startY[] = new int[cores], endY[] = new int[cores];
-
-            iWidth = i.getWidth()-tWidth; iHeight = i.getHeight()-tHeight;
-            ExecutorService executor = Executors.newFixedThreadPool(cores);
-
-            for (int q = 0 ; q < cores ; q++){
-                startX[q] = (iWidth/cores)*q; startY[q] = 0;
-                endX[q] = (iWidth/cores)*(q+1); endY[q] = iHeight;
-                int fQuad = q;
-
-                executor.execute(() -> {
-                    Thread.currentThread().setName("thread" + fQuad);
-                    int difference = 100; int rgbC;
-                    for (int x = startX[fQuad]; x < endX[fQuad]; x++) {
-                        for (int y = startY[fQuad]; y < endY[fQuad]; y++) {
-                            rgbC = i.getRGB(x + maxX, y + maxY);
-                            if (rgbC == max) {
-                                rgbC = i.getRGB(x + minX, y + minY);
-                                if (rgbC == min) {
-                                    difference = 0;
-                                    for (int ty = 0; ty < tHeight; ty = ty +3) {
-                                        for (int tx = 0; tx < tWidth; tx = tx +3) {
-                                            difference += t.getRGB(tx, ty) - i.getRGB(x+tx, y+ty);
+                        executor.execute(() -> {
+                            Thread.currentThread().setName("thread" + fQuad);
+                            int difference = 100; int rgbC;
+                            for (int x = startX[fQuad]; x < endX[fQuad]; x++) {
+                                for (int y = startY[fQuad]; y < endY[fQuad]; y++) {
+                                    rgbC = i.getRGB(x + maxX, y + maxY);
+                                    if (rgbC == max) {
+                                        rgbC = i.getRGB(x + minX, y + minY);
+                                        if (rgbC == min) {
+                                            difference = 0;
+                                            for (int ty = 0; ty < tHeight; ty = ty +3) {
+                                                for (int tx = 0; tx < tWidth; tx = tx +3) {
+                                                    difference += t.getRGB(tx, ty) - i.getRGB(x+tx, y+ty);
+                                                }
+                                            }
+                                            if (difference == 0) {
+                                                point[0] = x; point[1] = y;
+                                                executor.shutdownNow();
+                                            }
                                         }
                                     }
-                                    if (difference == 0) {
-                                        point[0] = x; point[1] = y;
-                                        executor.shutdownNow();
-                                    }
+                                    if (difference == 0) break;
                                 }
+                                if (difference == 0) break;
                             }
-                            if (difference == 0) break;
-                        }
-                        if (difference == 0) break;
+                        });
                     }
-                });
-            }
-            try {
-                executor.awaitTermination(1, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return point;
-        }
-        \end{lstlisting}
-            \caption{Métodos que analisam a imagem da área e a imagem capturada da tela do sistema}
-        	\label{code:ImageSearch.java}
-        \end{figure}
-
-        O método \texttt{StoreTarget} percorre a imagem que o usuário selecionou para ser clicada ou analisada e compara o valor de cada \emph{pixel} com variáveis auxiliares, onde posteriormente sobrescreve o valor destas variáveis se o \emph{pixel} for realmente um valor maior ou menor do que os considerados anteriormente.
-
-        Já o método \texttt{search} procura pelo máximo ou mínimo na imagem capturada pelo software, quando encontra a área que contem nas mesmas posições o valor máximo e mínimo, analisa a área um pixel a cada três, caso a soma de todas as diferenças da área de um valor 0 todas as \emph{threads} são paradas e a posição do \emph{pixel} âncora ou origem da área é retornado. A tarefa também é dividia entre os núcleos do processador do usuário para obter melhor performance e o método apenas retorna quando o todas as \emph{threads} iniciadas pela pesquisa terminarem.
-
-        \subsection {modelagem das funcionalidades no softwares}
-
-        A interface do software foi desenvolvida para ser o mais simples e limpa possível com o objetivo de diminuir duvidas ou confusão dos usuários, existem, além do botão nativo de lixeira, mais três botões, um para executar a simulação, um para carregar um quebra-cabeças que tenha sido salvo e outro para salvar um quebra-cabeças atualmente no software. O programa utiliza o único formato de armazenamento em arquivo disponível na biblioteca Blockly, a linguagem de marcação XML. É possível ver a interface na figura \ref{fig:app}.
-
-        \begin{figure}[!htb]
-            {\centering
-            \includegraphics[width=1.0\textwidth]{imagens/app.png}
-            \caption{Tela inicial do software desenvolvido}
-            \label{fig:app}}
-        \end{figure}
-
-        Para fornecer as funcionalidades foram definidos quatro blocos que expressam funcionalidades fundamentais para a automatização, dois blocos que expressam a habilidade de clicar em algum lugar da interface, um para clique duplo e outro para clique único, também, um bloco que permite esperar por algum evento visual, para que seja possível esperar a finalização do processamento dos modelos, e por último um bloco que permite digitar texto na entrada de texto do sistema operacional.
-
-        É possível observar os blocos na imagem \ref{fig:myblocks} e a descrição formal em JavaScript destes blocos na figura \ref{code:myBlocks.js}\ref{code:myBlocksGenerator.js}\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}.
-
-        \begin{figure}[!htb]
-            {\centering
-            \includegraphics[width=1.0\textwidth]{imagens/blocks.png}
-            \caption{Blocos construídos para as operações de automação}
-            \label{fig:myblocks}}
-        \end{figure}
-
-        \begin{figure}[!htb]
-        \begin{lstlisting}
-            Blockly.Blocks['click_single_special'] = {
-              init: function() {
-                this.appendDummyInput("imageInput")
-                    .appendField("clicar uma vez em:")
-                    .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
-                this.setPreviousStatement(true, null);
-                this.setNextStatement(true, null);
-                this.setColour(60);
-                this.setTooltip('Procura na sua tela pela região que a imagem representa e clica no centro uma veze, para escolher, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
-              }
-            };
-
-            Blockly.Blocks['click_doble_special'] = {
-              init: function() {
-                this.appendDummyInput("imageInput")
-                    .appendField("clicar duas vezes em:")
-                    .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
-                this.setPreviousStatement(true, null);
-                this.setNextStatement(true, null);
-                this.setColour(60);
-                this.setTooltip('Procura na sua tela pela região que a imagem representa e clica no centro duas vezes, para escolher, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
-                console.log(this.id);
-              }
-            };
-
-            Blockly.Blocks['text_typer'] = {
-              init: function() {
-                this.appendDummyInput("textToType")
-                    .appendField("digitar:")
-                    .appendField(new Blockly.FieldTextInput("texto"), "text");
-                this.setPreviousStatement(true, null);
-                this.setNextStatement(true, null);
-                this.setColour(60);
-                this.setTooltip('');
-                this.setHelpUrl('http://www.example.com/');
-              }
-            };
-
-            Blockly.Blocks['Image_Wait'] = {
-              init: function() {
-                this.appendDummyInput("imageInput")
-                    .appendField("esperar enquanto não encontrar:")
-                    .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
-                this.appendValueInput("miliToWait")
-                    .setCheck("Number")
-                    .setAlign(Blockly.ALIGN_RIGHT)
-                    .appendField("procurando a cada:");
-                this.appendDummyInput()
-                    .appendField("milisegundos");
-                this.setInputsInline(true);
-                this.setPreviousStatement(true, null);
-                this.setNextStatement(true, null);
-                this.setColour(60);
-                this.setTooltip('para escolher por que imagem esperar, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
-                this.setHelpUrl('http://www.example.com/');
-              }
-            };
-        \end{lstlisting}
-            \caption{Descrição dos blocos na aplicação web e seus respectivos geradores de código}
-            \label{code:myBlocks.js}
-        \end{figure}
-
-        \begin{figure}[!htb]
-        \begin{lstlisting}
-            Blockly.JavaScript['click_doble_special'] = function(block) {
-              src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
-              running = 'if (running) {\n';
-              calling = '    running = java.clickIn(\"' + src + '\",' + 2 + ');\n';
-              end =     '}\n';
-              var code = running + calling + end;
-              return code;
-            };
-
-            Blockly.JavaScript['click_single_special'] = function(block) {
-              src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
-              running = 'if (running) {\n';
-              calling = "java.clickIn(\"" + src + '\",' + 1 + ');\n';
-              end =     '}\n';
-              var code = running + calling + end;
-              return code;
-            };
-
-            Blockly.JavaScript['text_typer'] = function(block) {
-              text = block.getFieldValue('text');
-              running = 'if (running) {\n';
-              calling = "    running = java.type(\"" + text + '\");\n';
-              end =     '}\n';
-              var code = running + calling + end;
-              return code;
-            };
-
-            Blockly.JavaScript['Image_Wait'] = function(block) {
-              src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
-              milisec = Blockly.JavaScript.valueToCode(block, 'miliToWait', Blockly.JavaScript.ORDER_ATOMIC) || '0'
-              running = 'if (running) {\n';
-              calling = '    java.waitImg(\"' + src + '\", '+ milisec + ');\n';
-              end =     '}\n';
-              var code = running + calling + end;
-              return code;
-            };
-        \end{lstlisting}
-            \caption{Geradores de código java dos blocos construidos}
-            \label{code:myBlocksGenerator.js}
-        \end{figure}
-
-        Como é possível ver o bloco \texttt{Image\_Wait} e os blocos que representam as ações de clique de mouse, \texttt{click\_doble\_special} e \texttt{click\_single\_special} utilizam um campo próprio chamado \texttt{FieldImageButton}, desenvolvido observando-se o campo original presente na biblioteca Blockly \texttt{field\_image}\footnote{o código desta classe pode ser encontrado em https://github.com/google/blockly/}, este campo adiciona a imagem um \emph{eventListenner} que ao ser clicado envia uma mensagem que dá início a tarefa de captura de tela no software, que ao ser terminada pelo usuário, envia uma mensagem contendo o caminho da imagem da área selecionada pelo usuário que deve sofrer a ação do bloco junto com suas dimensões. Por sua vez a aplicação web atualiza a imagem do bloco para representar a área que o usuário escolheu.
-
-        Toda a tarefa é mantida coêsa transferindo junto com estas mensagens o ID único que a própria biblioteca Blockly gera para cada bloco assim tanto a aplicação web como o software sempre sabem para que bloco é cada mensagem. Por questões de flexibilidade e simplicidade foi decidido utilizar a linguagem JavaScript por questões de simplicidade já que é uma das linguagens nativas do software e disponível para os outros blocos da biblioteca por padrão já.
-
-        Quando o usuário clica no botão para executar o modelo no software, é enviado uma mensagem para a aplicação web, pedindo que para que a biblioteca Blockly monte o código com base no quebra-cabeça montado e por fim, execute o código com a função \texttt{eval}.
-
-        Como é possível observar, os geradores de código foram construídos para realizar chamadas no no software java e portanto, a aplicação web fica responsável apenas pela montagem da lógica que guia a execução das tarefas tais como construção de repetições ou definições de valores a serem enviados junto as mensagens para que o software as realize. É possível ver um exemplo do código gerado por um conjunto de blocos nas figuras \ref{fig:blocosecodigo}.\ref{code:blocosecodigo.js}.
-
-        \begin{figure}[!htb]
-            {\centering
-            \includegraphics[width=1.0\textwidth]{imagens/blocosecodigo.png}
-            \caption{Exemplo de um quebra-cabeça}
-            \label{fig:blocosecodigo}}
-        \end{figure}
-
-        \begin{figure}[!htb]
-        \begin{lstlisting}
-            var running = true; var dias;
-
-            for (dias = 1; dias <= 31; dias += 3) {
-              for (var count = 0; count < 10; count++) {
-                if (running) {
-                java.clickIn("../images/icons/clickBlack.png",1);
+                    try {
+                        executor.awaitTermination(1, TimeUnit.SECONDS);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return point;
                 }
-                if (running) {
-                    running = java.type("digitar alguma coisa");
-                }
-                if (running) {
-                    java.waitImg("../images/icons/clickBlack.png", 200);
-                }
-              }
-            }
-        \end{lstlisting}
-            \caption{Exemplo do código gerado por este quebra-cabeça}
-            \label{code:blocosecodigo.js}
-        \end{figure}
+                \end{lstlisting}
+                    \caption{Métodos que analisam a imagem da área e a imagem capturada da tela do sistema}
+                	\label{code:ImageSearch.java}
+                \end{figure}
+
+                O método \texttt{StoreTarget} percorre a imagem que o usuário selecionou para ser clicada ou analisada e compara o valor de cada \emph{pixel} com variáveis auxiliares, onde posteriormente sobrescreve o valor destas variáveis se o \emph{pixel} for realmente um valor maior ou menor do que os considerados anteriormente.
+
+                Já o método \texttt{search} procura pelo máximo ou mínimo na imagem capturada pelo software, quando encontra a área que contem nas mesmas posições o valor máximo e mínimo, analisa a área um pixel a cada três, caso a soma de todas as diferenças da área de um valor 0 todas as \emph{threads} são paradas e a posição do \emph{pixel} âncora ou origem da área é retornado. A tarefa também é dividia entre os núcleos do processador do usuário para obter melhor performance e o método apenas retorna quando o todas as \emph{threads} iniciadas pela pesquisa terminarem.
+
+                \subsection {modelagem das funcionalidades no softwares}
+
+                A interface do software foi desenvolvida para ser o mais simples e limpa possível com o objetivo de diminuir duvidas ou confusão dos usuários, existem, além do botão nativo de lixeira, mais três botões, um para executar a simulação, um para carregar um quebra-cabeças que tenha sido salvo e outro para salvar um quebra-cabeças atualmente no software. O programa utiliza o único formato de armazenamento em arquivo disponível na biblioteca Blockly, a linguagem de marcação XML. É possível ver a interface na figura \ref{fig:app}.
+
+                \begin{figure}[!htb]
+                    {\centering
+                    \includegraphics[width=1.0\textwidth]{imagens/app.png}
+                    \caption{Tela inicial do software desenvolvido}
+                    \label{fig:app}}
+                \end{figure}
+
+                Para fornecer as funcionalidades foram definidos quatro blocos que expressam funcionalidades fundamentais para a automatização, dois blocos que expressam a habilidade de clicar em algum lugar da interface, um para clique duplo e outro para clique único, também, um bloco que permite esperar por algum evento visual, para que seja possível esperar a finalização do processamento dos modelos, e por último um bloco que permite digitar texto na entrada de texto do sistema operacional.
+
+                É possível observar os blocos na imagem \ref{fig:myblocks} e a descrição formal em JavaScript destes blocos na figura \ref{code:myBlocks.js}\ref{code:myBlocksGenerator.js}\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}.
+
+                \begin{figure}[!htb]
+                    {\centering
+                    \includegraphics[width=1.0\textwidth]{imagens/blocks.png}
+                    \caption{Blocos construídos para as operações de automação}
+                    \label{fig:myblocks}}
+                \end{figure}
+
+                \begin{figure}[!htb]
+                \begin{lstlisting}
+                    Blockly.Blocks['click_single_special'] = {
+                      init: function() {
+                        this.appendDummyInput("imageInput")
+                            .appendField("clicar uma vez em:")
+                            .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
+                        this.setPreviousStatement(true, null);
+                        this.setNextStatement(true, null);
+                        this.setColour(60);
+                        this.setTooltip('Procura na sua tela pela região que a imagem representa e clica no centro uma veze, para escolher, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
+                      }
+                    };
+
+                    Blockly.Blocks['click_doble_special'] = {
+                      init: function() {
+                        this.appendDummyInput("imageInput")
+                            .appendField("clicar duas vezes em:")
+                            .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
+                        this.setPreviousStatement(true, null);
+                        this.setNextStatement(true, null);
+                        this.setColour(60);
+                        this.setTooltip('Procura na sua tela pela região que a imagem representa e clica no centro duas vezes, para escolher, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
+                        console.log(this.id);
+                      }
+                    };
+
+                    Blockly.Blocks['text_typer'] = {
+                      init: function() {
+                        this.appendDummyInput("textToType")
+                            .appendField("digitar:")
+                            .appendField(new Blockly.FieldTextInput("texto"), "text");
+                        this.setPreviousStatement(true, null);
+                        this.setNextStatement(true, null);
+                        this.setColour(60);
+                        this.setTooltip('');
+                        this.setHelpUrl('http://www.example.com/');
+                      }
+                    };
+
+                    Blockly.Blocks['Image_Wait'] = {
+                      init: function() {
+                        this.appendDummyInput("imageInput")
+                            .appendField("esperar enquanto não encontrar:")
+                            .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
+                        this.appendValueInput("miliToWait")
+                            .setCheck("Number")
+                            .setAlign(Blockly.ALIGN_RIGHT)
+                            .appendField("procurando a cada:");
+                        this.appendDummyInput()
+                            .appendField("milisegundos");
+                        this.setInputsInline(true);
+                        this.setPreviousStatement(true, null);
+                        this.setNextStatement(true, null);
+                        this.setColour(60);
+                        this.setTooltip('para escolher por que imagem esperar, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
+                        this.setHelpUrl('http://www.example.com/');
+                      }
+                    };
+                \end{lstlisting}
+                    \caption{Descrição dos blocos na aplicação web e seus respectivos geradores de código}
+                    \label{code:myBlocks.js}
+                \end{figure}
+
+                \begin{figure}[!htb]
+                \begin{lstlisting}
+                    Blockly.JavaScript['click_doble_special'] = function(block) {
+                      src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
+                      running = 'if (running) {\n';
+                      calling = '    running = java.clickIn(\"' + src + '\",' + 2 + ');\n';
+                      end =     '}\n';
+                      var code = running + calling + end;
+                      return code;
+                    };
+
+                    Blockly.JavaScript['click_single_special'] = function(block) {
+                      src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
+                      running = 'if (running) {\n';
+                      calling = "java.clickIn(\"" + src + '\",' + 1 + ');\n';
+                      end =     '}\n';
+                      var code = running + calling + end;
+                      return code;
+                    };
+
+                    Blockly.JavaScript['text_typer'] = function(block) {
+                      text = block.getFieldValue('text');
+                      running = 'if (running) {\n';
+                      calling = "    running = java.type(\"" + text + '\");\n';
+                      end =     '}\n';
+                      var code = running + calling + end;
+                      return code;
+                    };
+
+                    Blockly.JavaScript['Image_Wait'] = function(block) {
+                      src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
+                      milisec = Blockly.JavaScript.valueToCode(block, 'miliToWait', Blockly.JavaScript.ORDER_ATOMIC) || '0'
+                      running = 'if (running) {\n';
+                      calling = '    java.waitImg(\"' + src + '\", '+ milisec + ');\n';
+                      end =     '}\n';
+                      var code = running + calling + end;
+                      return code;
+                    };
+                \end{lstlisting}
+                    \caption{Geradores de código java dos blocos construidos}
+                    \label{code:myBlocksGenerator.js}
+                \end{figure}
+
+                Como é possível ver o bloco \texttt{Image\_Wait} e os blocos que representam as ações de clique de mouse, \texttt{click\_doble\_special} e \texttt{click\_single\_special} utilizam um campo próprio chamado \texttt{FieldImageButton}, desenvolvido observando-se o campo original presente na biblioteca Blockly \texttt{field\_image}\footnote{o código desta classe pode ser encontrado em https://github.com/google/blockly/}, este campo adiciona a imagem um \emph{eventListenner} que ao ser clicado envia uma mensagem que dá início a tarefa de captura de tela no software, que ao ser terminada pelo usuário, envia uma mensagem contendo o caminho da imagem da área selecionada pelo usuário que deve sofrer a ação do bloco junto com suas dimensões. Por sua vez a aplicação web atualiza a imagem do bloco para representar a área que o usuário escolheu.
+
+                Toda a tarefa é mantida coêsa transferindo junto com estas mensagens o ID único que a própria biblioteca Blockly gera para cada bloco assim tanto a aplicação web como o software sempre sabem para que bloco é cada mensagem. Por questões de flexibilidade e simplicidade foi decidido utilizar a linguagem JavaScript por questões de simplicidade já que é uma das linguagens nativas do software e disponível para os outros blocos da biblioteca por padrão já.
+
+                Quando o usuário clica no botão para executar o modelo no software, é enviado uma mensagem para a aplicação web, pedindo que para que a biblioteca Blockly monte o código com base no quebra-cabeça montado e por fim, execute o código com a função \texttt{eval}.
+
+                Como é possível observar, os geradores de código foram construídos para realizar chamadas no no software java e portanto, a aplicação web fica responsável apenas pela montagem da lógica que guia a execução das tarefas tais como construção de repetições ou definições de valores a serem enviados junto as mensagens para que o software as realize. É possível ver um exemplo do código gerado por um conjunto de blocos nas figuras \ref{fig:blocosecodigo}.\ref{code:blocosecodigo.js}.
+
+                \begin{figure}[!htb]
+                    {\centering
+                    \includegraphics[width=1.0\textwidth]{imagens/blocosecodigo.png}
+                    \caption{Exemplo de um quebra-cabeça}
+                    \label{fig:blocosecodigo}}
+                \end{figure}
+
+                \begin{figure}[!htb]
+                \begin{lstlisting}
+                    var running = true; var dias;
+
+                    for (dias = 1; dias <= 31; dias += 3) {
+                      for (var count = 0; count < 10; count++) {
+                        if (running) {
+                        java.clickIn("../images/icons/clickBlack.png",1);
+                        }
+                        if (running) {
+                            running = java.type("digitar alguma coisa");
+                        }
+                        if (running) {
+                            java.waitImg("../images/icons/clickBlack.png", 200);
+                        }
+                      }
+                    }
+                \end{lstlisting}
+                    \caption{Exemplo do código gerado por este quebra-cabeça}
+                    \label{code:blocosecodigo.js}
+                \end{figure}
 
         \chapter {Resultados}
 
-        \section {Validando solução com os casos de teste}
+            \section {Validando solução com os casos de teste}
 
-        Com as funcionalidades desenvolvidas no software não é possível solucionar todas as questões desenvolvidas nos casos de teste dos 3 modelos Porem é possível solucionar em geral o problema dos modelos projetando o quebra-cabeças levando em consideração as limitações do software.
+            Com as funcionalidades desenvolvidas no software não é possível solucionar todas as questões desenvolvidas nos casos de teste dos 3 modelos Porem é possível solucionar em geral o problema dos modelos projetando o quebra-cabeças levando em consideração as limitações do software.
 
-        % adicionado após entrega do projeto final
-        Algumas limitações principais encontradas ao modelar um quebra-cabeças para os casos de teste coletados foram:
+            % adicionado após entrega do projeto final
+            Algumas limitações principais encontradas ao modelar um quebra-cabeças para os casos de teste coletados foram:
 
-        \begin{itemize}
-            \item O software não é capaz de suavizar a criticidade com a qual procura os campos a serem clicados, logo qualquer diferença já torna impossível para o software localizar o campo novamente.
-            \item O software não é capaz de se deslocar pela interface do sistema operacional, ir para a área de trabalho ou navegar entre as janelas abertas do sistema.
-            \item O software não é capaz de editar arquivos de texto. Embora possua diversas capacidades para processar textos dentre seus blocos, não ha nenhum bloco capaz de abrir um arquivo armazenado em alguma pasta do sistema ou ainda ler texto da tela.
-            \item Apesar de ser capaz de esperar por mudanças gráficas na tela, o software não é capaz de tomar decisões lógicas na ocorrência de uma mudança gráfica, habilidade relevante para o tratamento de erros ou seguimento de múltiplos fluxos.
-        \end{itemize}
+            \begin{itemize}
+                \item O software não é capaz de suavizar a criticidade com a qual procura os campos a serem clicados, logo qualquer diferença já torna impossível para o software localizar o campo novamente.
+                \item O software não é capaz de se deslocar pela interface do sistema operacional, ir para a área de trabalho ou navegar entre as janelas abertas do sistema.
+                \item O software não é capaz de editar arquivos de texto. Embora possua diversas capacidades para processar textos dentre seus blocos, não ha nenhum bloco capaz de abrir um arquivo armazenado em alguma pasta do sistema ou ainda ler texto da tela.
+                \item Apesar de ser capaz de esperar por mudanças gráficas na tela, o software não é capaz de tomar decisões lógicas na ocorrência de uma mudança gráfica, habilidade relevante para o tratamento de erros ou seguimento de múltiplos fluxos.
+            \end{itemize}
 
-        Dentre outras limitações não fundamentais, esta o fato de que o software não é capaz de pausar ou reiniciar simulações em andamento, assim como também não ha \emph{feedback} visual do software quando o mesmo finaliza a tarefa ou encontra algum erro.
+            Dentre outras limitações não fundamentais, esta o fato de que o software não é capaz de pausar ou reiniciar simulações em andamento, assim como também não ha \emph{feedback} visual do software quando o mesmo finaliza a tarefa ou encontra algum erro.
 
-        \subsection {Simanihot}
+            \subsection {Simanihot}
 
-        Foi validada apenas a abstração lógica da linguagem visual modelando um quebra-cabeças para o caso de uso do modelo Simanihot onde todos os problemas fundamentais para a solução do problema proposto no caso de uso são solucionados dentro da lógica disponibilizada pelo conjunto de peças do software, como é possível ver na figura \ref{fig:simanibloco}.
+            Foi validada apenas a abstração lógica da linguagem visual modelando um quebra-cabeças para o caso de uso do modelo Simanihot onde todos os problemas fundamentais para a solução do problema proposto no caso de uso são solucionados dentro da lógica disponibilizada pelo conjunto de peças do software, como é possível ver na figura \ref{fig:simanibloco}.
 
-        % adicionado após entrega do projeto final
-        Em especial, é necessário configurar o quebra-cabeças para fechar e reabrir a aplicação, já que o software não possibilita definir um nível de similaridade das áreas a serem clicadas, esperando uma similaridade exata, o que não ocorre de simulação em simulação, já que a cada simulação o texto que se encontra nos campos de texto é diferente do anterior.
+            % adicionado após entrega do projeto final
+            Em especial, é necessário configurar o quebra-cabeças para fechar e reabrir a aplicação, já que o software não possibilita definir um nível de similaridade das áreas a serem clicadas, esperando uma similaridade exata, o que não ocorre de simulação em simulação, já que a cada simulação o texto que se encontra nos campos de texto é diferente do anterior.
 
-        \begin{figure}[!htb]
-            {\centering
-            \includegraphics[width=1.0\textwidth]{imagens/simanihotBlock.png}
-            \caption{Exemplo de um quebra-cabeça}
-            \label{fig:simanibloco}}
-        \end{figure}
+            \begin{figure}[!htb]
+                {\centering
+                \includegraphics[width=1.0\textwidth]{imagens/simanihotBlock.png}
+                \caption{Exemplo de um quebra-cabeça}
+                \label{fig:simanibloco}}
+            \end{figure}
 
-    \chapter {Conclusão}
+        \chapter {Conclusão}
 
-    A proposta inicial deste trabalho consistia principalmente em apresentar uma solução de automação de interfaces gráficas de forma simplificada com base na biblioteca de programação visual Blockly dentro do contexto de modelos de simulação de culturas agrícolas. Entretanto o resultado final desta pesquisa trata-se não de uma solução total dos problemas apresentados, mas de um software que oferece a possibilidade de automatização de alguns problemas com um escopo não tão grande como o dos problemas propostos, com base nas conclusões tomada durante o desenvolvimento, a partir dos percalços e da análise constante da amplitude da proposta e das necessidades durante a validação das abordagens em questão.
+            A proposta inicial deste trabalho consistia principalmente em apresentar uma solução de automação de interfaces gráficas de forma simplificada com base na biblioteca de programação visual Blockly dentro do contexto de modelos de simulação de culturas agrícolas. Entretanto o resultado final desta pesquisa trata-se não de uma solução total dos problemas apresentados, mas de um software que oferece a possibilidade de automatização de alguns problemas com um escopo não tão grande como o dos problemas propostos, com base nas conclusões tomada durante o desenvolvimento, a partir dos percalços e da análise constante da amplitude da proposta e das necessidades durante a validação das abordagens em questão.
 
-    Como contribuição este trabalho apresentou uma abordagem diferenciada na programação de tarefas automatizadas expondo de forma mais simplificada lógica comum em linguagens de programação e \emph{script} tradicionais, fornecendo uma ferramenta que pode descrever de forma muito flexível interações com a interface gráfica e permitindo em algum nível realizar a automatização de parte das tarefas maçantes presentes na interação com interfaces gráficas de modelos matemáticos de simulação de culturas agrícolas mais simples.
+            Como contribuição este trabalho apresentou uma abordagem diferenciada na programação de tarefas automatizadas expondo de forma mais simplificada lógica comum em linguagens de programação e \emph{script} tradicionais, fornecendo uma ferramenta que pode descrever de forma muito flexível interações com a interface gráfica e permitindo em algum nível realizar a automatização de parte das tarefas maçantes presentes na interação com interfaces gráficas de modelos matemáticos de simulação de culturas agrícolas mais simples.
 
-    A lista a seguir, não exaustiva, expõe em ordem de relevância, uma lista  de algumas melhorias que poderiam ser incorporadas em uma nova versão deste projeto:
+            A lista a seguir, não exaustiva, expõe em ordem de relevância, uma lista  de algumas melhorias que poderiam ser incorporadas em uma nova versão deste projeto:
 
-    \begin{itemize}
-    	\item Tratar arquivos com conteúdo de texto, permitindo copiar arquivos para outros locais, criar arquivos com novas informações, renomeá-los e processar e extrair informações destes textos.
-        \item Refinar a forma com a qual o programa localiza e clica nos elementos gráficos, seja pela adição de procura por similaridades e áreas não exatas, ou por novos métodos para definição da área onde se deve clicar.
-        \item Expandir a interação com o sistema operacional de forma que o software possa procurar dentre diversas janelas e na área de trabalho.
-    	\item Fornecer \emph{feedback} visual ao finalizar automatizações ou receber erros durante a execução de uma automatização.
-    	\item Obter uma forma mais eficiente de captura de tela já que a captura de tela realizada pela classe \texttt{Robot} além de lenta pode produzir artefatos e não capturar alguns elementos dinâmicos de alguns programas.
-        \item Oferecer blocos que simplifiquem elementos lógicos já presentes na biblioteca Blockly permitindo a formulação de quebra-cabeças de automatização mais simples.
-        \item Refinar os detalhes em geral da aplicação como salvamento e carregamento de quebra-cabeças de forma que sejam salvas também as imagens pré selecionadas, fornecimento de configurações para troca de idioma e possibilidade de pausar, continuar e reiniciar quebra-cabeças.
-    \end{itemize}
+            \begin{itemize}
+            	\item Tratar arquivos com conteúdo de texto, permitindo copiar arquivos para outros locais, criar arquivos com novas informações, renomeá-los e processar e extrair informações destes textos.
+                \item Refinar a forma com a qual o programa localiza e clica nos elementos gráficos, seja pela adição de procura por similaridades e áreas não exatas, ou por novos métodos para definição da área onde se deve clicar.
+                \item Expandir a interação com o sistema operacional de forma que o software possa procurar dentre diversas janelas e na área de trabalho.
+            	\item Fornecer \emph{feedback} visual ao finalizar automatizações ou receber erros durante a execução de uma automatização.
+            	\item Obter uma forma mais eficiente de captura de tela já que a captura de tela realizada pela classe \texttt{Robot} além de lenta pode produzir artefatos e não capturar alguns elementos dinâmicos de alguns programas.
+                \item Oferecer blocos que simplifiquem elementos lógicos já presentes na biblioteca Blockly permitindo a formulação de quebra-cabeças de automatização mais simples.
+                \item Refinar os detalhes em geral da aplicação como salvamento e carregamento de quebra-cabeças de forma que sejam salvas também as imagens pré selecionadas, fornecimento de configurações para troca de idioma e possibilidade de pausar, continuar e reiniciar quebra-cabeças.
+            \end{itemize}
 
 	\setlength{\baselineskip}{\baselineskip}
 	\bibliographystyle{abnt}
