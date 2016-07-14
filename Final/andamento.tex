@@ -237,11 +237,11 @@
         Após a concepção Será modelada uma solução, procurando compreender que componentes são necessários e por qual motivo eles necessitam ser criados.
         Finalmente será realizado o desenvolvimento do software, verificando as diversas abordagens para criação dos componentes, discutindo as escolhas realizadas apos verificação das abordagens possíveis.
 
-        \section {Concepção}
+        \section{Concepção}
 
             Nesta etapa serão apresentados casos de uso obtidos com três atores, e posteriormente, uma análise com três ferramentas já existentes para automação de tarefas em programas com interface gráfica, o UiPath, o Sikuli e o Autoit, procurando embasar o objetivo deste projeto, os requisitos da solução e as decisões tomadas durante a modelagem e desenvolvimento do software.
 
-            \subsection {Elaboração dos Casos de uso}
+            \subsection{Elaboração dos casos de uso}
 
                 Com as reuniões realizadas semanalmente no primeiro mês, foram discutidos e coletados três casos de uso com estudantes da área de agrometeorologia no Departamento de Fitotecnia da UFSM, procurando entender as necessidades de automatização dos estudantes em cada um dos modelos com o qual trabalham.
 
@@ -384,7 +384,7 @@
                 	\end{enumerate}
             	\bigskip \hrule \bigskip
 
-        	\subsection {Analise dos casos de uso em outras ferramentas de automação}
+        	\subsection{Analise dos casos de uso em outras ferramentas de automação}
 
             	Após a coleta dos casos de uso, foi analisado como outras ferramentas existentes atualmente, modelam os problemas observados nos casos de uso coletados, objetivando compreender como e sob quais condições, estas ferramentas conseguem solucionar os casos de uso.
 
@@ -478,7 +478,7 @@
                    \item O elemento-chave para os atores residiu na capacidade ou não da ferramenta em explicar o que se pode fazer ou não, tomando para sí algumas tarefas que exigem atenção, como a analise em algum nível da validade da solução.
                 \end{enumerate}
 
-            \subsection {Coleta dos requisitos funcionais}
+            \subsection{Coleta dos requisitos funcionais}
 
                 Com base nas informações obtidas durante a analise prévia do problema, dos casos de uso, analise de ferramentas existentes, assim como discussão com os atores envolvidos, surgiram ideias de funcionalidades, das quais foram selecionados alguns requisitos funcionais mínimos para se chegar ao objetivo deste projeto assim como a solução dos problemas principais nos casos de uso.
 
@@ -488,7 +488,7 @@
 
             		\item Dois elementos, um capaz de executar a ação de clicar uma vez em uma área da tela e outro capaz de executar a ação de clicar duas vezes em uma área da tela; o ator deve ser capaz de escolher a área da tela para cada instância do elemento e o elemento deve representar a área onde irá realizar a ação.
 
-            		\item Um elemento capaz de esperar por uma alteração na tela que indique que a automatização pode prosseguir para as próximas tarefas definidas pelo ator.
+            		\item Um elemento capaz de esperar por uma alteração na tela ou evento que indique que a automatização pode prosseguir para as próximas tarefas definidas pelo ator.
 
                    \item Um elemento capaz de digitar textos nos campos do programa a ser automatizado, como se fosse o usuário digitando.
 
@@ -502,7 +502,7 @@
 
             	\end{enumerate}
 
-        \section {Modelagem}
+        \section{Modelagem}
 
             Para que um software possa automatizar outro software com interface gráfica, é necessário que o software que realiza a automação possa enviar informação para o software a ser automatizado assim como sua interface gráfica. Analogamente, é preciso que o software automatizador possa receber informação do software a ser automatizado.
 
@@ -510,14 +510,35 @@
 
             Após conhecermos as entradas e saídas do software a ser automatizado é possível modelar as entradas e saídas do software automatizador, visando enviar e receber informações do software que queremos automatizar. Ao mesmo tempo, será modelada a entrada, saída e os componentes internos que dão ao software automatizador, as condições necessárias para realizar as funcionalidades concebidas durante a coleta de requisitos, observando também, a proposta deste projeto e conhecimentos obtidos analisando outras ferramentas existentes durante o estudo dos casos de uso. A entrada e saída precisará também ser modelada considerando como o ator ou usuário irá interagir com o software automatizador para que este realize a automação necessária.
 
-            \subsection{Entradas e saidas do software a ser autoamatizado}
+            \subsection{Entradas e saídas do software a ser autoamatizado}
+
+                Para definir as entradas e saidas do software a ser automadizado, se interagiu e observou os modelos matemáticos agrícolas de simulação de culturas agrícolas escolhidos para serem automatidados neste projeto. Durante as observações, considerou-se quais eram os elementos com com que se podia interagir assim, forma de interação e resultados observados, a figura\ref{fig:modelIO} descreve como os modelos recebem e produzem as entradas e saídas.
+                Observou-se que os modelos podem receber dois tipos de entrada e produzir dois tipos de saída:
+                \begin{itemize}
+                    \item entradas:
+                        \subitem {\bf ações}: Interações que resultassem em algum evento ou resposta do software.
+                        \subitem {\bf dados}: fornecer de informações, arquivos, preencher campos, dentre outro, podendo ou não serem precedidos de uma ação.
+                    \item saídas:
+                        \subitem {\bf eventos}: Eventos ou respostas decorrentes da interação com o software que buscam informar o usuário de alguma condição atingida no software.
+                        \subitem {\bf dados}: O produto final esperado pelo usuário, decorrente da realização de uma simulação.
+                \end{itemize}
 
                 \begin{figure}[!htb]
                     {\centering
                     \includegraphics[width=1.0\textwidth]{imagens/modelIO}
-                    \caption{Erro obtido pelo autor no programa Sikuli.}
+                    \caption{Descrição das entradas e saídas do software a ser automatizado, a grande ceta verde mostra que é possível inserir arquivos no software, a vermelha, que é possível obter arquivos do software, e a laranja indica que, não somente mensagens, mas qualquer componente da interface pode representar um evento.}
                     \label{fig:modelIO}}
                 \end{figure}
+
+                Como é possível observar na figura\ref{fig:modelIO}, as ações correspondem a interações de entrada que podem resultar em alguma mudança da interface e ou do software, logo, produzem eventos ou dados como saída, podendo inclusive produzir ambos.
+
+                Os dados quando considerados como entrada, podem ser inseridos de duas formas; após algum evento, que indique para o usuário que o mesmo pode colocar os dados no componente desejado, como em um \emph{textfield}, onde o usuário pode inserir diversos valores tal como números, texto ou a localização de arquivos; ou ainda podem ser inseridos automáticamente, caso o programa sempre procure por arquivos em algum local específico. Em geral, inserir dados resulta em algum evento observável.
+
+                Quando consideramos os eventos de saída, estas resultam, ou de alguma entrada de dados automática, ou de alguma ação. Os eventos procuram informar o usuário de alguma condição satisfeita, como por exemplo, sucesso na inserção de um arquivo, ou de algum problema que deve ser observado, como por exemplo, algum campo preenchido incorretamente, ou que por exemplo, um elemento recebeu o evento e espera pela inserção de dados.
+
+                Finalmente, considerando os dados de saída, podem ser observados duas formas de saída, dados que são apresentados em componentes da interface gráfica, no caso dos modelos observados, podemos citar componentes como tabelas e gráficos; ou como resultado em arquivos, que no caso dos modelos observados, são arquivos de texto. Os dados de saída podem ser gerados tanto por eventos como automáticamente; quando gerados automáticamente, se deve ao fato de que o modelo tem a capacidade de acessar e carregar automaticamente resultados produzidos em algum momento no passado.
+
+                Uma ultima observação que podemos fazer é que, do ponto de vista dos modelos observados, e até mesmo de uma grande parte dos softwares com interface gráfica, podemos observar que todas as saídas e inclusive a entrada de dados, em algum momento, são produto de alguma ação, como por exemplo ações externas ao software que não são consideradas na figura\ref{fig:modelIO}, como o ato de executar o software a ser automatizado, ação realizada no sistema operacional. Logo, eu não só preciso ser capaz de interagir com o software mas também com o sistema operacional em algum nível.
 
             \subsection{Modelagem do software Automatizador}
 

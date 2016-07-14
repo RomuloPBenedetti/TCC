@@ -62,7 +62,7 @@ public class Util {
             fxml = getISFromZip(fxmlString);
             css = getISFromZip(cssString);
             blocklyString = "blockly";
-            //Util.externalizeResources();
+            Util.externalizeResources();
         } catch (IOException | URISyntaxException ex) {
             logger.log(Level.SEVERE, "can't find the Jar path itself. \n" +
             ex.getMessage(), ex);

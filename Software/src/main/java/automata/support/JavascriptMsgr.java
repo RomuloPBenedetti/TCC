@@ -68,7 +68,7 @@ public class JavascriptMsgr {
     public synchronized void getCode(){
         com.sun.javafx.application.PlatformImpl.runAndWait(() ->
             code = (String) engine.executeScript("runAndGetCode()"));
-        System.out.println(code);
+        //System.out.println(code);
     }
 
     public void loadBlocks(String xml) {
@@ -99,6 +99,7 @@ public class JavascriptMsgr {
 
     public boolean clickIn(String src, int times) {
         try {
+            Thread.currentThread().sleep(100);
             System.out.println(src);
             BufferedImage target = ImageIO.read(new File(src.substring(3)));
             BufferedImage screenshot = robot.createScreenCapture(primaryScreenBounds);
@@ -125,14 +126,16 @@ public class JavascriptMsgr {
                 click (clickPoint, times);
                 return true;
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public void type( String text){
+    public boolean type( String text){
+        text = StringEscapeUtils.unescapeEcmaScript(text);
         TypeAString(text);
+        return true;
     }
 
     public void waitImg (String imgSrc, int milisec){
@@ -169,6 +172,7 @@ public class JavascriptMsgr {
 
     public void click (int[] clickPoint, int times) {
         robot.mouseMove(clickPoint[0],clickPoint[1]);
+        System.out.println("clicked");
         if (times == 1) {
             robot.mousePress( InputEvent.BUTTON1_MASK );
             robot.mouseRelease( InputEvent.BUTTON1_MASK );
