@@ -174,7 +174,7 @@
 
             A automação é a execução de tarefas por meio de máquinas e computadores, antes executáveis apenas por humanos \cite{automationlevels}. Segundo \citeauthor{automation2009} \cite[pág. 124]{automation2009}, a automação teve um impacto significativo na economia e desenvolvimento tecnológico da sociedade. É um elemento-chave para o alcance de produtos e serviços de alta qualidade e baixo custo. Uma das áreas impactadas pela automação foi a precisão em um ciclo autoalimentado, onde a automação melhora a precisão e por sua vez a precisão melhora a automação \cite{auto2008precision}.
 
-        	A automação da informação por meio de computadores, segundo \citeauthor{automation2009} \cite[pág. 3]{automation2009} é um processo dos dias atuais, onde temos vendas automatizadas de passagens, conexões de chamadas em nossos telefones, realizadas de forma automática, dentre outras mudanças advindas da automatização. Temos também a produção e manufatura por intermédio da robótica. No final das contas, o impacto da informática promoveu não só uma intensa automatização passiva, mas também, segundo \citeauthor{itEnabledBusiness}\cite{itEnabledBusiness}, tem criado e mantido flexíveis redes de negócios, inclusive transformando a forma como realizamos negócios e atividades.
+        	A automação da informação por meio de computadores, segundo \citeauthor{automation2009} \cite[pág. 3]{automation2009} é um processo dos dias atuais, onde temos vendas automatizadas de passagens, conexões de chamadas em nossos telefones, realizadas de forma automatica, dentre outras mudanças advindas da automatização. Temos também a produção e manufatura por intermédio da robótica. No final das contas, o impacto da informática promoveu não só uma intensa automatização passiva, mas também, segundo \citeauthor{itEnabledBusiness}\cite{itEnabledBusiness}, tem criado e mantido flexíveis redes de negócios, inclusive transformando a forma como realizamos negócios e atividades.
 
         	Dentro da área de computação, observamos a automação agilizar e refinar tarefas como testes, desenvolvimento e manutenção de projetos, devido ao reconhecimento de que o desenvolvimento de software muitas vezes consiste na criação sistemática de componentes que devem aderir a um conjunto bem específico de restrições \cite{automionSoftEvolutionEffect}.
 
@@ -506,51 +506,111 @@
 
             Para que um software possa automatizar outro software com interface gráfica, é necessário que o software que realiza a automação possa enviar informação para o software a ser automatizado assim como sua interface gráfica. Analogamente, é preciso que o software automatizador possa receber informação do software a ser automatizado.
 
-            Possibilitar que o software automatizador envie e receba informações para o software a ser automatizado inicialmente envolve estabelecer quais são as possíveis entradas e saídas de informação do software a ser automatizado sabendo que este desconhece a existência do automatizador, para em seguida, definirmos as entradas e saídas necessárias para que o software automatizador possa estabelecer a comunicação necessária com o software a ser automatizado por meio de suas entradas e saídas.
+            Possibilitar que o software automatizador envie e receba do software a ser automatizado,  envolve estabelecer quais são as possíveis entradas e saídas do software a ser automatizado, sabendo que este desconhece a existência do automatizador, para em seguida definirmos as entradas e saídas do software automatizador, estabelecendo assim, nossa interface de comunicação.
 
-            Após conhecermos as entradas e saídas do software a ser automatizado é possível modelar as entradas e saídas do software automatizador, visando enviar e receber informações do software que queremos automatizar. Ao mesmo tempo, será modelada a entrada, saída e os componentes internos que dão ao software automatizador, as condições necessárias para realizar as funcionalidades concebidas durante a coleta de requisitos, observando também, a proposta deste projeto e conhecimentos obtidos analisando outras ferramentas existentes durante o estudo dos casos de uso. A entrada e saída precisará também ser modelada considerando como o ator ou usuário irá interagir com o software automatizador para que este realize a automação necessária.
+            Após conhecermos as entradas e saídas do software a ser automatizado serão modeladas as entradas e saídas do software automatizador, visando estabelecer uma interface com o software que queremos automatizar. Ao mesmo tempo, serão modelados os componentes internos que dão ao software automatizador, as condições necessárias para realizar as funcionalidades concebidas durante a coleta de requisitos.
 
-            \subsection{Entradas e saídas do software a ser autoamatizado}
+            A entrada e saída precisará também ser modelada considerando como o ator ou usuário irá interagir com o software automatizador para que este realize a automação necessária. A esquematização da interação entre o software automatizador, o usuário e o software a ser automatizado, pode ser observado na figura \ref{fig:generalIO}.
 
-                Para definir as entradas e saidas do software a ser automadizado, se interagiu e observou os modelos matemáticos agrícolas de simulação de culturas agrícolas escolhidos para serem automatidados neste projeto. Durante as observações, considerou-se quais eram os elementos com com que se podia interagir assim, forma de interação e resultados observados, a figura\ref{fig:modelIO} descreve como os modelos recebem e produzem as entradas e saídas.
-                Observou-se que os modelos podem receber dois tipos de entrada e produzir dois tipos de saída:
+            \begin{figure}[!htb]
+                {\centering
+                \includegraphics[width=1.0\textwidth]{imagens/generalIO}
+                \caption{Descrição da interação entre o software automatizador e o software a ser automatizado, incluíndo o usuário ou ator que irá utilizar o automatizador.}
+                \label{fig:generalIO}}
+            \end{figure}
+
+            \subsection{Entradas e saídas do software a ser automatizado}
+
+                Para definir as entradas e saídas do software a ser automatizado\footnote{Nesta seção iremos nos referir a eles como “software a ser automatizado” ou apenas software.}, foi utilizado os modelos matemáticos de simulação de culturas agrícolas escolhidos para serem automatizados neste projeto.
+
+                Considerou-se quais eram os elementos com os quais se podia interagir, formas de interação e resultados observados. A figura \ref{fig:modelIO} descreve as entradas e saídas observadas durante a análise dos softwares, sua natureza e componentes de destino ou origem. Essas entradas e saídas foram discretizadas em dois tipos de entrada e dois tipos de saída:
+
                 \begin{itemize}
                     \item entradas:
-                        \subitem {\bf ações}: Interações que resultassem em algum evento ou resposta do software.
-                        \subitem {\bf dados}: fornecer de informações, arquivos, preencher campos, dentre outro, podendo ou não serem precedidos de uma ação.
+                        \subitem {\bf ações}: Interações que resultam em alguma saída do software, seja eventos ou dados.
+                        \subitem {\bf dados}: Interações que fornecem dados ou valores, precedidos de uma ação, podendo resultar em um evento.
                     \item saídas:
-                        \subitem {\bf eventos}: Eventos ou respostas decorrentes da interação com o software que buscam informar o usuário de alguma condição atingida no software.
-                        \subitem {\bf dados}: O produto final esperado pelo usuário, decorrente da realização de uma simulação.
+                        \subitem {\bf eventos}: Eventos ou respostas que buscam informar o usuário de alguma condição atingida no software, decorrente de alguma entrada, seja ação ou dado, podem esperar a interação do usuário.
+                        \subitem {\bf dados}: Dados e novas informações produzidas pelo software, produto final esperado pelo usuário, decorrente de algum evento.
                 \end{itemize}
 
                 \begin{figure}[!htb]
                     {\centering
                     \includegraphics[width=1.0\textwidth]{imagens/modelIO}
-                    \caption{Descrição das entradas e saídas do software a ser automatizado, a grande ceta verde mostra que é possível inserir arquivos no software, a vermelha, que é possível obter arquivos do software, e a laranja indica que, não somente mensagens, mas qualquer componente da interface pode representar um evento.}
+                    \caption{Descrição das entradas e saídas do software a ser automatizado, as grandes cetas reqpresentam o software como um todo, como destino ou origem, a verde mostra que é possível inserir arquivos no software, a vermelha, que é possível obter arquivos do software, e a laranja indica que, não somente mensagens, mas qualquer componente do software pode representar um evento, mudando de estado.}
                     \label{fig:modelIO}}
                 \end{figure}
 
-                Como é possível observar na figura\ref{fig:modelIO}, as ações correspondem a interações de entrada que podem resultar em alguma mudança da interface e ou do software, logo, produzem eventos ou dados como saída, podendo inclusive produzir ambos.
+                Como é possível observar na figura\ref{fig:modelIO}, as ações correspondem a entradas que podem resultar em alguma saída, logo, podem produzir eventos ou dados como saída, podendo inclusive produzir ambos. As ações são consideradas entradas que ativam elementos ou funções do software.
 
-                Os dados quando considerados como entrada, podem ser inseridos de duas formas; após algum evento, que indique para o usuário que o mesmo pode colocar os dados no componente desejado, como em um \emph{textfield}, onde o usuário pode inserir diversos valores tal como números, texto ou a localização de arquivos; ou ainda podem ser inseridos automáticamente, caso o programa sempre procure por arquivos em algum local específico. Em geral, inserir dados resulta em algum evento observável.
+                Os dados quando considerados como entrada, podem ser inseridos de duas formas: após alguma ação, que indica que o dado pode ser inserido no componente foco da ação, como por exemplo em um \emph{textfield}, onde pode se inserir valores tal como números, texto ou a localização de arquivos, ou ainda podem ser inseridos automaticamente após alguma ação, caso o programa sempre procure por arquivos em algum local específico quando iniciado, onde a ação é a execução do software. Inserir dados resulta em  evento, como por exemplo, mudança de estado do componente que recebe os dados ou uma mensagem.
 
-                Quando consideramos os eventos de saída, estas resultam, ou de alguma entrada de dados automática, ou de alguma ação. Os eventos procuram informar o usuário de alguma condição satisfeita, como por exemplo, sucesso na inserção de um arquivo, ou de algum problema que deve ser observado, como por exemplo, algum campo preenchido incorretamente, ou que por exemplo, um elemento recebeu o evento e espera pela inserção de dados.
+                Quando consideramos os eventos de saída, estes resultam, de alguma entrada. Os eventos procuram informar o usuário de alguma condição satisfeita por uma entrada, como por exemplo, sucesso na inserção de um arquivo, ou de algum problema que deve ser observado, como por exemplo, algum campo preenchido incorretamente, ou que por exemplo, um elemento recebeu um evento e obteve foco, esperando pela inserção de dados.
 
-                Finalmente, considerando os dados de saída, podem ser observados duas formas de saída, dados que são apresentados em componentes da interface gráfica, no caso dos modelos observados, podemos citar componentes como tabelas e gráficos; ou como resultado em arquivos, que no caso dos modelos observados, são arquivos de texto. Os dados de saída podem ser gerados tanto por eventos como automáticamente; quando gerados automáticamente, se deve ao fato de que o modelo tem a capacidade de acessar e carregar automaticamente resultados produzidos em algum momento no passado.
+                Finalmente, considerando os dados de saída, podem ser observados duas formas: dados que são apresentados em componentes da interface gráfica, no caso dos softwares observados, podemos citar componentes como tabelas, gráficos e arquivos, que no caso dos softwares observados, são arquivos de texto. Os dados de saída são gerados por ações, quando gerados automaticamente, se deve ao fato de que o modelo tem a capacidade de acessar e carregar automaticamente resultados produzidos em algum momento no passado, estes dados são gerados após a inicialização do software ou seleção de simulação específica.
 
-                Uma ultima observação que podemos fazer é que, do ponto de vista dos modelos observados, e até mesmo de uma grande parte dos softwares com interface gráfica, podemos observar que todas as saídas e inclusive a entrada de dados, em algum momento, são produto de alguma ação, como por exemplo ações externas ao software que não são consideradas na figura\ref{fig:modelIO}, como o ato de executar o software a ser automatizado, ação realizada no sistema operacional. Logo, eu não só preciso ser capaz de interagir com o software mas também com o sistema operacional em algum nível.
+                De forma resumida, do ponto de vista dos softwares observados, podemos observar que todas as saídas resultam de alguma entrada e inclusive a entrada de dados depende de alguma ação prévia, Incluindo aqui o ato de iniciar o software. Analogamente, podemos deduzir que toda entrada resultará em pelo menos uma saída, seja esta um evento ou um dado.
+
+                Comportamentos diferentes foram considerados exceções, podendo resultar do fato de que o software parou de responder (receber entradas ou produzir saídas), ou a entrada fornecida resultou em saídas não esperadas pelo usuário.
 
             \subsection{Modelagem do software Automatizador}
+
+                Feitas as observações de quais são as entradas e saídas do software que será automatizado e considerando que a automatização depende da interação entre ambos, é possível deduzir que a saída do automatizador\footnote{ Nesta seção nos referiremos ao software automatizador como “automatizador” ou apenas software.} precisa conter elementos do mesmo tipo que a entrada do software a ser automatizado e precisa ser direcionada ao software a ser automatizado.
+
+                Analogamente, podemos deduzir que a entrada do automatizador precisa conter elementos do mesmo tipo que a saída do software a ser automatizado. Como o software automatizado desconhece a existência do automatizador, o software automatizador precisa procurar e filtrar, quando necessário, saídas do tipo que o software a ser automatizado gera.
+
+                Além das entradas e saídas necessárias para estabelecer uma interface com o software automatizado, o automatizador também necessita receber informações do usuário e responder ao mesmo.
+
+                Considerando o usuário e o software a ser automatizado, as entradas e saídas do software automatizador podem ser observadas na figura \ref{fig:automatIO}, foram discretizadas em três tipos de entrada e três tipos de saída:
+
+                \begin{itemize}
+                    \item entradas:
+                        \subitem {\bf ações}: Interações vindas do usuário, que podem resultar em alguma saída do automatizador, seja eventos dados ou ações.
+                        \subitem {\bf eventos}: Eventos do software a ser automatizado, procurados quando necessário durante a automatização.
+                        \subitem {\bf dados}: Interações do usuário que fornecem dados ou valores, para a realização da automação, ou dados provenientes da saída do software a ser automatizado, procurados quando necessário durante a automatização. São precedidos da entrada de uma ação quando inseridos pelo usuário e podem resultar em algum evento no automatizador.
+                    \item saídas:
+                        \subitem {\bf ações}: Ações geradas pelo automatizador durante a automação, destinadas a entrada de ações do software a ser automatizado.
+                        \subitem {\bf eventos}: Eventos ou respostas que buscam informar o usuário de alguma condição atingida no automatizador, decorrente de alguma entrada do usuário, seja ação ou dado, podem necessitar a interação do usuário.
+                        \subitem {\bf dados}: Dados produzidos pelo automatizador durante a automação, destinados a entrada de dados do software a ser automatizado, ou dados produzidos por alguma ação do usuário sobre o software de automação, que não são destinados ao software a ser automatizado.
+                \end{itemize}
 
                 \begin{figure}[!htb]
                     {\centering
                     \includegraphics[width=1.0\textwidth]{imagens/automatIO}
-                    \caption{Erro obtido pelo autor no programa Sikuli.}
+                    \caption{Descrição das entradas e saídas do automatizador, assim como da definição genéria dos seus componentes internos. As engrenagens simbolizam os componentes de controle do automatizador}
                     \label{fig:automatIO}}
                 \end{figure}
 
+                Podemos observar que a entrada de ações por ser realizada pelo usuário, é destinada a componentes do automatizador acessíveis ao usuário, ocorrem nos eventos gerados pelo automatizador para tomar decisões, nos elementos de automação onde são selecionados para montar a descrição da automação, assim como na descrição da automação para alterá-la, ocorrem também nas ações do software automatizador, quando o usuário, por exemplo, decide executar a automação. Irão gerar alguma das saídas previstas no automatizador
+
+                A entrada de eventos ocorre seletivamente durante a automação, onde o software a ser automatizado é observado seletivamente de acordo com regras definidas na descrição da automação em buscas de condições descritas pelo usuário na automação. Quando relevantes para a automação, irão interferir na saída de ações ou dados destinados ao software a ser automatizado.
+
+                Já a entrada de dados pode vir tanto do usuário como do software a ser automatizado, durante a automação. Quando vindos do usuário, são destinados a descrição da automação a ser executada, caso contrário, ocorre seletivamente durante a automação, dependendo de como a automação foi descrita pelo usuário. Podem produzir eventos que necessitam da atenção do usuário, devido a dados incorretos por exemplo.
+
+                Na saída do automatizador as ações são produtos da execução da automação descrita com os elementos de automação, destinadas ao software a ser automatizado. Podem produzir eventos ou dados destinados a entrada do automatizador.
+
+                Os eventos, quando considerados como saída, são mensagens do automatizador destinados ao usuário. São produtos de alguma entrada e indicam a satisfação de alguma condição ou algum problema que necessita atenção, portanto, podendo necessitar a interação do usuário, inserção de dados ou realização de alguma ação.
+
+                Já a saída de dados pode ser tanto oriunda da execução da descrição da automação, destinadas ao software automatizador, como de ações realizadas pelo usuário, que não visam interagir com o software a ser automatizado, por exemplo, salvar a automação em um arquivo neste caso são produtos de alguma ação do usuário.
+
+                \subsection {Componentes do  software automatizador}
+
+                    Ainda podemos observar na figura \ref{fig:automatIO}, quatro componentes importantes para o automatizador, que permitem a realização das funcionalidades descritas nos requisitos.
+
+                    Os elementos de automação são a coleção léxica da linguagem de automação, lexemas, unidades mínimas dotadas de significado lexical, componentes simbólicos com significado que descrevem alguma operação, condição, regra ou elemento ou informação na automação. Estes elementos, por sua vez, são arranjados e conectados em ordem específica para formar a automação descrita com os elementos de automação.
+
+                    Temos também um conjunto especial de ações do software automatizador que definem as ações do automatizador, o que deve ser feito com a automação descrita com os elementos de automação, funcionalidades que dependem deste conjunto de componentes são, por exemplo a capacidade de salvar automações, ou ainda de executar a automação.
+
+                    Por ultimo, temos os elementos de controle do automatizador, descritos na figura \ref{fig:automatIO} como engrenagens, são responsáveis por diversas tarefas dentro do software automatizador:
+
+                    \begin{itemize}
+                        \item realizam as ações do software automatizador como executar, salvar, excluir ou carregar uma automatização salva, podendo gerar alguma saída dependendo da ação.
+                        \item saídas:
+                    \end{itemize}
+
         \section {Desenvolvimento do software}
 
+            \subsection {Interações}
             \subsection {Interação entre automatizador e software a ser automatizado}
 
             \subsection {Construção de automatizações}
@@ -885,6 +945,10 @@
                 \end{figure}
 
         \chapter {Resultados}
+
+            \section {O software automatizador}
+
+            \section {Exemplos simples}
 
             \section {Validando solução com os casos de teste}
 
