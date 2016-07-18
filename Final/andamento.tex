@@ -521,7 +521,7 @@
 
             \subsection{Entradas e saídas do software a ser automatizado}
 
-                Para definir as entradas e saídas do software a ser automatizado\footnote{Nesta seção iremos nos referir a eles como “software a ser automatizado” ou apenas software.}, foi utilizado os modelos matemáticos de simulação de culturas agrícolas escolhidos para serem automatizados neste projeto.
+                Para definir as entradas e saídas do software a ser automatizado\footnote{Nesta seção, iremos nos referir a eles como “software a ser automatizado” ou apenas software.}, foi utilizado os modelos matemáticos de simulação de culturas agrícolas escolhidos para serem automatizados neste projeto.
 
                 Considerou-se quais eram os elementos com os quais se podia interagir, formas de interação e resultados observados. A figura \ref{fig:modelIO} descreve as entradas e saídas observadas durante a análise dos softwares, sua natureza e componentes de destino ou origem. Essas entradas e saídas foram discretizadas em dois tipos de entrada e dois tipos de saída:
 
@@ -555,7 +555,7 @@
 
             \subsection{Modelagem do software Automatizador}
 
-                Feitas as observações de quais são as entradas e saídas do software que será automatizado e considerando que a automatização depende da interação entre ambos, é possível deduzir que a saída do automatizador\footnote{ Nesta seção nos referiremos ao software automatizador como “automatizador” ou “software automatizador”.} precisa conter elementos do mesmo tipo que a entrada do software a ser automatizado, direcionada a entrada do software a ser automatizado.
+                Feitas as observações de quais são as entradas e saídas do software que será automatizado e considerando que a automatização depende da interação entre ambos, é possível deduzir que a saída do automatizador\footnote{ Nos referiremos ao software automatizador como “automatizador” ou “software automatizador”.} precisa conter elementos do mesmo tipo que a entrada do software a ser automatizado, direcionada a entrada do software a ser automatizado.
 
                 Analogamente, podemos deduzir que a entrada do automatizador precisa conter elementos do mesmo tipo que a saída do software a ser automatizado. Como o software automatizado desconhece a existência do automatizador, o automatizador precisa procurar e filtrar, quando necessário, saídas do tipo que o software a ser automatizado gera.
 
@@ -619,13 +619,29 @@
 
         \section {Desenvolvimento do software}
 
-            Com o software modelado é necessário agora criar os componentes idealizados
+            Com o software modelado é preciso criar os componentes idealizados, no desenvolvimento do software serão analisadas soluções para estes componentes, procurando as melhores soluções viáveis para satisfazer o objetivo deste projeto e requisitos elencados, embasando-se em observações feitas durante a concepção e modelagem para posteriormente, codificar o software, onde alguns trechos relevantes da codificação serão apresentadas e discutidas.
 
-            \subsection {Descrição da automação e seus elementos}
+            \subsection {Interação com o software a ser automatizado}
+
+                O primeiro problema observado durante a modelagem foi a necessidade de de interagir com o software automatizado, sendo que este não está ciente do automatizador. Foi identificado que o automatizador necessita enviar eventos e dados para o software a ser automatizado, assim como precisa ser capaz de ler eventos e dados do software a ser automatizado.
+
+                Soluções observadas em outros softwares de automação testados durante o estudo dos casos de uso e revisão literaria deste projeto envolviam duas formas de interação com o software a ser automatizado, utilização de APIs específicas do sistema, onde um exemplo de software analisado que utiliza este mentodo como parte de suas funcionalidades, é o AutoIt, ou ainda, o método de captura e execução, método utilizado por outro software observado na analise dos casos de uso, o Sikuli ou Sikulix. A utilização de uma APIs ainda pode ser dividida em duas abordagens em sistemas Windows, o método baseado em \emph{windows handles} (em sistemas UNIX, componentes similares seriam \emph{file descriptors}) e o método baseado em \emph{Windows Controls}.
+
+                \emph{Handles} são identificadores únicos que fornecem encapsulamento abstrato e opaco para recursos internos do software que neste caso queremos automatizar, eles podem ser utilizados para identificar qualquer recurso dentro do software, indo além dos recursos observados apenas na interface, podem ser identificadores da janela do software, de um botão ou até mesmo componentes internos como listas, \emph{threads} dentre outras estruturas e recursos utilizadas pelo software. Os \emph{windows handles} são uma abstração particular dos recursos de um software em sistemas windows. Em sistemas UNIX, uma abstração similar são \emph{file descriptors}.
+
+                \emph{Windows controls} por sua vez são também astrações em sistemas Windows, são janelas filhos que o software usa em conjunto com outra janela que tornam possível a interação do usuário com o softare. Em sistemas UNIX não existe uma abordagem padrão, já que alguns componentes de frameworks mais modernos podem ser acessíveis apenas na aplicação cliente e não no servidor X, isso quando consideramos que o servidor de vídeo em uso é o servidor X. Um exemplo de framework que permite acessar estes componentes em aplicações GTK é o ATK.
+
+                Já o método de captura e execução é baseado em captura e análise de imagens obtidas da tela do computador com o intúito de localizar elementos para posteriormente indicar uma interação padrão do usuário a ser realizada no elemento localizado, como ações de mouse e teclado. Outra abordagem ainda seria gravar a interação do usuário como movimentação do mouse e locais clicados e digitados. A abordagem é a mesma independente do sistema operacional.
+
+                Na tabela a seguir serão analisados os pontos positivos e negativos das três abordagens.
+
+
 
             \subsection {Ações do software automatizador}
 
-            \subsection {Interação entre os softwares}
+            \subsection {Descrição da automação e seus elementos}
+
+
 
             \subsection {Codificação}
 
@@ -957,14 +973,14 @@
                 Além dos botões descritos, temos a área de trabalho, onde a automação é montada, um espaço em branco com uma grade pontilhada, e também temos os elementos de automação armazenados em oito categorias no painel cinza a esquerda, que são:
 
                 \begin{itemize}
-                    \item lógica
-                    \item repetições
-                    \item matemática
-                    \item texto
-                    \item listas
-                    \item variáveis
-                    \item funções
-                    \item automações
+                    \item lógica:
+                    \item repetições:
+                    \item matemática:
+                    \item texto:
+                    \item listas:
+                    \item variáveis:
+                    \item funções:
+                    \item automações:
                 \end{itemize}
 
                 Para utilizar um dos blocos basta clicar e segura-lo, arrastando para a área de trabalho e soltando em uma área em branco ou alinhado com o encaixe adequado de algum bloco já existente na área de trabalho, para que se encaixem.
