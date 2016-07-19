@@ -13,6 +13,7 @@
 \usepackage{graphicx}
 \usepackage{array}
 \usepackage{listings}
+\usepackage{tabularx}
 \usepackage{hhline}
 \usepackage{amsmath,latexsym,amssymb}
 \usepackage{siunitx}
@@ -625,23 +626,125 @@
 
                 O primeiro problema observado durante a modelagem foi a necessidade de de interagir com o software automatizado, sendo que este não está ciente do automatizador. Foi identificado que o automatizador necessita enviar eventos e dados para o software a ser automatizado, assim como precisa ser capaz de ler eventos e dados do software a ser automatizado.
 
-                Soluções observadas em outros softwares de automação testados durante o estudo dos casos de uso e revisão literaria deste projeto envolviam duas formas de interação com o software a ser automatizado, utilização de APIs específicas do sistema, onde um exemplo de software analisado que utiliza este mentodo como parte de suas funcionalidades, é o AutoIt, ou ainda, o método de captura e execução, método utilizado por outro software observado na analise dos casos de uso, o Sikuli ou Sikulix. A utilização de uma APIs ainda pode ser dividida em duas abordagens em sistemas Windows, o método baseado em \emph{windows handles} (em sistemas UNIX, componentes similares seriam \emph{file descriptors}) e o método baseado em \emph{Windows Controls}.
+                Soluções observadas em outros softwares de automação testados durante o estudo dos casos de uso e revisão literária deste projeto envolviam duas formas de interação com o software a ser automatizado, utilização de APIs específicas do sistema, onde um exemplo de software analisado que utiliza este método como parte de suas funcionalidades, é o AutoIt, ou ainda, o método de captura e execução, método utilizado por outro software observado na análise dos casos de uso, o Sikuli ou Sikulix. A utilização de uma APIs ainda pode ser dividida em duas abordagens em sistemas Windows, o método baseado em \emph{windows handles} (em sistemas UNIX, componentes similares seriam \emph{file descriptors}) e o método baseado em \emph{Windows Controls}.
 
-                \emph{Handles} são identificadores únicos que fornecem encapsulamento abstrato e opaco para recursos internos do software que neste caso queremos automatizar, eles podem ser utilizados para identificar qualquer recurso dentro do software, indo além dos recursos observados apenas na interface, podem ser identificadores da janela do software, de um botão ou até mesmo componentes internos como listas, \emph{threads} dentre outras estruturas e recursos utilizadas pelo software. Os \emph{windows handles} são uma abstração particular dos recursos de um software em sistemas windows. Em sistemas UNIX, uma abstração similar são \emph{file descriptors}.
+                \emph{Handles} são identificadores únicos que fornecem encapsulamento abstrato e opaco para recursos internos do software que neste caso queremos automatizar, eles podem ser utilizados para identificar qualquer recurso dentro do software, indo além dos recursos observados apenas na interface, podem ser identificadores da janela do software, de um botão ou até mesmo, componentes internos como listas, \emph{threads} dentre outras estruturas e recursos utilizadas pelo software. Os \emph{windows handles} são uma abstração particular dos recursos de um software em sistemas operacionais Windows. Em sistemas operacionais UNIX, uma abstração similar são \emph{file descriptors}.
 
-                \emph{Windows controls} por sua vez são também astrações em sistemas Windows, são janelas filhos que o software usa em conjunto com outra janela que tornam possível a interação do usuário com o softare. Em sistemas UNIX não existe uma abordagem padrão, já que alguns componentes de frameworks mais modernos podem ser acessíveis apenas na aplicação cliente e não no servidor X, isso quando consideramos que o servidor de vídeo em uso é o servidor X. Um exemplo de framework que permite acessar estes componentes em aplicações GTK é o ATK.
+                \emph{Windows controls} por sua vez são também abstrações em sistemas Windows, são janelas filhos que o software usa em conjunto com outra janela que tornam possível a interação do usuário com o software. Em sistemas UNIX não existe uma abordagem padrão, já que alguns componentes de \emph{frameworks} mais modernos podem ser acessíveis apenas na aplicação cliente e não no servidor X, isso quando consideramos que o servidor de vídeo em uso é o servidor X. Um exemplo de \emph{framework} que permite acessar estes componentes em aplicações GTK é o ATK.
 
-                Já o método de captura e execução é baseado em captura e análise de imagens obtidas da tela do computador com o intúito de localizar elementos para posteriormente indicar uma interação padrão do usuário a ser realizada no elemento localizado, como ações de mouse e teclado. Outra abordagem ainda seria gravar a interação do usuário como movimentação do mouse e locais clicados e digitados. A abordagem é a mesma independente do sistema operacional.
+                O método de captura e execução é baseado em captura e análise de imagens obtidas da tela do computador com o intuito de localizar elementos para posteriormente indicar uma interação padrão do usuário a ser realizada no elemento localizado, como ações de mouse e teclado. Outra abordagem ainda seria gravar a interação do usuário como movimentação do mouse e locais clicados e digitados. A abordagem é a mesma independente do sistema operacional.
 
                 Na tabela a seguir serão analisados os pontos positivos e negativos das três abordagens.
 
+                \bigskip
+                {\centering
+                \begin{tabularx}{\textwidth}{|*{1}{>{\centering\arraybackslash}X}|}
+                    \hline
+                    \emph{Windows handles} \\
+                    \hline
+                    {\bf contras:} \\
+                    \begin{itemize}
+                        \item Permitem um nível bastante refinado de automação e em alguns casos permitem alterar profundamente o comportamento do programa ao mudar o comportamento de componentes e inclusive o estado das informações internas do mesmo.
+                        \item É mais flexível e menos dependente de padrões que o método \emph{Windows controls}. Também oferece acesso a mais recurso e propriedades do software que o método \emph{Windows controls}.
+                    \end{itemize}
+                    \\ {\bf contras:} \\
+                    \begin{itemize}
+                        \item A utilização em geral só é pratica em aplicações que o usuário conheça internamente o funcionamento, sendo relevante fazer um uso cauteloso já que \emph{handles} são intencionalmente abstratos. \emph{Handles} variam de seção para seção do programa e podem ser descartados durante a existência do programa ou simplesmente não representarem mais o mesmo elemento.
+                    \end{itemize}
+                    \\ \hline
+                \end{tabularx}
 
+                \begin{tabularx}{\textwidth}{|*{1}{>{\centering\arraybackslash}X}|}
+                    \hline
+                    \emph{Windows controls} \\
+                    \hline
+                    {\bf Prós:} \\
+                    \begin{itemize}
+                        \item Não depende da visibilidade dos \emph{controls}. \emph{Controls} que não estejam visíveis também estão ao alcance da ferramenta de automação já que a mesma tem acesso a todas as propriedades do programa.
+                        \item É possível alterar o comportamento do programa já que é possível definir qualquer estado possível para um \emph{control} em específico.
+                        \item A interação do automatizador é mais próxima do contexto interno do programa, enviando, por exemplo, eventos diretamente para os \emph{listeners} em botões, isso garante maior exatidão no comportamento o que é mais relevante nos casos em que se busca testar o softwares.
+                        \item por não exigir muito processamento extra, analise complexa de dados e não depender da resposta da interface, é relativamente rápido.
+                        \item é uma abordagem mais estável que o método baseado em \emph{windows handles} já que os \emph{controls} são mais previsíveis e padronizados.
+                        \item Permite um grande reaproveitamento e reutilização em condições diversas se comparado ao método baseado em captura e execução.
+                    \end{itemize}
+                    \\ {\bf contras:} \\
+                    \begin{itemize}
+                        \item É limitado a \emph{controls} conhecidos pelo software e API automatizadora, exigindo um mapeamento de componentes customizados que diferem dos componentes tradicionais conhecidos pela API. Num exemplo, o software automatizador AutoIt apenas trabalha com os \emph{controls} padronizados da Microsoft \footnote{esta informação pode ser encontrada na documentação do software AutoIt; https://www.autoitscript.com/autoit3/docs/intro/controls.htm}.
+                        \item Ainda exige um conhecimento relativo do comportamento do software a ser automatizado por parte do usuário, quais são os estados dos \emph{controls} e qual é o significado dos estados do mesmo.
+                        \item Da mesma forma que no método baseado em \emph{Windows handles}, alterar livremente as propriedades dos \emph{controls} do software que se quer automatizar é perigoso já que pode levar a estados e condições inconsistentes dentro do software a ser automatizado, já que é possível definir qualquer estado possível para o \emph{control} manipulado.
+                    \end{itemize}
+                    \\ \hline
+                \end{tabularx}
 
-            \subsection {Ações do software automatizador}
+                \begin{tabularx}{\textwidth}{|*{1}{>{\centering\arraybackslash}X}|}
+                    \hline
+                    captura e execução \\
+                    \hline
+                    {\bf prós:} \\
+                    \begin{itemize}
+                        \item Não exige conhecimentos complexos de computação para utilização pelo usuário como compreensão de abstrações em nível de \emph{frameworks} e APIs, como \emph{handles} ou \emph{controls} e como podem ser úteis em automação.
+                        \item é de uso consideravelmente rápido para o usuário, pois não é preciso analisar tabelas ou listas de componentes em busca dos \emph{handles} ou \emph{controls} corretos.
+                        \item pode ser usado em quaisquer condições, inclusive programas com interfaces não convencionais, contendo elementos fora do padrão, customizados.
+                        \item independe do sistema operacional ou tecnologia da interface, pode controlar programas, páginas web, etc.
+                    \end{itemize}
+                    \\ {\bf contras:} \\
+                    \begin{itemize}
+                        \item Não é tão rápido como os outros métodos por exigir captura e analise complexa de imagens.
+                        \item Não é possível elaborar um padrão formal menos abstrato para entrada de dados neste método devido ao fato de que as interfaces gráficas têm um dinamismo muito variado e complexo.
+                        \item A dificuldade em estabelecer um padrão formal torna difícil reutilizar automações prontas já que o método é sensível a mudanças na interface ou no ambiente.
+                        \item Mesmo em ambientes controlados, pequenas mudanças na interface do software a ser automatizado podem exigir alterações na descrição da automação.
+                    \end{itemize}
+                    \\ \hline
+                \end{tabularx}
+                }
+
+                Considerando as análises feitas das abordagens a cima, dos requisitos elencados e observações feitas na concepção do software a abordagem de captura e execução foi adotada embasado nos seguintes pontos:
+
+                \begin{itemize}
+                    \item As outras duas abordagens, apesar de possuírem pontos positivos relevantes, beneficiam muito mais a automação de testes de softwares do que a automação que este projeto busca em softwares de simulação de culturas agrícolas, onde o acesso a propriedades e estados não previstos na interface gráfica do software não são pertinentes.
+
+                    \item A abordagem baseada em captura e execução é a que mais se aproxima do domínio de conhecimento dos usuários dos softwares que este projeto visa automatizar, já que o mesmo pode usar a abordagem com base nos conhecimentos que já obteve do uso da interface gráfica e do software. Esta proximidade pode ser observada inclusive nos requisitos coletados, onde a discussão com os atores aborda o problema em nível de ações e interações que se encaixam na abordagem, como a utilização de teclado e mouse.
+
+                    \item As outras abordagens recorrem a conhecimentos peculiares da computação como orientação a objetos e modelos de abstração relacionados a este assunto.
+
+                    \item Apesar de a captura e execução ser computacionalmente mais lenta, a performance não é um componente crucial para a automatização dos softwares observados, já que apesar de ocorrer repetição, a repetição não é exaustiva como nos testes de software que busca investigar todo o comportamento do software, onde a performance do método pode ser relevante.
+
+                    \item Oferece maior flexibilidade para o usuário, já que pode ser usado em quaisquer condições, inclusive onde outras abordagens não são viáveis.
+
+                    \item É a abordagem que menos exige analise por por parte do usuário, já que o mesmo não precisa procurar em tabelas e lista de componentes em busca de quais componentes estão relacionados com a tarefa que visa realizar no software, como encontrar qual elemento corresponde a um botão, ou campo de texto, ou funcionalidade do software a ser automatizado, ele pode utilizar os conhecimentos que já possui a respeito do software para realizar estas decisões.
+
+                    \item Oferece menor risco de expor para o usuário, a possibilidade de usar condições que não foram previstas pelo desenvolvedor do software que ele está automatizando.
+                \end{itemize}
+
+                Além das abordagens descritas, algumas interações do usuário mostraram permitir a utilização de métodos específicos, como por exemplo a execução do software. Onde o automatizador procuraria nas variáveis de ambiente pelo software a ser executado ou ainda realizaria uma busca em todo o sistema, ou ainda, o usuário poderia selecionas o executável.
+
+                Uma das vantagens deste método seria a execução de aplicações que não possuem um arquivo executável acessível ao usuário. Embora pertinente para a automação destes softwares, não foi observado vantagens para os softwares que este projeto objetiva automatizar, que por se focarem em usuário de programas com interface gráfica, disponibilizam executáveis que estão ao alcance do usuário por esta via.
+
+                Além das considerações feitas a cima, estas abordagens envolvem alguns conhecimentos formais de computação que devem ser observados pelo usuário. Nem sempre é garantido que o software está devidamente registrado nas variáveis de ambiente como é possível observar no SoySim que não possui um instalador e não insere o programa na lista de caminhos de executáveis nas variáveis de ambiente do sistema operacional.
+                Alguns sistemas operacionais, por exemplo, não expõem visivelmente as extensões de arquivos, o que poderia levar a ambiguidades quando o usuário informasse o nome do software a ser procurado, por considerando a extensão não relevante ou desconhecer sua existência, já que alguns softwares dentre os presentes no caso de teste divergem na sua natureza, podendo ser arquivos executáveis do Windows ou executáveis Java.
+
+                Outra consideração é que procurar o executável poderia se tornar uma tarefa excepcionalmente lenta caso fosse necessário vasculhar a arvore do sistema. E caso o usuário conhecesse a localização do executável, utilizar a abordagem de captura e execução seria igualmente eficiente para realizar a tarefa.
+
+                \subsubsection {utilização da abordagem escolhida}
+
+                Foi analisado como a abordagem de captura e execução poderia ser utilizada no software automatizador e optou-se por uma abordagem onde o usuário seleciona o elemento de automação e posteriormente define no elemento, a área sob a qual ele deve agir, com base em imagens como definição de local, é possível observar uma descrição abstrata da solução na imagem \ref{fig:actionRecord}.
+
+                \begin{figure}[!htb]
+                    {\centering
+                    \includegraphics[width=1.0\textwidth]{imagens/actionRecord}
+                    \caption{Estrutura geral da solução.}
+                    \label{fig:actionRecord}}
+                \end{figure}
+
+                Nesta abordagem, a imagem capturada do software a ser automatizado seria o evento gerado pelo software automatizado, que está tornando o elemento vivível para interação na tela.
+
+                Foi observado também como um dos software analisados nos casos de uso o Sikulix ou Sikuli, utiliza esta abordagem. No caso do software observado, quando o usuário escolhe um elemento de automação que deve levar em consideração o componente do software a ser automatizado, ao qual é direcionado, o software automatizador se torna invisível, a tela escurece e uma mensagem pede para que o usuário selecione com o mouse uma área retangular onde o elemento de automação deve realizar a ação, posteriormente confirmando apertando \emph{enter}.
+
+                Por fim, decidiu-se por uma abordagem similar onde o usuário primeiro seleciona o elemento de automatização, posteriormente interage com o mesmo para capturar a área onde a automação deve ser realizada, com a diferença de que primeiro o usuário é alertado de que pode procurar, movendo janelas ou alterando a interface, pelo componente que quer capturar. Quando encontrado, o usuário irá realizar um comando de teclado onde a tela será capturada e o usuário poderá selecionar na captura a área foco da interação, confirmando igualmente com um \emph{enter}.
 
             \subsection {Descrição da automação e seus elementos}
 
-
+            \subsection {Ações do software automatizador}
 
             \subsection {Codificação}
 
