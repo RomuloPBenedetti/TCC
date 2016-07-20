@@ -624,7 +624,7 @@
 
             \subsection {Interação com o software a ser automatizado}
 
-                O primeiro problema observado durante a modelagem foi a necessidade de de interagir com o software automatizado, sendo que este não está ciente do automatizador. Foi identificado que o automatizador necessita enviar eventos e dados para o software a ser automatizado, assim como precisa ser capaz de ler eventos e dados do software a ser automatizado.
+                O primeiro problema observado durante a modelagem foi a necessidade de de interagir com o software automatizado, sendo que este não está ciente do automatizador. Foi identificado que o automatizador necessita enviar ações e dados para o software a ser automatizado, assim como precisa ser capaz de ler eventos e dados do software a ser automatizado.
 
                 Soluções observadas em outros softwares de automação testados durante o estudo dos casos de uso e revisão literária deste projeto envolviam duas formas de interação com o software a ser automatizado, utilização de APIs específicas do sistema, onde um exemplo de software analisado que utiliza este método como parte de suas funcionalidades, é o AutoIt, ou ainda, o método de captura e execução, método utilizado por outro software observado na análise dos casos de uso, o Sikuli ou Sikulix. A utilização de uma APIs ainda pode ser dividida em duas abordagens em sistemas Windows, o método baseado em \emph{windows handles} (em sistemas UNIX, componentes similares seriam \emph{file descriptors}) e o método baseado em \emph{Windows Controls}.
 
@@ -736,7 +736,7 @@
                     \label{fig:actionRecord}}
                 \end{figure}
 
-                Nesta abordagem, a imagem capturada do software a ser automatizado seria o evento gerado pelo software automatizado, que está tornando o elemento vivível para interação na tela.
+                Nesta abordagem, as imagens capturadas do software a ser automatizado, seriam os eventos gerados pelo software a ser automatizado, quando torna a interface visível para interação, imagens estas capturadas pelo usuário. Após a localização do elemento, o automatizador pode enviar ações (controlando o dispositivo de entrada apontador, mouse), que irão gerar um evento de obtenção de foco ou ativação no elemento, objéto da ação, também poderá enviar dados para os elementos em foco (controlando o dispositivo de entrada de texto, o teclado);
 
                 Foi observado também como um dos software analisados nos casos de uso o Sikulix ou Sikuli, utiliza esta abordagem. No caso do software observado, quando o usuário escolhe um elemento de automação que deve levar em consideração o componente do software a ser automatizado, ao qual é direcionado, o software automatizador se torna invisível, a tela escurece e uma mensagem pede para que o usuário selecione com o mouse uma área retangular onde o elemento de automação deve realizar a ação, posteriormente confirmando apertando \emph{enter}.
 
@@ -744,11 +744,45 @@
 
             \subsection {Descrição da automação e seus elementos}
 
+                Na modelagem foi definido dois componentes que tratam da construção da descrição da automação, a descrição da automação em si e os elementos de automação. O objetivo geral deste projeto trata em parte da realização de automação de tarefas em interfaces gráficas por meio de uma abordagem visual, por esta se aproximar do domínio de conhecimento do usuário, utilizando a biblioteca de programação visual Blockly.
+
+                Durante a concepção do software, foi observado e e justificado que, a programação tradicional dificulta e não complementa a automação para estes usuários por não permitir uma abordagem quase que totalmente baseada em lógica e nos conhecimentos que o usuário já detem do software a ser automatizado, embasando a troca de abordagem de linguagens tradicionais para linguagens visuais, demonstrando que estas diminuem a quantia de detalhes e conhecimentos com quais o usuário deve lidar.
+
+                Outra parte do objetivo geral consiste em utilizar a biblioteca de programação visual Blockly. A escolha da biblioteca se deu por alguns motivos que a tornaram adequada para o desenvolvimento deste software:
+
+                \begin{itemize}
+                    \item oferecia objetivamente suporta a diversos idiomas, por ser uma propriedade fundamental dentro do contexto de conhecimentos dominados pelos usuários, ou seja o idioma em sí do usuário.
+                    \item Permite abordar a programação em um paradigma imperarativo, procedural podendo ser estruturada, paradigmas mais próximo de como o usuário raciocina a solução de tarefas.
+                    \item É uma biblioteca voltada para desenvolvedores, de código aberto, permitindo a exploração, adaptação e expansão do código original oferecendo a flexibilidade necessária para a solução do objetivo e doa requisitos elencados de uma forma viável e gratuita.
+                    \item Não é uma linguagem de programação em si, muito menos de aplicação especializada, oferecendo componentes genéricos que permitem a construção de programas e resolução de problemas diversos em uma abordagem de programação visual desacoplada de uma linguagem tradicional, que posteriormente pode ser traduzida para uma linguagem tradiciona, o que a torna bastante flexível, permitindo a abordagem de problemas como a automação de uma forma mais abstrata e especializada.
+                    \item Poucas limitações arquiteturais, podendo ser utilizada em conjunto com outras linguágens facilmente por ser uma biblioteca injetavel em componentes web e permitir a tradução dos quebra-cabeças para diversas linguagens, oferecendo uma gama mais flexível de escolhas para a solução de outros componentes e problemas observados no desenvolvimento.
+                \end{itemize}
+
+                A biblioteca sera utilizada para definir um vocabulário da elementos de linguagem visual, os elementos de automação, de forma a oferecer componentes que permitam expresar a lógicos necessária para definir as repetições, ordem das operações assim como a criação de elementos que expressem as ações de automação elencadas nos requisitos, dentro da abordagem de captura e execução. A biblioteca irá se encarregar de fazer algumas validações da montagem, verificando a validade ou não dos encaixes entre os elementos e impedindo que elementos não compativeis sejam conectados.
+
+                também será utilizada para traduzir a descrição para uma linguagem de programação tradicional que será usada pelo automatizador para rodar as automações, assim como oferecer uma área que permita montar a automação. Também atravéz da biblioteca será oferecida algumas nuncionalidades do software abordadas nas ações do software automatizado. A figura \ref{fig:blocklyDiagram} descreve de forma resumida, levando em consideração apenas as saídas relevantes, a integração do blockly exemplificando com algumas ações do software automatizador,
+
+                \begin{figure}[!htb]
+                    {\centering
+                    \includegraphics[width=1.0\textwidth]{imagens/blocklyDiagram}
+                    \caption{Estrutura geral da solução.}
+                    \label{fig:blocklyDiagram}}
+                \end{figure}
+
+                Alem dos diversos blocos já existentes na biblioteca, úteis para a definição de repetições, variáveis como textom números e listas, lógica e operações, para adaptar o blockly ao contexto de automação, serão desenvolvidos mais 4 bloco fundamentais para a automação, observando os requisitos elencados, dentro da abordagem de captura e execução já discutidods:
+
+                \begin{itemize}
+                    \item Um bloco que permite realizar clique simples em uma área da tela.
+                    \item Outro que permite realizar clique duplo em uma área da tela
+                    \item Um que permite esperar por um evento dentro do contexto de captura e execução, procurando a cada tanto intervalo de tempo definido pelo usuário
+                    \item Por último, outro bloco que permita digitar valores que possam ser convertidos para texto, como números, texto em sí ou variáveis cujo valor possam ser convertidas para texto.
+                \end{itemize}
+
             \subsection {Ações do software automatizador}
 
             \subsection {Codificação}
 
-                Como escopo foram delimitados alguns pré-requisitos necessários para Realizar a solução proposta neste trabalho, onde, o software deve ser uma aplicação desenvolvida usando Java e JavaScript.
+                Como escopo foram delimitados alguns pré-requisitos necessários para codificar o software modelado dentro das abordagens já tratadas, onde, o software deve ser uma aplicação desenvolvida usando Java e JavaScript. Devido ao fato de que a biblioteca blockly é desenvolvida em JavaScript e também, levando em consideração que a linguagem Java é uma linguagem robusta para lidar com a abordagem de cliente/servidor em aplicações web permitindo melhor integração com a biblioteca Blockly que por sua natureza executa em ambiente web como uma aplicação cliente, portanto, o automatizador trabalhará como um servidor que irá rodar, controlar e apresentar uma página web com a workspace da biblioteca Blockly injetada como uma aplicação web.
 
                 \subsubsection {Integração do blockly em uma aplicação Java}
 
