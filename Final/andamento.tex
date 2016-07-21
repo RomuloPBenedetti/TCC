@@ -21,6 +21,7 @@
 \usepackage{enumitem}
 \usepackage[inner=30mm,outer=20mm,top=30mm,bottom=20mm]{geometry}
 \usepackage{subcaption}
+\usepackage{cleveref}
 
 \lstdefinelanguage{Java}{
     keywords={public, private, new, true, boolean, false, catch, void, return, null, for, switch, var, if, in, while, else, case, break, class, Funcionalidade, Contexto, Dado, Quando, E, Entao, Cenario, Delineacao, Exemplos},
@@ -48,6 +49,10 @@
 	numbers=left,
 	showstringspaces=false,
 }
+
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
 
 \lstset{
 	basicstyle=\scriptsize\ttfamily,
@@ -143,7 +148,7 @@
 
         Existem também ferramentas destinadas à automação de software gráfico, como a linguagem \emph{script} de automatização Autoit~\cite{autoit}. Ainda assim, é uma ferramenta que exige o domínio de um nível de abstração elevado, perceptivelmente diferente da abstração em que a atividade se dá, em um ambiente gráfico, focado em facilidades visuais de interação.
 
-        A automatização de tarefas pode ser aproximada do usuário por meio de abordagens mais visuais e sintaxe mais contextualizada à modelagem de tarefas genéricas em interfaces gráficas, com o uso de linguagem visual para descrição das automações, onde um exemplo de ferramenta para construção de linguagens visuais é a biblioteca Blockly~\cite{blocklyResource} usada neste projeto.
+        A automatização de tarefas pode ser aproximada do usuário por meio de abordagens mais visuais e sintaxe mais contextualizada à modelagem de tarefas genéricas em interfaces gráficas, com o uso de linguagem visual para descrição das automações, onde um exemplo de ferramenta para construção de linguagens visuais é a biblioteca Blockly~\cite{BlocklyResource} usada neste projeto.
 
         Um tipo de software que se beneficiaria da automatização de tarefas é o de simulação de culturas agrícolas (do inglês \emph{Crop Models}). Os modelos de simulação vem sendo refinados para prever o comportamento (por exemplo, taxa de crescimento) de diferentes cultivares sob determinadas condições do ambiente (por exemplo, volume de chuvas). Alguns exemplos de modelos em uso hoje em dia são SoySim~\cite{SoySim} (soja), Simanihot~\cite{Simanihot} (mandioca) e DSSAT (\emph{Decision Support System for Agrotechnology Transfer})~\cite{dssat} (diversas culturas). Embora estejam se tornando significativamente mais fáceis de interagir por via gráfica, dependendo das atividades realizadas e da forma como o modelo as realiza, trabalhar com estes programas pode se tornar uma atividade manual repetitiva e demorada. Tarefas como simulações em climas futuros é um dos exemplos mais notórios desta situação.
 
@@ -153,7 +158,7 @@
 
         	\subsection{Objetivo Geral}
 
-            	O principal objetivo deste trabalho é tornar possível a automação de tarefas em interfaces gráficas por meio da simplificação de uma abordagem visual com base na biblioteca de programação visual Blockly~\cite{blocklyResource}, dentro do contexto de modelos de simulação de culturas agrícolas.
+            	O principal objetivo deste trabalho é tornar possível a automação de tarefas em interfaces gráficas por meio da simplificação de uma abordagem visual com base na biblioteca de programação visual Blockly~\cite{BlocklyResource}, dentro do contexto de modelos de simulação de culturas agrícolas.
 
         	\subsection{Objetivos Específicos}
 
@@ -176,7 +181,7 @@
 
             A automação é a execução de tarefas por meio de máquinas e computadores, antes executáveis apenas por humanos \cite{automationlevels}. Segundo \citeauthor{automation2009} \cite[pág. 124]{automation2009}, a automação teve um impacto significativo na economia e desenvolvimento tecnológico da sociedade. É um elemento-chave para o alcance de produtos e serviços de alta qualidade e baixo custo. Uma das áreas impactadas pela automação foi a precisão em um ciclo autoalimentado, onde a automação melhora a precisão e por sua vez a precisão melhora a automação \cite{auto2008precision}.
 
-        	A automação da informação por meio de computadores, segundo \citeauthor{automation2009} \cite[pág. 3]{automation2009} é um processo dos dias atuais, onde temos vendas automatizadas de passagens, conexões de chamadas em nossos telefones, realizadas de forma automatica, dentre outras mudanças advindas da automatização. Temos também a produção e manufatura por intermédio da robótica. No final das contas, o impacto da informática promoveu não só uma intensa automatização passiva, mas também, segundo \citeauthor{itEnabledBusiness}\cite{itEnabledBusiness}, tem criado e mantido flexíveis redes de negócios, inclusive transformando a forma como realizamos negócios e atividades.
+        	A automação da informação por meio de computadores, segundo \citeauthor{automation2009} \cite[pág. 3]{automation2009} é um processo dos dias atuais, onde temos vendas automatizadas de passagens, conexões de chamadas em nossos telefones, realizadas de forma automática, dentre outras mudanças advindas da automatização. Temos também a produção e manufatura por intermédio da robótica. No final das contas, o impacto da informática promoveu não só uma intensa automatização passiva, mas também, segundo \citeauthor{itEnabledBusiness}\cite{itEnabledBusiness}, tem criado e mantido flexíveis redes de negócios, inclusive transformando a forma como realizamos negócios e atividades.
 
         	Dentro da área de computação, observamos a automação agilizar e refinar tarefas como testes, desenvolvimento e manutenção de projetos, devido ao reconhecimento de que o desenvolvimento de software muitas vezes consiste na criação sistemática de componentes que devem aderir a um conjunto bem específico de restrições \cite{automionSoftEvolutionEffect}.
 
@@ -191,15 +196,15 @@
 
     	\section{Programação visual}
 
-        	Segundo \citeauthor{visualProgram}\cite{visualProgram}, programação visual é ``o uso de representações gráficas significativas no processo de programação'' realizada em uma linguagem que \citeauthor{visualProgram} define como ``uma linguagem que utiliza alguma representação visual para completar o que outrora deveria ser escrito em uma linguagem uni-dimensional tradicional''. Esta definição hoje tem se mostrado um tanto ampla e tem apresentado diversas contextualizações como podemos ver em \cite{visualProgAuth}, que apresenta programação visual no contexto de autoria multimídia.
+        	Segundo \citeauthor{visualProgram}\cite{visualProgram}, programação visual é ``o uso de representações gráficas significativas no processo de programação'' realizada em uma linguagem que \citeauthor{visualProgram} define como ``uma linguagem que utiliza alguma representação visual para completar o que outrora deveria ser escrito em uma linguagem unidimensional tradicional''. Esta definição hoje tem se mostrado um tanto ampla e tem apresentado diversas contextualizações como podemos ver em \cite{visualProgAuth}, que apresenta programação visual no contexto de autoria multimídia.
 
-        	No contexto do presente projeto, programação visual representa a programação de tarefas de automatização de programas com interface gráfica, com base em elementos visuais por meio do Blockly~\cite{blocklyResource}. Esta é uma biblioteca de código aberto destinada à criação de editores para programação visual, totalmente baseada em tecnologias web e portável. Trata-se de uma ferramenta que executa do lado do cliente, funcionando na maioria dos navegadores web e em dispositivos móveis \cite{blocklyResource}.
+        	No contexto do presente projeto, programação visual representa a programação de tarefas de automatização de programas com interface gráfica, com base em elementos visuais por meio do Blockly~\cite{BlocklyResource}. Esta é uma biblioteca de código aberto destinada à criação de editores para programação visual, totalmente baseada em tecnologias web e portável. Trata-se de uma ferramenta que executa do lado do cliente, funcionando na maioria dos navegadores web e em dispositivos móveis \cite{BlocklyResource}.
 
         	Blockly pode ser integrado a qualquer aplicação que ofereça um componente web e é capaz de oferecer teste de unidade, possibilidade de tradução, tratamento de eventos e construção de blocos customizáveis, permitindo inclusive mutabilidade. O processo de criação dos blocos consiste em definir seu formato, campos e pontos de conexão e se necessário, modificadores, o que pode ser realizado com o uso do Block Factory ou ainda da API JSON.
         	Em seguida é criado o gerador de código para que o novo bloco possa ser exportado para alguma linguagem de programação.
 
         	~\\
-        	Um exemplo tipico de definição de um bloco:
+        	Um exemplo típico de definição de um bloco:
         	\begin{lstlisting}[frame=single]
                 Blockly.Blocks['text_length'] = {
                     init: function() {
@@ -219,13 +224,13 @@
 
         	Embora Blockly não seja escalável para grandes programas, pode ainda ser usado como um editor de linguagens visuais para áreas específicas, apresentando elementos comuns a linguagens de programação tais como funções, variáveis, \emph{arrays}, checagem básica de tipos e afins. Por ser uma ferramenta para criação de editores de linguagens visual, impossibilita que o usuário cometa erros de sintaxe ao fazer programas via Blockly.
 
-        	A flexibilidade da ferramenta pode ser observada na utilização para criação de jogos, aplicativos móveis para Android, programação web ou ainda como recurso educacional \cite{blocklyGames,blocklymobile,blocklyJavaScript,blocklyEducation}.
+        	A flexibilidade da ferramenta pode ser observada na utilização para criação de jogos, aplicativos móveis para Android, programação web ou ainda como recurso educacional \cite{BlocklyGames,Blocklymobile,BlocklyJavaScript,BlocklyEducation}.
 
     	\section{Modelos matemáticos de simulação de culturas agrícolas}
 
-        	Neste projeto serão usados modelos matemáticos que simulam diversos processos eco-fisiológicos de culturas Agrícolas. Em geral, estes modelos trabalham dentro de um ciclo diários, em função de variáveis meteorológicas que englobam temperatura, umidade do ar, radiação solar, precipitação, nível de CO2 atmosférico, dentre outros, com base na localização geográfica a ser simulada. Alguns modelos também utilizam condições do solo, que podem envolver balanço hídrico e nível de nutrientes disponíveis e, por fim, o tipo de cultivar sendo simulada, no caso como variáveis que descrevem como ocorre seu desenvolvimento \cite{simanihotArt}. Os modelos que serão usados para estudo de caso em conjunto com a ferramenta desenvolvida no projeto são o Simanihot, SoySim e DSSAT.
+        	Neste projeto serão usados modelos matemáticos que simulam diversos processos eco fisiológicos de culturas Agrícolas. Em geral, estes modelos trabalham dentro de um ciclo diários, em função de variáveis meteorológicas que englobam temperatura, umidade do ar, radiação solar, precipitação, nível de CO2 atmosférico, dentre outros, com base na localização geográfica a ser simulada. Alguns modelos também utilizam condições do solo, que podem envolver balanço hídrico e nível de nutrientes disponíveis e, por fim, o tipo de cultivar sendo simulada, no caso como variáveis que descrevem como ocorre seu desenvolvimento \cite{SimanihotArt}. Os modelos que serão usados para estudo de caso em conjunto com a ferramenta desenvolvida no projeto são o Simanihot, SoySim e DSSAT.
 
-        	O Simanihot é um modelo matemático dinâmico baseado em processos (\emph{process-based model}). Foi projetado para trabalhar em ciclos diários e simula diversos processos eco-fisiológicos da cultura da mandioca. O modelo foi desenvolvido pelo grupo Agrometeorológico da Universidade Federal de Santa Maria e é destinado a simular o crescimento, desenvolvimento e produtividade da cultura em questão no estado do Rio Grande do Sul, Brasil. O modelo utiliza como dados de entrada, as datas de plantio e de colheita, dados meteorológicos e balanço hídrico do solo, sendo um programa disponibilizado de forma gratuita \cite{Simanihot}.
+        	O Simanihot é um modelo matemático dinâmico baseado em processos (\emph{process-based model}). Foi projetado para trabalhar em ciclos diários e simula diversos processos eco fisiológicos da cultura da mandioca. O modelo foi desenvolvido pelo grupo Agrometeorológico da Universidade Federal de Santa Maria e é destinado a simular o crescimento, desenvolvimento e produtividade da cultura em questão no estado do Rio Grande do Sul, Brasil. O modelo utiliza como dados de entrada, as datas de plantio e de colheita, dados meteorológicos e balanço hídrico do solo, sendo um programa disponibilizado de forma gratuita \cite{Simanihot}.
 
         	Outro modelo usado neste projeto, o SoySim, simula o desenvolvimento da cultura de soja e foi desenvolvido pela Universidade de Nebraska-Lincoln. Este modelo simula o potencial de rendimento, assim como as necessidades de irrigação, sem limitação pela irrigação e assumindo suplemento ideal de nutrientes e sem perdas de rendimento por influências do ecossistema, tais como granizo, ou de outros meios, tais como envenenamento por nitritos ou nitratos. O ciclo de simulação deste modelo também é diário \cite{SoySim}.
 
@@ -360,8 +365,8 @@
 
             	{\bf Fluxo Principal:}
                 	\begin{enumerate}
-                		\item  Abrir o DSSAT, esperar carregar e clicar em \emph{Crop Management Data}. A partir dessa ação, o programa XBuild inicializará, e o usuário deve então clicar em New (para começar a criar um experimento).
-                		\item  Criar um nome inexistente para o experimento. \emph{Institute Code} (SM para UFSM), \emph{Site Code} (RS se for dentro do RS), \emph{Year} (2013), \emph{Experiment Number} (99 datas de semeadura), por exemplo. Lembrando que o usuário é livre para escolher a forma de preencher as lacunas dessa etapa do experimento, de uma forma que o torne auto-explicativo. No campo \emph{Crop} (selecione \emph{Soybean}). As demais lacunas podem ser preenchidas com -99.
+                		\item  Abrir o DSSAT, esperar carregar e clicar em \emph{Crop Management Data}. A partir dessa ação, o programa XBuild inicializará, e o usuário deve então clicar em \emph{New} (para começar a criar um experimento).
+                		\item  Criar um nome inexistente para o experimento. \emph{Institute Code} (SM para UFSM), \emph{Site Code} (RS se for dentro do RS), \emph{Year} (2013), \emph{Experiment Number} (99 datas de semeadura), por exemplo. Lembrando que o usuário é livre para escolher a forma de preencher as lacunas dessa etapa do experimento, de uma forma que o torne autoexplicativo. No campo \emph{Crop} (selecione \emph{Soybean}). As demais lacunas podem ser preenchidas com -99.
                 		\item Nessa etapa o usuário clica em \emph{Environment} e depois em \emph{Fields}. Aqui basicamente deve ser informado qual a série meteorológica o experimento vai utilizar, se existe algum tipo de drenagem e as características do solo daquela região. Ao rodar o modelo para outro local, o usuário deve adicionar mais um “\emph{level}” e repetir o preenchimento com a série meteorológica e as características do segundo local, e assim sucessivamente.
                 		\item O usuário clica em \emph{Management} e seleciona \emph{Cultivars}, a tela sera redirecionada para uma seção onde deve ser selecionada a cultivar ou as cultivares que serão utilizadas nas rodadas do modelo. Lembrando que essas já devem estar devidamente calibradas pois caso contrário, o nome da cultivar não aparecera na lista de seleção.
                 		\item Inserção da data ou datas de semeadura, data de emergência, o método utilizado, a forma de distribuição das sementes, a densidade de sementes na semeadura, a densidade de plantas na emergência, o espaçamento entre linhas adotado, a direção das linhas em relação ao Norte e a profundidade de semeadura utilizada para um ou vários experimentos. Lembrando que se o experimento possui alguma característica diferente, esse deve ser inserido como um Novo \emph{Level}.
@@ -371,7 +376,7 @@
                 		\item Caso o usuário tenha dados mais específicos ou tenha utilizado irrigação em algum dos experimentos que deseja simular, essa é a etapa em que vai inserir as características do manejo utilizado.
                 		\item Seleciona as informações que serão exibidas no final das rodadas como: Crescimento de massa seca diária, balanço hídrico....entre outros.
                 		\item Caracterizar cada experimento, identificando cada experimento que vai utilizar a primeira estação meteorológica por exemplo, ou o solo número 1 entre outras informações.
-                		\item Após realizar essas etapas o usuário deve clicar no botão \emph{Refresh}, que irá atualizar as novas informações e posteriormente pode abrir o programa DSSAT e começar a rodar os experimentos cadastrados.
+                		\item Após realizar essas etapas o usuário deve clicar no botão \emph{Refresh}, que atualizará as novas informações e posteriormente pode abrir o programa DSSAT e começar a rodar os experimentos cadastrados.
                 	\end{enumerate}
 
                 {\bf Fluxo Secundário:}
@@ -386,7 +391,7 @@
                 	\end{enumerate}
             	\bigskip \hrule \bigskip
 
-        	\subsection{Analise dos casos de uso em outras ferramentas de automação}
+        	\subsection{Análise dos casos de uso em outras ferramentas de automação}
 
             	Após a coleta dos casos de uso, foi analisado como outras ferramentas existentes atualmente, modelam os problemas observados nos casos de uso coletados, objetivando compreender como e sob quais condições, estas ferramentas conseguem solucionar os casos de uso.
 
@@ -426,7 +431,7 @@
                 }
 
             	\bigskip
-            	Analise do caso de uso 2 realizada pelo autor de forma direta nos 3 programas de automação sugeridos sem intervenção de terceiros ou qualquer pessoa do domínio da área:
+            	Análise do caso de uso 2 realizada pelo autor de forma direta nos 3 programas de automação sugeridos sem intervenção de terceiros ou qualquer pessoa do domínio da área:
             	\bigskip
 
             	{\centering
@@ -449,7 +454,7 @@
                         \hline \\
                 		{\bf Sikuli:} \\ \\
                 		{\bf Prós:}
-                            consegui montar o scrit que é no mesmo formato do UiPath (visual).  \\ \\
+                            consegui montar o \emph{scrit} que é no mesmo formato do UiPath (visual).  \\ \\
                 		{\bf Contras:}
                             Na hora de rodar, o programa apresentou um erro que o ator não consegue interpretar, erro apresentado na figura \ref{fig:erroSikuli}. Desistiu da ferramenta devido ao erro. \\ \\
                 		\hline \hline \\
@@ -471,24 +476,24 @@
                 \begin{enumerate}
                    \item Linguagens de programação tradicional não contribuem para os atores solucionarem seus problemas e inclusive dificultam a obtenção de uma solução em alguns casos.
 
-                   \item Apesar de possibilitar a solução, teoricamente, de qualquer problema inclusive fora da automação de interfaces gráficas, linguagens de programação tradicional são desnecessariamente complexas para os atores e inclusive, para o problema deste projeto, aumentaram as duvidas dos atores e problemas que eles precisavam considerar durante a obtenção de uma solução, tal como a validade sintática de suas soluções assim como coleta de informações em outras fontes com relação a vocábulos e semântica da linguagem.
+                   \item Apesar de possibilitar a solução, teoricamente, de qualquer problema inclusive fora da automação de interfaces gráficas, linguagens de programação tradicional são desnecessariamente complexas para os atores e inclusive, para o problema deste projeto, aumentaram as dúvidas dos atores e problemas que eles precisavam considerar durante a obtenção de uma solução, tal como a validade sintática de suas soluções assim como coleta de informações em outras fontes com relação a vocábulos e semântica da linguagem.
 
                    \item Os momentos em que os atores mais se beneficiaram das ferramentas analisadas foi quando as mesmas ofereceram, componentes sucintos e autoexplicativos, ou seja, que descreviam o que fazem, como usá-los e como não usá-los.
 
-                   \item O segundo momento em que os atores mais se beneficiaram das ferramentas analisadas foi quando os componentes oferecidos interagiam com os atores, impedindo maneiras incorretas de seu uso ou explicitando o uso correto por meio de diversas simbologias tais como o encaixe perfeito entre os elementos, dentre outros.
+                   \item O segundo momento em que os atores mais se beneficiaram das ferramentas analisadas foi quando os componentes oferecidos interagiam com os atores, impedindo maneiras incorretas de seu uso ou explicitando o uso correto por meio de diversas símbologias tais como o encaixe perfeito entre os elementos, dentre outros.
 
-                   \item O elemento-chave para os atores residiu na capacidade ou não da ferramenta em explicar o que se pode fazer ou não, tomando para sí algumas tarefas que exigem atenção, como a analise em algum nível da validade da solução.
+                   \item O elemento-chave para os atores residiu na capacidade ou não da ferramenta em explicar o que se pode fazer ou não, tomando para sí algumas tarefas que exigem atenção, como a análise em algum nível da validade da solução.
                 \end{enumerate}
 
             \subsection{Coleta dos requisitos funcionais}
 
-                Com base nas informações obtidas durante a analise prévia do problema, dos casos de uso, analise de ferramentas existentes, assim como discussão com os atores envolvidos, surgiram ideias de funcionalidades, das quais foram selecionados alguns requisitos funcionais mínimos para se chegar ao objetivo deste projeto assim como a solução dos problemas principais nos casos de uso.
+                Com base nas informações obtidas durante a análise prévia do problema, dos casos de uso, análise de ferramentas existentes, assim como discussão com os atores envolvidos, surgiram ideias de funcionalidades, das quais foram selecionados alguns requisitos funcionais mínimos para se chegar ao objetivo deste projeto assim como a solução dos problemas principais nos casos de uso.
 
                 \begin{enumerate}
 
             		\item Deve ser possível executar, salvar ou carregar automações construídas pelo ator de forma que se possa reutilizar estas automações, construídas anteriormente no programa. Também é preciso que seja possível descartar a automação.
 
-            		\item Dois elementos, um capaz de executar a ação de clicar uma vez em uma área da tela e outro capaz de executar a ação de clicar duas vezes em uma área da tela; o ator deve ser capaz de escolher a área da tela para cada instância do elemento e o elemento deve representar a área onde irá realizar a ação.
+            		\item Dois elementos, um capaz de executar a ação de clicar uma vez em uma área da tela e outro capaz de executar a ação de clicar duas vezes em uma área da tela; o ator deve ser capaz de escolher a área da tela para cada instância do elemento e o elemento deve representar a área onde realizará a ação.
 
             		\item Um elemento capaz de esperar por uma alteração na tela ou evento que indique que a automatização pode prosseguir para as próximas tarefas definidas pelo ator.
 
@@ -517,13 +522,13 @@
             \begin{figure}[!htb]
                 {\centering
                 \includegraphics[width=1.0\textwidth]{imagens/generalIO}
-                \caption{Descrição da interação entre o software automatizador e o software a ser automatizado, incluíndo o usuário ou ator que irá utilizar o automatizador.}
+                \caption{Descrição da interação entre o software automatizador e o software a ser automatizado, incluindo o usuário ou ator que utilizará o automatizador.}
                 \label{fig:generalIO}}
             \end{figure}
 
             \subsection{Entradas e saídas do software a ser automatizado}
 
-                Para definir as entradas e saídas do software a ser automatizado\footnote{Nesta seção, iremos nos referir a eles como “software a ser automatizado” ou apenas software.}, foi utilizado os modelos matemáticos de simulação de culturas agrícolas escolhidos para serem automatizados neste projeto.
+                Para definir as entradas e saídas do software a ser automatizado\footnote{Nesta seção, iremos nos referir a eles como “software a ser automatizado” ou apenas software.}, foram utilizados os modelos matemáticos de simulação de culturas agrícolas escolhidos para serem automatizados neste projeto.
 
                 Considerou-se quais eram os elementos com os quais se podia interagir, formas de interação e resultados observados. A figura \ref{fig:modelIO} descreve as entradas e saídas observadas durante a análise dos softwares, sua natureza e componentes de destino ou origem. Essas entradas e saídas foram discretizadas em dois tipos de entrada e dois tipos de saída:
 
@@ -539,19 +544,19 @@
                 \begin{figure}[!htb]
                     {\centering
                     \includegraphics[width=1.0\textwidth]{imagens/modelIO}
-                    \caption{Descrição das entradas e saídas do software a ser automatizado, as grandes cetas reqpresentam o software como um todo, como destino ou origem, a verde mostra que é possível inserir arquivos no software, a vermelha, que é possível obter arquivos do software, e a laranja indica que, não somente mensagens, mas qualquer componente do software pode representar um evento, mudando de estado.}
+                    \caption{Descrição das entradas e saídas do software a ser automatizado, as grandes cetas representam o software como um todo, como destino ou origem, a verde mostra que é possível inserir arquivos no software, a vermelha, que é possível obter arquivos do software, e a laranja indica que, não somente mensagens, mas qualquer componente do software pode representar um evento, mudando de estado.}
                     \label{fig:modelIO}}
                 \end{figure}
 
                 Como é possível observar na figura\ref{fig:modelIO}, as ações correspondem a entradas que podem resultar em alguma saída, logo, podem produzir eventos ou dados como saída, podendo inclusive produzir ambos. As ações são consideradas entradas que ativam elementos ou funções do software.
 
-                Os dados quando considerados como entrada, podem ser inseridos de duas formas: após alguma ação, que indica que o dado pode ser inserido no componente foco da ação, como por exemplo em um \emph{textfield}, onde pode se inserir valores tal como números, texto ou a localização de arquivos, ou ainda podem ser inseridos automaticamente após alguma ação, caso o programa sempre procure por arquivos em algum local específico quando iniciado, onde a ação é a execução do software. Inserir dados resulta em  evento, como por exemplo, mudança de estado do componente que recebe os dados ou uma mensagem.
+                Os dados quando considerados como entrada, podem ser inseridos de duas formas: após alguma ação, que indica que o dado pode ser inserido no componente foco da ação, como por exemplo, em um \emph{textfield}, onde pode se inserir valores tal como números, texto ou a localização de arquivos, ou ainda podem ser inseridos automaticamente após alguma ação, caso o programa sempre procure por arquivos em algum local específico quando iniciado, onde a ação é a execução do software. Inserir dados resulta em  evento, como por exemplo, mudança de estado do componente que recebe os dados ou uma mensagem.
 
                 Quando consideramos os eventos de saída, estes resultam, de alguma entrada. Os eventos procuram informar o usuário de alguma condição satisfeita por uma entrada, como por exemplo, sucesso na inserção de um arquivo, ou de algum problema que deve ser observado, como por exemplo, algum campo preenchido incorretamente, ou que por exemplo, um elemento recebeu um evento e obteve foco, esperando pela inserção de dados.
 
                 Finalmente, considerando os dados de saída, podem ser observados duas formas: dados que são apresentados em componentes da interface gráfica, no caso dos softwares observados, podemos citar componentes como tabelas, gráficos e arquivos, que no caso dos softwares observados, são arquivos de texto. Os dados de saída são gerados por ações, quando gerados automaticamente, se deve ao fato de que o modelo tem a capacidade de acessar e carregar automaticamente resultados produzidos em algum momento no passado, estes dados são gerados após a inicialização do software ou seleção de simulação específica.
 
-                De forma resumida, do ponto de vista dos softwares observados, podemos observar que todas as saídas resultam de alguma entrada e inclusive a entrada de dados depende de alguma ação prévia, Incluindo aqui o ato de iniciar o software. Analogamente, podemos deduzir que toda entrada resultará em pelo menos uma saída, seja esta um evento ou um dado.
+                De forma resumida, do ponto de vista dos softwares observados, podemos observar que todas as saídas resultam de alguma entrada e inclusive a entrada de dados depende de alguma ação prévia, Incluindo aqui o ato de iniciar o software. Analogamente, podemos deduzir que toda entrada resultará em pelo menos uma saída, seja está um evento ou um dado.
 
                 Comportamentos diferentes foram considerados exceções, podendo resultar do fato de que o software parou de responder (receber entradas ou produzir saídas), ou a entrada fornecida resultou em saídas não esperadas pelo usuário.
 
@@ -568,7 +573,7 @@
                 \begin{itemize}
                     \item entradas:
                         \subitem {\bf ações}: Interações vindas do usuário, que podem resultar em alguma saída do automatizador, seja eventos dados ou ações.
-                        \subitem {\bf eventos}: Uma das saída do software a ser automatizado, procurados quando necessário durante a automatização.
+                        \subitem {\bf eventos}: Uma das saídas do software a ser automatizado, procurados quando necessário durante a automatização.
                         \subitem {\bf dados}: Quando inseridas pelo usuário, interações que fornecem dados ou valores para o automatizador realizar a automação, ou então, uma das saídas do software automatizado, procurados quando necessário durante a automatização. Podem resultar em algum evento no automatizador.
                     \item saídas:
                         \subitem {\bf ações}: Ações geradas pelo automatizador durante a automação, destinadas a entrada de ações do software a ser automatizado.
@@ -612,7 +617,7 @@
                     \begin{itemize}
                         \item Carregamento de todos os elementos do automatizador com as propriedades e estado necessários na inicialização do automatizador.
                         \item intercomunicação entre todos os componentes quando requisitados por algum componente por intermédio do usuário.
-                        \item realização das tarefas e do processamento requisitados pelos componentes a depender da funcionalidade que eles representam e dado que eles contem.
+                        \item realização das tarefas e do processamentos requisitados pelos componentes a depender da funcionalidade que eles representam e dado que eles contem.
                         \item Apresentação de eventos e transmissão de informações dos mesmos para os outros componentes ou vice-versa.
                         \item Coordenador na tarefa de utilização dos elementos de automação pelo usuário para serem usados na descrição da automação.
                         \item realização das ações do software automatizador como executar, salvar, excluir ou carregar uma automatização salva.
@@ -664,7 +669,7 @@
                         \item Não depende da visibilidade dos \emph{controls}. \emph{Controls} que não estejam visíveis também estão ao alcance da ferramenta de automação já que a mesma tem acesso a todas as propriedades do programa.
                         \item É possível alterar o comportamento do programa já que é possível definir qualquer estado possível para um \emph{control} em específico.
                         \item A interação do automatizador é mais próxima do contexto interno do programa, enviando, por exemplo, eventos diretamente para os \emph{listeners} em botões, isso garante maior exatidão no comportamento o que é mais relevante nos casos em que se busca testar o softwares.
-                        \item por não exigir muito processamento extra, analise complexa de dados e não depender da resposta da interface, é relativamente rápido.
+                        \item por não exigir muito processamento extra, análise complexa de dados e não depender da resposta da interface, é relativamente rápido.
                         \item é uma abordagem mais estável que o método baseado em \emph{windows handles} já que os \emph{controls} são mais previsíveis e padronizados.
                         \item Permite um grande reaproveitamento e reutilização em condições diversas se comparado ao método baseado em captura e execução.
                     \end{itemize}
@@ -690,7 +695,7 @@
                     \end{itemize}
                     \\ {\bf contras:} \\
                     \begin{itemize}
-                        \item Não é tão rápido como os outros métodos por exigir captura e analise complexa de imagens.
+                        \item Não é tão rápido como os outros métodos por exigir captura e análise complexa de imagens.
                         \item Não é possível elaborar um padrão formal menos abstrato para entrada de dados neste método devido ao fato de que as interfaces gráficas têm um dinamismo muito variado e complexo.
                         \item A dificuldade em estabelecer um padrão formal torna difícil reutilizar automações prontas já que o método é sensível a mudanças na interface ou no ambiente.
                         \item Mesmo em ambientes controlados, pequenas mudanças na interface do software a ser automatizado podem exigir alterações na descrição da automação.
@@ -712,7 +717,7 @@
 
                     \item Oferece maior flexibilidade para o usuário, já que pode ser usado em quaisquer condições, inclusive onde outras abordagens não são viáveis.
 
-                    \item É a abordagem que menos exige analise por por parte do usuário, já que o mesmo não precisa procurar em tabelas e lista de componentes em busca de quais componentes estão relacionados com a tarefa que visa realizar no software, como encontrar qual elemento corresponde a um botão, ou campo de texto, ou funcionalidade do software a ser automatizado, ele pode utilizar os conhecimentos que já possui a respeito do software para realizar estas decisões.
+                    \item É a abordagem que menos exige análise por parte do usuário, já que o mesmo não precisa procurar em tabelas e lista de componentes em busca de quais componentes estão relacionados com a tarefa que visa realizar no software, como encontrar qual elemento corresponde a um botão, ou campo de texto, ou funcionalidade do software a ser automatizado, ele pode utilizar os conhecimentos que já possui a respeito do software para realizar estas decisões.
 
                     \item Oferece menor risco de expor para o usuário, a possibilidade de usar condições que não foram previstas pelo desenvolvedor do software que ele está automatizando.
                 \end{itemize}
@@ -724,7 +729,7 @@
                 Além das considerações feitas a cima, estas abordagens envolvem alguns conhecimentos formais de computação que devem ser observados pelo usuário. Nem sempre é garantido que o software está devidamente registrado nas variáveis de ambiente como é possível observar no SoySim que não possui um instalador e não insere o programa na lista de caminhos de executáveis nas variáveis de ambiente do sistema operacional.
                 Alguns sistemas operacionais, por exemplo, não expõem visivelmente as extensões de arquivos, o que poderia levar a ambiguidades quando o usuário informasse o nome do software a ser procurado, por considerando a extensão não relevante ou desconhecer sua existência, já que alguns softwares dentre os presentes no caso de teste divergem na sua natureza, podendo ser arquivos executáveis do Windows ou executáveis Java.
 
-                Outra consideração é que procurar o executável poderia se tornar uma tarefa excepcionalmente lenta caso fosse necessário vasculhar a arvore do sistema. E caso o usuário conhecesse a localização do executável, utilizar a abordagem de captura e execução seria igualmente eficiente para realizar a tarefa.
+                Outra consideração é que procurar o executável poderia se tornar uma tarefa excepcionalmente lenta caso fosse necessário vasculhar a árvore do sistema. E caso o usuário conhecesse a localização do executável, utilizar a abordagem de captura e execução seria igualmente eficiente para realizar a tarefa.
 
                 \subsubsection {utilização da abordagem escolhida}
 
@@ -737,57 +742,57 @@
                     \label{fig:actionRecord}}
                 \end{figure}
 
-                Nesta abordagem, as imagens capturadas do software a ser automatizado, seriam os eventos gerados pelo software a ser automatizado, quando torna a interface visível para interação, imagens estas capturadas pelo usuário. Após a localização do elemento, o automatizador pode enviar ações (controlando o dispositivo de entrada apontador, mouse), que irão gerar um evento de obtenção de foco ou ativação no elemento, objéto da ação, também poderá enviar dados para os elementos em foco (controlando o dispositivo de entrada de texto, o teclado);
+                Nesta abordagem, as imagens capturadas do software a ser automatizado, seriam os eventos gerados pelo software a ser automatizado, quando torna a interface visível para interação, imagens estas capturadas pelo usuário. Após a localização do elemento, o automatizador pode enviar ações (controlando o dispositivo de entrada apontador, mouse), que gerarão um evento de obtenção de foco ou ativação no elemento, objeto da ação, também poderá enviar dados para os elementos em foco (controlando o dispositivo de entrada de texto, o teclado);
 
                 Foi observado também como um dos software analisados nos casos de uso o Sikulix ou Sikuli, utiliza esta abordagem. No caso do software observado, quando o usuário escolhe um elemento de automação que deve levar em consideração o componente do software a ser automatizado, ao qual é direcionado, o software automatizador se torna invisível, a tela escurece e uma mensagem pede para que o usuário selecione com o mouse uma área retangular onde o elemento de automação deve realizar a ação, posteriormente confirmando apertando \emph{enter}.
 
-                Por fim, decidiu-se por uma abordagem similar onde o usuário primeiro seleciona o elemento de automatização, posteriormente interage com o mesmo para capturar a área onde a automação deve ser realizada, com a diferença de que primeiro o usuário é alertado de que pode procurar, movendo janelas ou alterando a interface, pelo componente que quer capturar. Quando encontrado, o usuário irá realizar um comando de teclado onde a tela será capturada e o usuário poderá selecionar na captura a área foco da interação, confirmando igualmente com um \emph{enter}.
+                Por fim, decidiu-se por uma abordagem similar onde o usuário primeiro seleciona o elemento de automatização, posteriormente interage com o mesmo para capturar a área onde a automação deve ser realizada, com a diferença de que primeiro o usuário é alertado de que pode procurar, movendo janelas ou alterando a interface, pelo componente que quer capturar. Quando encontrado, o usuário realizará um comando de teclado onde a tela será capturada e o usuário poderá selecionar na captura a área foco da interação, confirmando igualmente com um \emph{enter}.
 
             \subsection {Descrição da automação e seus elementos}
 
                 Na modelagem foi definido dois componentes que tratam da construção da descrição da automação, a descrição da automação em si e os elementos de automação. O objetivo geral deste projeto trata em parte da realização de automação de tarefas em interfaces gráficas por meio de uma abordagem visual, por esta se aproximar do domínio de conhecimento do usuário, utilizando a biblioteca de programação visual Blockly.
 
-                Durante a concepção do software, foi observado e e justificado que, a programação tradicional dificulta e não complementa a automação para estes usuários por não permitir uma abordagem quase que totalmente baseada em lógica e nos conhecimentos que o usuário já detem do software a ser automatizado, embasando a troca de abordagem de linguagens tradicionais para linguagens visuais, demonstrando que estas diminuem a quantia de detalhes e conhecimentos com quais o usuário deve lidar.
+                Durante a concepção do software, foi observado e e justificado que, a programação tradicional dificulta e não complementa a automação para estes usuários por não permitir uma abordagem quase que totalmente baseada em lógica e nos conhecimentos que o usuário já detêm do software a ser automatizado, embasando a troca de abordagem de linguagens tradicionais para linguagens visuais, demonstrando que estas diminuem a quantia de detalhes e conhecimentos com quais o usuário deve lidar.
 
                 Outra parte do objetivo geral consiste em utilizar a biblioteca de programação visual Blockly. A escolha da biblioteca se deu por alguns motivos que a tornaram adequada para o desenvolvimento deste software:
 
                 \begin{itemize}
-                    \item oferecia objetivamente suporta a diversos idiomas, por ser uma propriedade fundamental dentro do contexto de conhecimentos dominados pelos usuários, ou seja o idioma em sí do usuário.
-                    \item Permite abordar a programação em um paradigma imperarativo, procedural podendo ser estruturada, paradigmas mais próximo de como o usuário raciocina a solução de tarefas.
+                    \item oferecia objetivamente suporta a diversos idiomas, por ser uma propriedade fundamental dentro do contexto de conhecimentos dominados pelos usuários, ou seja, o idioma em sí do usuário.
+                    \item Permite abordar a programação em um paradigma imperativo, procedural podendo ser estruturada, paradigmas mais próximo de como o usuário raciocina a solução de tarefas.
                     \item É uma biblioteca voltada para desenvolvedores, de código aberto, permitindo a exploração, adaptação e expansão do código original oferecendo a flexibilidade necessária para a solução do objetivo e doa requisitos elencados de uma forma viável e gratuita.
-                    \item Não é uma linguagem de programação em si, muito menos de aplicação especializada, oferecendo componentes genéricos que permitem a construção de programas e resolução de problemas diversos em uma abordagem de programação visual desacoplada de uma linguagem tradicional, que posteriormente pode ser traduzida para uma linguagem tradiciona, o que a torna bastante flexível, permitindo a abordagem de problemas como a automação de uma forma mais abstrata e especializada.
-                    \item Poucas limitações arquiteturais, podendo ser utilizada em conjunto com outras linguágens facilmente por ser uma biblioteca injetavel em componentes web e permitir a tradução dos quebra-cabeças para diversas linguagens, oferecendo uma gama mais flexível de escolhas para a solução de outros componentes e problemas observados no desenvolvimento.
+                    \item Não é uma linguagem de programação em si, muito menos de aplicação especializada, oferecendo componentes genéricos que permitem a construção de programas e resolução de problemas diversos em uma abordagem de programação visual desacoplada de uma linguagem tradicional, que posteriormente pode ser traduzida para uma linguagem tradicional, o que a torna bastante flexível, permitindo a abordagem de problemas como a automação de uma forma mais abstrata e especializada.
+                    \item Poucas limitações arquiteturais, podendo ser utilizada em conjunto com outras linguagens facilmente por ser uma biblioteca injetável em componentes web e permitir a tradução dos quebra-cabeças para diversas linguagens, oferecendo uma gama mais flexível de escolhas para a solução de outros componentes e problemas observados no desenvolvimento.
                 \end{itemize}
 
-                A biblioteca sera utilizada para definir um vocabulário da elementos de linguagem visual, os elementos de automação, de forma a oferecer componentes que permitam expresar a lógicos necessária para definir as repetições, ordem das operações assim como a criação de elementos que expressem as ações de automação elencadas nos requisitos, dentro da abordagem de captura e execução. A biblioteca irá se encarregar de fazer algumas validações da montagem, verificando a validade ou não dos encaixes entre os elementos e impedindo que elementos não compativeis sejam conectados.
+                A biblioteca sera utilizada para definir um vocabulário da elementos de linguagem visual, os elementos de automação, de forma a oferecer componentes que permitam expressar a lógicos necessária para definir as repetições, ordem das operações assim como a criação de elementos que expressem as ações de automação elencadas nos requisitos, dentro da abordagem de captura e execução. A biblioteca irá se encarregar de fazer algumas validações da montagem, verificando a validade ou não dos encaixes entre os elementos e impedindo que elementos não compatíveis sejam conectados.
 
-                também será utilizada para traduzir a descrição para uma linguagem de programação tradicional que será usada pelo automatizador para rodar as automações, assim como oferecer uma área que permita montar a automação. Também atravéz da biblioteca será oferecida algumas nuncionalidades do software abordadas nas ações do software automatizado. A figura \ref{fig:blocklyDiagram} descreve de forma resumida, levando em consideração apenas as saídas relevantes e a integração do blockly exemplificando com algumas ações do software automatizador,
+                também será utilizada para traduzir a descrição para uma linguagem de programação tradicional que será usada pelo automatizador para rodar as automações, assim como oferecer uma área que permita montar a automação. Também através da biblioteca será oferecida algumas funcionalidades do software abordadas nas ações do software automatizado. A figura \ref{fig:BlocklyDiagram} descreve de forma resumida, levando em consideração apenas as saídas relevantes e a integração do Blockly exemplificando com algumas ações do software automatizador,
 
                 \begin{figure}[!htb]
                     {\centering
-                    \includegraphics[width=1.0\textwidth]{imagens/blocklyDiagram}
-                    \caption{Estrutura geral da solução.}
-                    \label{fig:blocklyDiagram}}
+                    \includegraphics[width=1.0\textwidth]{imagens/blocklyDiagram.png}
+                    \caption{Descrição da interação do Blockly com algumas ações do software automatizador.}
+                    \label{fig:BlocklyDiagram}}
                 \end{figure}
 
-                Alem dos diversos blocos já existentes na biblioteca, úteis para a definição de repetições, variáveis como textom números e listas, lógica e operações, para adaptar o blockly ao contexto de automação, serão desenvolvidos mais 4 bloco fundamentais para a automação, observando os requisitos elencados, dentro da abordagem de captura e execução já discutidods:
+                Além dos diversos blocos já existentes na biblioteca, úteis para a definição de repetições, variáveis como texto números e listas, lógica e operações, para adaptar o Blockly ao contexto de automação, serão desenvolvidos mais 4 blocos fundamentais para a automação, observando os requisitos elencados, dentro da abordagem de captura e execução já discutidos:
 
                 \begin{itemize}
                     \item Um bloco que permite realizar clique simples em uma área da tela.
                     \item Outro que permite realizar clique duplo em uma área da tela
                     \item Um que permite esperar por um evento dentro do contexto de captura e execução, procurando a cada tanto intervalo de tempo definido pelo usuário
-                    \item Por último, outro bloco que permita digitar valores que possam ser convertidos para texto, como números, texto em sí ou variáveis cujo valor possam ser convertidas para texto.
+                    \item Por último, outro bloco que permita digitar valores que possam ser convertidos para texto, como números, texto em si ou variáveis cujo valor possam ser convertidas para texto.
                 \end{itemize}
 
-                As ações do software automatizador observados em parte na figura \ref{fig:blocklyDiagram}, é um dos elementos concebidos durante a modelagem, necessários para que o usuário possa dizer ao automatizador, o que deve ser feito com a descrição da automação com o objetivo de fornecer as funcionalidades previstas no ponto 1, nestes componentes estão previstas as funções de salvamento, carregamento, execução e exclusão da automação.
+                As ações do software automatizador, observadas em parte na figura \ref{fig:BlocklyDiagram} são um dos elementos concebidos durante a modelagem, necessários para que o usuário possa dizer ao automatizador, o que deve ser feito com a descrição da automação com o objetivo de fornecer as funcionalidades previstas no ponto 1, nestes componentes estão previstas as funções de salvamento, carregamento, execução e exclusão da automação.
 
-                Para todas as funções serão utilizadas capacidades existentes na biblioteca blockly, que é capaz de salvar a descrição de um quebra-cabeças já montado ou carrega-lo e permite também a exclusão de quebra cabeças já montados. Para executar a automação a descrição será traduzido para uma linguagem de programação específica por meio da biblioteca blockly e posteriormente o código gerado da automação será interpretada e executado.
+                Para todas as funções serão utilizadas capacidades existentes na biblioteca Blockly, que é capaz de salvar a descrição de um quebra-cabeças já montado ou carregá-lo e permite também a exclusão de quebra cabeças já montados. Para executar a automação a descrição será traduzido para uma linguagem de programação específica por meio da biblioteca Blockly e posteriormente o código gerado da automação será interpretada e executado.
 
             \subsection {Codificação}
 
-                Como escopo foram delimitados alguns pré-requisitos necessários para codificar o software modelado dentro das abordagens já tratadas, onde, o software deve ser uma aplicação desenvolvida usando Java e JavaScript. Devido ao fato de que a biblioteca blockly é desenvolvida em JavaScript e também, levando em consideração que a linguagem Java é uma linguagem robusta para lidar com a abordagem de cliente/servidor em aplicações web permitindo melhor integração com a biblioteca Blockly que por sua natureza executa em ambiente web como uma aplicação cliente, portanto, o automatizador trabalhará como um servidor que irá rodar, controlar e apresentar uma página web com a workspace da biblioteca Blockly injetada como uma aplicação web.
+                Como escopo foram delimitados alguns pré-requisitos necessários para codificar o software modelado dentro das abordagens já tratadas, onde, o software deve ser uma aplicação desenvolvida usando Java e JavaScript. Devido ao fato de que a biblioteca Blockly é desenvolvida em JavaScript e também, levando em consideração que a linguagem Java é uma linguagem robusta para lidar com a abordagem de cliente/servidor em aplicações web permitindo melhor integração com a biblioteca Blockly que por sua natureza executa em ambiente web como uma aplicação cliente, portanto, o automatizador trabalhará como um servidor que rodara, controlar e apresentar uma página web com a \emph{workspace} da biblioteca Blockly injetada como uma aplicação web.
 
-                \subsubsection {Integração do blockly em uma aplicação Java}
+                \subsubsection {Integração do Blockly em uma aplicação Java}
 
                     Em um primeiro momento, com o objetivo de rodar o Blockly, uma biblioteca JavaScript 100\% \emph{client side} dependente de um ambiente web, em uma aplicação java, optou-se por uma solução que envolve uma aplicação JavaFX com um cliente \emph{web} embutido, descrita de forma geral na imagem \ref{fig:struct}.
 
@@ -807,8 +812,8 @@
 
 \begin{figure}[!htb]
 \begin{lstlisting}
-// método que envia uma String contendo o arquivo XML gerado na ultima vez em que foi
-// salvo a blockly.mainWorkspace
+// método que envia uma String contendo o arquivo XML gerado na última vez em que foi
+// salvo a Blockly.mainWorkspace
 
 public void loadBlocks(String xml) {
     com.sun.javafx.application.PlatformImpl.runAndWait(() ->{
@@ -843,7 +848,7 @@ public void waitImg (String imgSrc, int milisec){
 	\label{code:javascriptmsg.java}
 \end{figure}
 
-                    A classe possui diversos métodos que estendem as funcionalidades da aplicação \emph{web} e permitem ao software utilizar a biblioteca blockly para fornecer a biblioteca visual, gerar e executar código.
+                    A classe possui diversos métodos que estendem as funcionalidades da aplicação \emph{web} e permitem ao software utilizar a biblioteca Blockly para fornecer a biblioteca visual, gerar e executar código.
 
                 \subsubsection {Interação e pesquisa por regiões na tela do sistema operacional}
 
@@ -853,7 +858,11 @@ public void waitImg (String imgSrc, int milisec){
 
                     Diversas outras soluções foram analisadas como a biblioteca OpenCV~\cite{openCV} (que inclusive é utilizada pelo automatizador Sikuli) ou ainda o \emph{framework} brasileiro de processamento de imagens em Java, Marvin~\cite{marvin}. Porém outras soluções não apresentavam vantagens que melhorassem a abordagem de procura pelas regiões e traziam diversos problemas que não se justificavam, variando da necessidade de mais bibliotecas, adaptação a uma abordagem mais complicada e distante da necessidade do projeto ou ainda limitações em termos de plataformas.
 
-                    A abordagem do Sikulix, por exemplo, permite a procura por imagens não somente exatas, mas similares, em níves percentuais de similaridade configuráveis, utilizando o método matchTemplate() presente na biblioteca OpenCV, a abordagem também é consideravelmente mais rápida pelo fato de a biblioteca OpenCV ser uma biblioteca nativa. Apesar de aumentar a flexibilidade da localização da imagem permitindo variações, não apresentou resultados seguros no reconhecimento de campos de texto que fossem capturados e em algum momento durante a automação, tivessem seus valores alterados, como é possível observar na figura \ref{fig:sikulixNoMatch}. Outra problema observado é que a utilização da biblioteca resultaria na necessidade de um processo de instalação complexo desnecessário já que a biblioteca necessita instalação de binários nativos para o sistema operacional do usuário.
+                    A abordagem do Sikulix, por exemplo, permite a procura por imagens não somente exatas, mas similares, em níveis percentuais de similaridade configuráveis, utilizando o método \texttt{matchTemplate()} presente na biblioteca OpenCV. A abordagem também é mais rápida pelo fato de a biblioteca OpenCV ser uma biblioteca nativa.
+
+                    Apesar de o método aumentar a flexibilidade de localização das áreas permitindo variações discretas, não apresentou resultados seguros no reconhecimento variações comuns nas automações, como mudança de campos de texto que fossem capturados sem texto e em algum momento durante a automação, fossem preenchidos, como é possível observar na figura \ref{fig:sikulixNoMatch}.
+
+                    Outro problema observado é que a utilização da biblioteca necessita instalação já que a biblioteca utiliza binários nativos para o sistema operacional do usuário. O que no caso do java, impede uma abordagem simples de distribuição de uma única biblioteca que possa ser carregada dinamicamente dificultando a portabilidade.
 
                     \begin{figure}[!htb]
                         {\centering
@@ -862,44 +871,44 @@ public void waitImg (String imgSrc, int milisec){
                         \label{fig:sikulixNoMatch}}
                     \end{figure}
 
-                    A abordagem é descrita na figura \ref{fig:ImageSearch}, se trata de extrair da área selecionada pelo usuário, dois \emph{pixels}, um com o maior valor de cor RGB dentre todos e outro com o menor valor dentre todos, assim como a distância 'x' e 'y' destes dois \emph{pixels} da origem. Por questões de otimização as cores nas imagens são analisadas como se fossem inteiros absolutos de 32 bits.
-
-                    Posteriormente percorre quase todos os \emph{pixels} da imagem capturada da tela do sistma, de x = 0 até x = (larguraCaptura - larguraArea), usando a posição em que se encontra como âncora para verificar nas posições salvas dos \emph{pixels} extraídos da área são iguais aos \emph{pixels} na posição da imagem.
-
-                    Caso os 2 \emph{pixels} sejam iguais, inicia-se uma análise de uma malha esparsa de \emph{pixels} na área, onde é somado a diferença dos \emph{pixels} da imagem extraída pelo usuário e a imagem capturada da tela, caso a diferença no final for zero, significa que foi encontrado uma área na imagem capturada igual à imagem da área que o usuário escolheu e neste caso a função retorna a posição 'x' 'y' da âncora.
-
-                    Os métodos principais da classe \texttt{ImageSearch}\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}, podem ser observados na imagem \ref{code:ImageSearch.java}.
+                    A abordagem desenvolvida para o automatizador é descrita ilustrativamente na figura \ref{fig:ImageSearch}, é extraído da área selecionada pelo usuário, dois \emph{pixels}, um com o maior valor de cor RGB dentre todos e outro com o menor valor dentre todos, assim como a distância 'x' e 'y' destes dois \emph{pixels} da origem da região. Por questões de otimização os componentes RGB dos \emph{pixels} da imagem são analisadas em conjunto, em um único inteiro de 32 \emph{bits} tratado como um inteiro sem sinal para obter um valor absoluto, garantindo que o valor vá do maior ao menor valor possível para uma imagem com 8 \emph{bits} por canal.
 
                     \begin{figure}[!htb]
                         {\centering
-                        \includegraphics[width=0.3\textwidth]{imagens/searchImage.png}
+                        \includegraphics[width=0.5\textwidth]{imagens/searchImage.png}
                         \caption{descrição visual da tarefa realizada pela classe. \texttt{ImageSearch}.}
                         \label{fig:ImageSearch}}
                     \end{figure}
 
-                    \begin{figure}[!htb]
-                        {\centering
-                        \includegraphics[width=1.0\textwidth]{imagens/codeImageA.png}
-                        \caption{descrição do algoritmo de procura pelos máximos e mínimos contido na classe \texttt{ImageSearch}.}
-                        \label{fig:ImageSearch}}
-                    \end{figure}
+                    Posteriormente percorre todos os \emph{pixels} pertinentes da imagem capturada da tela do sistema, de x = 0 até x = ((largura Da Captura) - (largura Da região)), usando a posição em que se encontra como âncora ou origem da região, para verificar nas posições salvas dos \emph{pixels} extraídos da região se são iguais aos \emph{pixels} na posição correspondente da imagem em relação a âncora, por meio das distâncias salvas com relação a origem da região.
+
+                    Caso os 2 \emph{pixels} sejam iguais, inicia-se uma análise de uma malha esparsa de \emph{pixels} na região candidata, onde é somado a diferença dos \emph{pixels} da região e a imagem capturada da tela, caso a diferença no final seja igual a zero, significa que foi encontrado uma área na imagem capturada igual à imagem da área que o usuário escolheu e neste caso a função retorna a posição 'x' 'y' da âncora.
+
+                    Trechos relevantes da classe \texttt{ImageSearch}\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}, podem ser observados nas figuras \ref{fig:ImageSearchA} e \ref{fig:ImageSearchB}.
 
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=1.0\textwidth]{imagens/codeImageA.png}
-                        \caption{descrição do algoritmo de procura pela região, utilizando máximos emínimos contido na classe \texttt{ImageSearch}.}
-                        \label{fig:ImageSearch}}
+                        \caption{descrição do algoritmo de procura pelos máximos e mínimos na região, contido na classe \texttt{ImageSearch}.}
+                        \label{fig:ImageSearchA}}
                     \end{figure}
 
-                    O método \texttt{StoreTarget} percorre a imagem que o usuário selecionou para ser clicada ou analisada e compara o valor de cada \emph{pixel} com variáveis auxiliares, onde posteriormente sobrescreve o valor destas variáveis se o \emph{pixel} for realmente um valor maior ou menor do que os considerados anteriormente.
+                    \begin{figure}[!htb]
+                        {\centering
+                        \includegraphics[width=1.0\textwidth]{imagens/codeImageB.png}
+                        \caption{descrição do algoritmo queprocura pela região na imagem capturada, utilizando máximos e mínimos, contido na classe \texttt{ImageSearch}.}
+                        \label{fig:ImageSearchB}}
+                    \end{figure}
 
-                    Já o método \texttt{search} procura pelo máximo ou mínimo na imagem capturada pelo software, quando encontra a área que contem nas mesmas posições o valor máximo e mínimo, analisa a área um pixel a cada três, caso a soma de todas as diferenças da área de um valor 0 todas as \emph{threads} são paradas e a posição do \emph{pixel} âncora ou origem da área é retornado. A tarefa também é dividia entre os núcleos do processador do usuário para obter melhor performance e o método apenas retorna quando o todas as \emph{threads} iniciadas pela pesquisa terminarem.
+                    O método \texttt{StoreTarget} na figura \ref{fig:ImageSearchA}, percorre a imagem que o usuário selecionou para ser clicada ou analisada e compara o valor de cada \emph{pixel} com variáveis auxiliares, onde posteriormente sobrescreve o valor destas variáveis se o \emph{pixel} for realmente um valor maior ou menor do que os considerados anteriormente.
 
-                \subsubsection {Utilização e adaptação do blockly para automação}
+                    Já na figura \ref{fig:ImageSearchB}, pode ser observado um trecho do método \texttt{search} que procura pelo máximo e mínimo na imagem capturada da tela do sistema durante a execução da automação. Quando encontra a área que contem nas mesmas posições o valor máximo e mínimo obtidos pelo método \texttt{StoreTarget}, inicia uma analisa mais complexa da área candidata, um pixel a cada três. Caso a soma de todas as diferenças da área candidata resulte em um valor igual a zero, todas as \emph{threads} fazendo a busca são paradas e a posição do \emph{pixel} âncora ou origem da área candidata é retornado.
 
-                    Para fornecer as funcionalidades foram definidos quatro blocos que expressam funcionalidades fundamentais para a automatização, dois blocos que expressam a habilidade de clicar em algum lugar da interface, um para clique duplo e outro para clique único, também, um bloco que permite esperar por algum evento visual, para que seja possível esperar a finalização do processamento dos modelos, e por último um bloco que permite digitar texto na entrada de texto do sistema operacional.
+                    A tarefa foi codificada para dividir a busca entre os núcleos do processador do usuário para obter melhor performance, o método apenas retorna quando o todas as \emph{threads} iniciadas pela pesquisa terminarem.
 
-                    É possível observar os blocos na imagem \ref{fig:myblocks} e a descrição formal em JavaScript destes blocos na figura \ref{code:myBlocks.js}\ref{code:myBlocksGenerator.js}\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}.
+                \subsubsection {Utilização e adaptação do Blockly para automação}
+
+                    Durante a codificação foi necessário desenvolver os blocos de automação e seus geradores de código. É possível observar a descrição em JavaScript de dois blocos na figura \ref{code:myBlocks1.js} e a descrição formal em JavaScript destes blocos na figura \ref{code:myBlocks2.js}\footnote{\label{note1}código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}.
 
 
 \begin{figure}[!htb]
@@ -912,7 +921,7 @@ Blockly.Blocks['click_single_special'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(60);
-    this.setTooltip('Procura na sua tela pela região que a imagem representa e clica no centro uma veze, para escolher, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
+    this.setTooltip('Procura na sua tela pela região que a imagem representa e clica no centro uma veze, para escolher, clique na imagem branca do bloco, vá ao local desejado aperte ctrl+shift+c, selecione onde clicar com o mouse e aperte enter.');
   }
 };
 
@@ -930,7 +939,7 @@ Blockly.Blocks['text_typer'] = {
 };
 \end{lstlisting}
     \caption{Descrição do bloco de clique e do bloco de digitação na aplicação web e seus respectivos geradores de código}
-    \label{code:myBlocks.js}
+    \label{code:myBlocks1.js}
 \end{figure}
 
 \begin{figure}[!htb]
@@ -957,18 +966,20 @@ Blockly.JavaScript['text_typer'] = function(block) {
     \label{code:myBlocks2.js}
 \end{figure}
 
-                    Como é possível ver o bloco \texttt{Image\_Wait} e os blocos que representam as ações de clique de mouse, \texttt{click\_doble\_special} e \texttt{click\_single\_special} utilizam um campo próprio chamado \texttt{FieldImageButton}, desenvolvido observando-se o campo original presente na biblioteca Blockly \texttt{field\_image}\footnote{o código desta classe pode ser encontrado em https://github.com/google/blockly/}, este campo adiciona a imagem um \emph{eventListenner} que ao ser clicado envia uma mensagem que dá início a tarefa de captura de tela no software, que ao ser terminada pelo usuário, envia uma mensagem contendo o caminho da imagem da área selecionada pelo usuário que deve sofrer a ação do bloco junto com suas dimensões. Por sua vez a aplicação web atualiza a imagem do bloco para representar a área que o usuário escolheu.
+                    Como é possível ver o bloco \texttt{click\_doble\_special} utiliza um campo próprio chamado \texttt{FieldImageButton}\footnoteref{note1}, desenvolvido com a finalidade de oferecer um campo semelhante ao  campo \texttt{field\_image}\footnote{o código desta classe pode ser encontrado em https://github.com/google/Blockly/} presente na biblioteca Blockly, expandindo as funcionalidades disponíveis para a descrição de um bloco. Este campo adiciona à imagem um \emph{eventListenner} que ao ser clicado envia uma mensagem que dá início a tarefa de captura de tela no software, que ao ser terminada pelo usuário, envia uma mensagem contendo o caminho da imagem salva da região selecionada pelo usuário que deve sofrer a ação do bloco junto com suas dimensões. Por sua vez a aplicação web atualiza a imagem do bloco para representar a área que o usuário escolheu.
 
-                    Toda a tarefa é mantida coêsa transferindo junto com estas mensagens o ID único que a própria biblioteca Blockly gera para cada bloco assim tanto a aplicação web como o software sempre sabem para que bloco é cada mensagem. Por questões de flexibilidade e simplicidade foi decidido utilizar a linguagem JavaScript por questões de simplicidade já que é uma das linguagens nativas do software e disponível para os outros blocos da biblioteca por padrão já.
+                    Toda a tarefa é mantida coesa transferindo junto com estas mensagens o ID único que a própria biblioteca Blockly gera para cada bloco, assim tanto a aplicação web como o software sempre sabem para que bloco é destinada cada mensagem que também é salva com um nome único para seção.
 
-                    Quando o usuário clica no botão para executar o modelo no software, é enviado uma mensagem para a aplicação web, pedindo que para que a biblioteca Blockly monte o código com base no quebra-cabeça montado e por fim, execute o código com a função \texttt{eval}.
+                    Para o código gerado para o bloco, por questões de flexibilidade e simplicidade foi utilizada a linguagem JavaScript, já que é uma das linguagens nativas em uso no automatizador e está disponível para os outros blocos da biblioteca por padrão.
 
-                    Como é possível observar, os geradores de código foram construídos para realizar chamadas no no software java e portanto, a aplicação web fica responsável apenas pela montagem da lógica que guia a execução das tarefas tais como construção de repetições ou definições de valores a serem enviados junto as mensagens para que o software as realize. É possível ver um exemplo do código gerado por um conjunto de blocos nas figuras \ref{fig:blocosecodigo}.\ref{code:blocosecodigo.js}.
+                    Quando o usuário clica no botão para executar o modelo no software, é enviada uma mensagem para a aplicação web, pedindo que a biblioteca Blockly monte o código com base no quebra-cabeça, descrição da automação, e por fim, que a \texttt{WebEngine} execute o código com a função \texttt{eval} disponibilizada pelo JavaScript.
+
+                    Como é possível observar, os geradores de código foram construídos para realizar chamadas no cliente java e portanto, a aplicação web fica responsável apenas pela montagem da lógica que guia a execução das tarefas de automação, tais como construção de repetições ou definições de valores a serem enviados junto as chamadas para que o software as realize. É possível ver um exemplo de quebra cabeças e código gerado na figura \ref{fig:blocosecodigo}.
 
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=1.0\textwidth]{imagens/blocosecodigo.png}
-                        \caption{Exemplo de um quebra-cabeça}
+                        \caption{Exemplo de um quebra-cabeça e o código JavaScript gerado pelo Blockly para o mesmo.}
                         \label{fig:blocosecodigo}}
                     \end{figure}
 
@@ -980,9 +991,9 @@ Blockly.JavaScript['text_typer'] = function(block) {
 
                 existem, quatro botões principais na interface: a lixeira, para onde o usuário pode arrastar o quebra-cabeças para descartá-lo, um para executar a simulação que se encontra montada atualmente, um para carregar um quebra-cabeças que tenha sido salvo e outro para salvar em um arquivo XML um quebra-cabeças atualmente montado no automatizador.
 
-                Além destes quatro botões, existem os tres botões na parte superior da janela responsáveis por fechar, maximizar ou minimizar a janela. Na mesma altura, nas proximidades destes três botões, a ceta do mouse muda de simbolo, indicando que nesta região, é possível clicar e segurar para mover a janela.
+                Além destes quatro botões, existem os três botões na parte superior da janela, responsáveis por fechar, maximizar ou minimizar a janela. Na mesma altura, nas proximidades destes três botões, a ceta do mouse muda de símbolo, indicando que nesta região, é possível clicar e segurar para mover a janela.
 
-                Próximo aos quatro botões principais na interface ainda temos mais tres botões, um circulo com um ponto dentro, que quando clicado centraliza a área de edição no quebra-cabeças atual, e dois circulos, um com o simbolo de soma e outro com o simbolo de subtração, com os quai é possível aumentar ou reduzir a visão do quebra-cabeças na área de edição, para que a visualização fique mais confortável dependendo do tamanho do quebra-cabeças.
+                Próximo aos quatro botões principais na interface ainda temos mais três botões, um círculo com um ponto dentro, que quando clicado centraliza a área de edição no quebra-cabeças atual, e dois círculos, um com o símbolo de soma e outro com o símbolo de subtração, com os quais é possível aumentar ou reduzir a visão do quebra-cabeças na área de edição, para que a visualização fique mais confortável dependendo do tamanho do quebra-cabeças.
 
                 \begin{figure}[!htb]
                     {\centering
@@ -998,15 +1009,15 @@ Blockly.JavaScript['text_typer'] = function(block) {
                     \item repetições: Blocos que permitem realizar repetições e \emph{loops} baseado em contadores, variáveis ou listas.
                     \item matemática: Blocos que permitem a realização de operações matemáticas, utilização de variáveis numérias e obtenção de valores numéricos aleatórios.
                     \item texto: Blocos que permitem a criação de variáveis de texto assim como a manipulação e análise de texto, permitindo a impressão de valores em eventos ou inserimento de textos durante o fluxo de execução dos blocos.
-                    \item listas: blocos que permitem a criação, analise e manipulação de listas de valores de diversos tipos, oferecendo inclusive blocos de pesquisa e ordenação.
+                    \item listas: blocos que permitem a criação, análise e manipulação de listas de valores de diversos tipos, oferecendo inclusive blocos de pesquisa e ordenação.
                     \item variáveis: blocos que permitem criação, manipulação e utilização de variáveis em outros blocos.
-                    \item funções: Blocos que permitem a definição de funções que permitem a utilizaçao de parametros e retorno de valores, incluindo inclusive a possibilidade de descrição de uma definição para a função, que descreva seu funcionamento ou utilidade.
+                    \item funções: Blocos que permitem a definição de funções que permitem a utilização de parâmetros e retorno de valores, incluindo inclusive a possibilidade de descrição de uma definição para a função, que descreva seu funcionamento ou utilidade.
                     \item automações: Blocos que permitem a utilização de dispositivos de entrada padrão do sistema para manipular outros programas ou ainda observar a tela em busca da satisfação de alguma condição.
                 \end{itemize}
 
-                Para utilizar um dos blocos basta clicar e segura-lo, arrastando para a área de trabalho do automatizador e soltando em uma área em branco ou com o seu encaixe alinhado com o encaixe adequado de algum outro bloco já existente na área de trabalho, para que se encaixem formando uma sequência imperativa de operações.
+                Para utilizar um dos blocos basta clicar e segurá-lo, arrastando para a área de trabalho do automatizador e soltando em uma área em branco ou com o seu encaixe alinhado com o encaixe adequado de algum outro bloco já existente na área de trabalho, para que se encaixem formando uma sequência imperativa de operações.
 
-                Das oito categorias apresentadas, a categoria "automações" contem os blocos desenvolvidos neste projeto, que permitem automatizar outros softwares. Os blocos de automação podem ser observados na figura \ref{fig:myblocks}, que, após carregados na área de trabalho do automatizador, podem ser configurados.
+                Das oito categorias apresentadas, a categoria ``automações" contem os blocos desenvolvidos neste projeto, que permitem automatizar outros softwares. Os blocos de automação podem ser observados na figura \ref{fig:myblocks}, que, após carregados na área de trabalho do automatizador, podem ser configurados.
 
                 \begin{figure}[!htb]
                     {\centering
@@ -1015,12 +1026,12 @@ Blockly.JavaScript['text_typer'] = function(block) {
                     \label{fig:myblocks}}
                 \end{figure}
 
-                Para selecionar a imagem que representa a área onde será clicado ou pela qual será procurada na tela do computador repetidamente, o usuário deve clicar no simbolo da ceta de mouse branco que aparece no bloco. o monitor do computador será contornado por uma linha pontilhada vermelha, indicando que o mesmo pode minimizar, mover ou interagir com o sistema em busca da região da tela que queira capturar como imagem do local onde clicar ou pelo qual esperar. Assim que encontrada, o usuário pode ativar o comando de teclado ctrl+shift+c para capturar uma imagem da tela atual, posteriormente clicando, segurando e arrastando para selecionar uma área retangular indicando para o bloco onde realizar a função de clique ou procura em espera, a função de clique irá clicar no centro, e no caso do bloco de espera irá procurar por uma região igual e quando encontrada, retornara verdadeiro permitindo que a automação prossiga.
+                Para selecionar a imagem que representa a área onde será clicado ou pela qual será procurada na tela do computador repetidamente, o usuário deve clicar no símbolo da ceta de mouse branco que aparece no bloco. o monitor do computador será contornado por uma linha pontilhada vermelha, indicando que o mesmo pode minimizar, mover ou interagir com o sistema em busca da região da tela que queira capturar como imagem do local onde clicar ou pelo qual esperar. Assim que encontrada, o usuário pode ativar o comando de teclado ctrl+shift+c para capturar uma imagem da tela atual, posteriormente clicando, segurando e arrastando para selecionar uma área retangular indicando para o bloco onde realizar a função de clique ou procura em espera, a função de clique clicará no centro, e no caso do bloco de espera procurará por uma região igual e quando encontrada, retornara verdadeiro permitindo que a automação prossiga.
 
-                O bloco de espera irá procurar pela imagem na tela a cada tantos milissegundos que o usuário pode definir inserindo um bloco do tipo número contido na categoria matemática.
+                O bloco de espera procurará pela imagem na tela a cada tantos milissegundos que o usuário pode definir inserindo um bloco do tipo número contido na categoria matemática.
 
                 Já o bloco digitar, permite a conexão de qualquer tipo de bloco que devolva um valor, tal como números e textos, que será digitado quando a automação executar este bloco.
-                Outras formas de interação possíveis no software são, clicando e arrastando a área de trabalho para move-la ou ainda usando o botão deletar do teclado para deletar um conjunto ou um bloco selecionado. Também é possível utilizar o comando ctrl+z para desfazer alterações como deleção de blocos.
+                Outras formas de interação possíveis no software são, clicando e arrastando a área de trabalho para movê-la ou ainda usando o botão deletar do teclado para deletar um conjunto ou um bloco selecionado. Também é possível utilizar o comando ctrl+z para desfazer alterações como deleção de blocos.
 
             \section {Exemplos simples de automações}
 
@@ -1033,24 +1044,24 @@ Blockly.JavaScript['text_typer'] = function(block) {
                     \label{fig:simpleBlockly}}
                 \end{figure}
 
-                O exemplo que pode ser visto na figura \ref{fig:simpleBlockly} descreve uma automatização simples de um editor de texto, onde textos são inseridos em posições específicas de um editor de texto, sendo o primeiro texto produzido diretamente pelo usuário e os seguintes, gerado pela iteração sobre uma váriavel, um contador, fazendo uso de blocos das contegorias de automação, texto, repetições e variáveis.
+                O exemplo que pode ser visto na figura \ref{fig:simpleBlockly} descreve uma automatização simples de um editor de texto, onde textos são inseridos em posições específicas de um editor de texto, sendo o primeiro texto produzido diretamente pelo usuário e os seguintes, gerado pela iteração sobre uma variável, um contador, fazendo uso de blocos das categorias de automação, texto, repetições e variáveis.
 
                 Segue uma descrição de cada um dos passos realizados durante a automação do editor de texto, descrevendo a função de cada bloco seguindo a ordem enumerada na imagem \ref{fig:simpleBlockly}:
 
                 \begin{enumerate}[label*=\arabic*.]
-                    \item Este bloco procura uma região na tela que corresponda exatamente a imagem descrita no bloco, que no caso corresponde a um espaço no editor de texto, meio de duas palavras, onde a primeira termina com "m" e a segunda começa com "e", sendo estas duas palavras "um" e "específico".
-                    \item Em seguida ao primeiro bloco, é executado o bloco de digitação, que converte o valor do bloco acoplado a entrada deste para texto e envia o valor como dispositivo de teclado para o editor de texto, escrevendo o valor onde se encontra o cursor no editor, que é na região préviamente clicada pelo automatizador.
-                    \item Bloco que devolve um valor de texto, que o bloco anterior irá digitar, no caso, um bloco de criação simples de texto contendo o valor "local" mais um espaço no final.
+                    \item Este bloco procura uma região na tela que corresponda exatamente a imagem descrita no bloco, que no caso corresponde a um espaço no editor de texto, meio de duas palavras, onde a primeira termina com ``m" e a segunda começa com ``e", sendo estas duas palavras ``um" e ``específico".
+                    \item Em seguida ao primeiro bloco, é executado o bloco de digitação, que converte o valor do bloco acoplado a entrada deste para texto e envia o valor como dispositivo de teclado para o editor de texto, escrevendo o valor onde se encontra o cursor no editor, que é na região previamente clicada pelo automatizador.
+                    \item Bloco que devolve um valor de texto, que o bloco anterior digitará, no caso, um bloco de criação simples de texto contendo o valor ``local" mais um espaço no final.
                     \item Em sequência, a automação executa o segundo bloco de clique simples presente na automação, clicando na região que corresponde, como é possível ver na imagem dentro do bloco, ao fim da segunda linha 19 no editor.
-                    \item Bloco que da início a uma repetição, realizando as funções dos blocos dentro do mesmo a cada iteração. Este bloco intera sobre o contador "valor", começãndo em 1 e incrementando o valor do contador em 1 a cada repetição, até que o contador assuma o valor 5.
+                    \item Bloco que dá início a uma repetição, realizando as funções dos blocos dentro do mesmo a cada iteração. Este bloco itera sobre o contador ``valor", começando em 1 e incrementando o valor do contador em 1 a cada repetição, até que o contador assuma o valor 5.
                     \item Converte o valor do bloco acoplado a entrada deste para texto e envia o valor como dispositivo de teclado para o editor de texto, escrevendo o valor onde se encontra o cursor do editor, dependendo da iteração em que se encontra.
-                    \item Bloco que devolve um valor de texto, do tipo composto, que permite a concatenação de diversas váriaveis na entrada em uma única saída de texto, que no caso desta automação, é retornado para um bloco de digitação dentro da repetição, o quinto bloco descrito. O bloco foi mutado para aceitar três entradas.
+                    \item Bloco que devolve um valor de texto, do tipo composto, que permite a concatenação de diversas variáveis na entrada em uma única saída de texto, que no caso desta automação, é retornado para um bloco de digitação dentro da repetição, o quinto bloco descrito. O bloco foi mudado para aceitar três entradas.
                     \begin{enumerate}[label*=\arabic*.]
-                        \item Observe que o sétimo bloco permite mutabilidade que pode ser configurada clicando na engrenagem destacada no sétimo bloco. O bloco de criação de texto composto, por padrão, apenas permite a concatenação de duas entradas. Antes de dar início a automação o bloco foi mutado, é possível adicionar quantos itens se quer como entrada no bloco de união na janela de mutação que surge ao clicar no botão de mutação do sétimo bloco, alterando assim o número de entradas do bloco de criação de texto composto.
+                        \item Observe que o sétimo bloco permite mutabilidade que pode ser configurada clicando na engrenagem destacada no sétimo bloco. O bloco de criação de texto composto, por padrão, apenas permite a concatenação de duas entradas. Antes de dar início a automação o bloco foi mudado, é possível adicionar quantos itens se quer como entrada no bloco de união na janela de mutação que surge ao clicar no botão de mutação do sétimo bloco, alterando assim o número de entradas do bloco de criação de texto composto.
                     \end{enumerate}
-                    \item Devolve um valor de texto que o bloco anterior irá concatenar, no início de uma variável de texto, junto com outras duas variáveis, contendo um espaço.
-                    \item devolve o valor armazenado no contador na iteração atual, que pode ser um valor de 1 até 5 dependendo em qual ponto da iteração a automação se encontra se encontra. O bloco anterior irá concatenar, no meio de uma variável de texto, junto com outras duas variáveis.
-                    \item Devolve um valor de texto que o bloco anterior irá concatenar, no fim de uma variável de texto, junto com outras duas variáveis, contendo um espaço.
+                    \item Devolve um valor de texto que o bloco anterior concatenará, no início de uma variável de texto, junto com outras duas variáveis, contendo um espaço.
+                    \item devolve o valor armazenado no contador na iteração atual, que pode ser um valor de 1 até 5 dependendo em qual ponto da iteração a automação se encontra. O bloco anterior concatenará, no meio de uma variável de texto, junto com outras duas variáveis.
+                    \item Devolve um valor de texto que o bloco anterior concatenará, no fim de uma variável de texto, junto com outras duas variáveis, contendo um espaço.
                 \end{enumerate}
 
             \section {Validando a solução com os casos de teste}
@@ -1073,7 +1084,7 @@ Blockly.JavaScript['text_typer'] = function(block) {
 
                     As imagens \ref{fig:coreSimani}, \ref{fig:EscolheCidade} e \ref{fig:estaticoDia} abordam a demonstração lógica em um conjunto de quebra-cabeças capaz de automatizar o modelo Simanihot para o caso de uso coletado com um conjunto hipotético de arquivos de entrada. O quebra-cabeças gerados soluciona o caso de uso dentro da lógica disponibilizada pelo conjunto de peças do software, conseguindo assim, realizar o problema principal do caso de uso, realizar diversas simulações com as variações especificadas. Algumas condições não fundamentais para a solução do caso de uso não puderam ser realizadas.
 
-                    O caso de uso do modelo Simanihot define no fluxo de exceção que, em caso de qualquer interação do usuário durante a tarefa de automação, deve se pausar a simulação e esperar que o usuário recomece a automação ou cancele. Também define que no caso de encontrar algum alerta de campo preenchido incorretamento, deve encerrar a automação e enviar o usuário para as pós condição.
+                    O caso de uso do modelo Simanihot define no fluxo de exceção que, em caso de qualquer interação do usuário durante a tarefa de automação, deve se pausar a simulação e esperar que o usuário recomece a automação ou cancele. Também define que no caso de encontrar algum alerta de campo preenchido incorretamente, deve encerrar a automação e enviar o usuário para as pós condição.
 
                     O automatizador não foi capaz de solucionar estas condições, devido ao fato de que não apresenta funcionalidades que permitam ao mesmo pausar, cancelar ou recomeçar uma automação, a automação após começada somente irá finalizar caso ocorra algum erro durante a automação, o automatizador seja fechado, ou de fato a automação tenha acabado.
 
@@ -1082,47 +1093,47 @@ Blockly.JavaScript['text_typer'] = function(block) {
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=1.0\textwidth]{imagens/coreSimani.png}
-                        \caption{Quebra-cabeça que descreve a parte principal da automação do caso de uso do modelo Simanihot, as regiões de interesse foram dermacadas para referência durante a explanação da automação do modelo.}
+                        \caption{Quebra-cabeça que descreve a parte principal da automação do caso de uso do modelo Simanihot, as regiões de interesse foram demarcadas para referência durante a explanação da automação do modelo.}
                         \label{fig:coreSimani}}
                     \end{figure}
 
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=0.6\textwidth]{imagens/EscolheCidade.png}
-                        \caption{Quebra-cabeça que descreve a função que realiza esconha das cidades no modelo, chamada pelo quebra cabeças principal apresentado na imagem \ref{fig:coreSimani}.}
+                        \caption{Quebra-cabeça que descreve a função que realiza escolha das cidades no modelo, chamada pelo quebra-cabeças principal apresentado na imagem \ref{fig:coreSimani}.}
                         \label{fig:EscolheCidade}}
                     \end{figure}
 
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=0.6\textwidth]{imagens/estaticoDia.png}
-                        \caption{Quebra-cabeças com duas funções, "estatico" que descrevem a parte constante da automação, que não varia nas repetições e "fazer no dia" que descreve as ações que são realizadas na iteração mais interna do quebra-cabeças proncipal. São chamada pelo quebra cabeças principal apresentado na imagem \ref{fig:coreSimani}.}
+                        \caption{Quebra-cabeças com duas funções, ``estatico" que descrevem a parte constante da automação, que não varia nas repetições e ``fazer no dia" que descreve as ações que são realizadas na iteração mais interna do quebra-cabeças principal. São chamada pelo quebra-cabeças principal apresentado na imagem \ref{fig:coreSimani}.}
                         \label{fig:estaticoDia}}
                     \end{figure}
 
-                    Em sequência será analisada a descrição da automação observada no conjunto de figuras \ref{fig:coreSimani}, \ref{fig:EscolheCidade} e \ref{fig:estaticoDia}. Este conjunto de quebra cabeças se encontra visível em conjunto no automatizador, durante a execução, e representa uma dentre diversas formas de modelar a lógica e sequência de operações que levam a solução do caso de usos do modelo simanihot
+                    Em sequência será analisada a descrição da automação observada no conjunto de figuras \ref{fig:coreSimani}, \ref{fig:EscolheCidade} e \ref{fig:estaticoDia}. Este conjunto de quebra cabeças se encontra visível em conjunto no automatizador, durante a execução, e representa uma dentre diversas formas de modelar a lógica e sequência de operações que levam a solução do caso de usos do modelo Simanihot
 
-                    Analisando inicialmente a figura \ref{fig:coreSimani}, foi dividido os comonentes do quebra-cabeças em 3 conjuntos:
+                    Analisando inicialmente a figura \ref{fig:coreSimani}, foram divididos os componentes do quebra-cabeças em 3 conjuntos:
 
                     \begin{enumerate}[label*=\arabic*.]
-                        \item Este é o ponto inicial onde definimos alguns conjuntos de listas que são utilizadas durante a automação, inicialmente criamos as listas em forma de texto e posteriormente separamos os elementos por virgula. Dentre elas temos as cultivares que serão usadas, e os solos. O texto contendo as cidades, por sua vez, é convertido em uma lista diretamente na repetição mais externa do segundo conjunto de blocos.
+                        \item Este é o ponto inicial onde definimos alguns conjuntos de listas que são utilizadas durante a automação, inicialmente criamos as listas em forma de texto e posteriormente separamos os elementos por vírgula. Dentre elas temos as cultivares que serão usadas, e os solos. O texto contendo as cidades, por sua vez, é convertido em uma lista diretamente na repetição mais externa do segundo conjunto de blocos.
                         \item Neste subconjunto ocorrem as iterações necessárias para que o automatizador possa variar dentro das regras definidas nos casos de uso, as cidades, cultivares, ano mês e dia. a cada variação de dia, são rodados os blocos do terceiro subconjunto, interno ao segundo subconjunto
-                        \item Subconjunto que realiza as operações de automação sobre o modelo. Inicialmente o modelo é executado, é chamada as função "estatico" descrita na figura \ref{fig:estaticoDia} e "escolhe cidade" descrita na figura \ref{fig:EscolheCidade} e em segida é escolhida a cultivar. Posteriormente, considerando o espaço de meses desejado para o caso de uso, é definida uma regra logica que impede a simulação de ocorrer em dias que não existam no calendário. Posteriormente caso o dia seja válido, a simulação é executada e espera-se pela validação da interface de que a simulação foi finalizada, para finalmente fechar o model para que possa ser executado novamente no próximo dia segundo a iteração descrita no segundo conjunto conjunto.
+                        \item Subconjunto que realiza as operações de automação sobre o modelo. Inicialmente o modelo é executado, são chamadas as funções ``estatico" descrita na figura \ref{fig:estaticoDia} e ``escolhe cidade" descrita na figura \ref{fig:EscolheCidade} e em seguida é escolhida a cultivar. Posteriormente, considerando o espaço de meses desejado para o caso de uso, é definida uma regra logica que impede a simulação de ocorrer em dias que não existam no calendário. Posteriormente caso o dia seja válido, a simulação é executada e espera-se pela validação da interface de que a simulação foi finalizada, para finalmente fechar o modelo para que possa ser executado novamente no próximo dia segundo a iteração descrita no segundo conjunto.
                     \end{enumerate}
 
-                    A função "estatico" descrita na figura \ref{fig:estaticoDia} preenche os campos que não variam dentre as várias simulações que nessecitam ser realizadas no caso deu uso, os campos preenchidos são concentração de CO2, densidade de plantas e o dia e mês da colheita. Na mesma imagem temos também a função "faz no dia", que preenche os campos que variam de acordo com o dia, sendo estes o dia, mês e ano do plantio, assim como o ano da colheita.
+                    A função ``estatico" descrita na figura \ref{fig:estaticoDia} preenche os campos que não variam dentre as várias simulações que necessitam ser realizadas no caso deu uso, os campos preenchidos são concentração de CO2, densidade de plantas e o dia e mês da colheita. Na mesma imagem temos também a função ``faz no dia", que preenche os campos que variam de acordo com o dia, sendo estes o dia, mês e ano do plantio, assim como o ano da colheita.
 
-                    Na figura \ref{fig:EscolheCidade} se encontra a função "escolhe cidade", esta função se encarrega de preencher os campos que variam junto da cidade. Insere o arquivo de dados meteorológicos da cidade, construindo um caminho juntando o endereço da pasta ao nome da cidade, que é inserido no seletor de texto. Na sequencia são preenchidos o local, selecionada a opção de simular com o balanço hídrico, onde é selecionado o solo correspondente a cidade atual e são definidos os valores estáticos para balanço hídrico que são a profundidade de maniva e profundidade máxima de raíz.
+                    Na figura \ref{fig:EscolheCidade} se encontra a função ``escolhe cidade", esta função se encarrega de preencher os campos que variam junto da cidade. Insere o arquivo de dados meteorológicos da cidade, construindo um caminho juntando o endereço da pasta ao nome da cidade, que é inserido no seletor de texto. Na sequência são preenchidos o local, selecionada a opção de simular com o balanço hídrico, onde é selecionado o solo correspondente a cidade atual e são definidos os valores estáticos para balanço hídrico que são a profundidade de maniva e profundidade máxima de raíz.
 
                 \subsection{Demais casos de uso}
 
-                    Para o caso de uso do conjunto de modelos DSSAT, o automatizador também é capaz de realizar a automação do fluxo principal, já que o mesmo apresenta necessidades similares ao do modelo Simanihot. Entretanto novamente não foi possível solucionar o fluxo de esceção, em especial o item 1 do fluxo de esceção do caso de uso do programa DSSAT necessita a abertura de um arquivo para avaliar os alertas de temperatura, tarefa que o automatizador não é capaz de realizar.
+                    Para o caso de uso do conjunto de modelos DSSAT, o automatizador também é capaz de realizar a automação do fluxo principal, já que o mesmo apresenta necessidades similares ao do modelo Simanihot. Entretanto novamente não foi possível solucionar o fluxo de exceção, em especial o item 1 do fluxo de exceção do caso de uso do programa DSSAT necessita a abertura de um arquivo para avaliar os alertas de temperatura, tarefa que o automatizador não é capaz de realizar.
 
                     O software desenvolvido não foi capaz de solucionar todos os pontos fundamentais do casos de uso do modelo SoySim, o que impossibilitou a construção de uma automação que solucionasse o problema descrito no caso de uso do modelo.
 
-                    O item 6 do fluxo principal do caso de uso indica que a automação deve copiar os dados a partir da linha 14 a 59 do arquivo de resultado TmpOut.txt e filtrar outros campos específicos específicos dentro do arquivo de resultado, para posteriormenta salvar todos os resultados coletados em um único arquivo de resultado. Como o software desenvolvido não é capaz de trabalhar com arquivos diretamente, o item 6 do fluxo principal do caso não pode ser resolvido.
+                    O item 6 do fluxo principal do caso de uso indica que a automação deve copiar os dados a partir da linha 14 a 59 do arquivo de resultado TmpOut.txt e filtrar outros campos específicos dentro do arquivo de resultado, para posteriormente salvar todos os resultados coletados em um único arquivo de resultado. Como o software desenvolvido não é capaz de trabalhar com arquivos diretamente, o item 6 do fluxo principal do caso não pode ser resolvido.
 
-                    Também não foi possível resolver o fluxo secundário e de exceções. O item 1, 2 e 3 do fluxo de exceção não pode ser resolvido pois o automatizador desenvolvido não é capaz de tomar decições com base em eventos produzidos pelo automatizado, apenas esperar por eventos. O item 4 também não pode ser resolvido pois o automatizador desenvolvido não é capaz de pausar, cancelar ou recomeçãor uma automação e o fluxo secundário não pode ser resolvido pois é dependente do item 2 no fluxo de esceção.
+                    Também não foi possível resolver o fluxo secundário e de exceções. O item 1, 2 e 3 do fluxo de exceção não pode ser resolvido pois o automatizador desenvolvido não é capaz de tomar decisões com base em eventos produzidos pelo automatizado, apenas esperar por eventos. O item 4 também não pode ser resolvido pois o automatizador desenvolvido não é capaz de pausar, cancelar ou recomeçar uma automação e o fluxo secundário não pode ser resolvido pois é dependente do item 2 no fluxo de exceção.
 
         \chapter {Conclusão}
 
@@ -1130,7 +1141,7 @@ Blockly.JavaScript['text_typer'] = function(block) {
 
             Como contribuição este trabalho apresentou uma abordagem diferenciada na programação de tarefas automatizadas expondo de forma mais simplificada lógica comum em linguagens de programação e \emph{script} tradicionais, fornecendo uma ferramenta que pode descrever de forma muito flexível interações com a interface gráfica e permitindo em algum nível realizar a automatização de parte das tarefas maçantes presentes na interação com interfaces gráficas de modelos matemáticos de simulação de culturas agrícolas mais simples.
 
-            A lista a seguir, não exaustiva, expõe em ordem de relevância, uma lista  de algumas melhorias que poderiam ser incorporadas em uma nova versão deste projeto:
+            A lista a seguir, não exaustiva, expõe em ordem de relevância, uma lista de algumas melhorias que poderiam ser incorporadas em uma nova versão deste projeto:
 
             \begin{itemize}
             	\item Tratar arquivos com conteúdo de texto, permitindo copiar arquivos para outros locais, criar arquivos com novas informações, renomeá-los e processar e extrair informações destes textos.
