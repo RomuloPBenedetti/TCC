@@ -761,7 +761,7 @@
 
                 A biblioteca sera utilizada para definir um vocabulário da elementos de linguagem visual, os elementos de automação, de forma a oferecer componentes que permitam expresar a lógicos necessária para definir as repetições, ordem das operações assim como a criação de elementos que expressem as ações de automação elencadas nos requisitos, dentro da abordagem de captura e execução. A biblioteca irá se encarregar de fazer algumas validações da montagem, verificando a validade ou não dos encaixes entre os elementos e impedindo que elementos não compativeis sejam conectados.
 
-                também será utilizada para traduzir a descrição para uma linguagem de programação tradicional que será usada pelo automatizador para rodar as automações, assim como oferecer uma área que permita montar a automação. Também atravéz da biblioteca será oferecida algumas nuncionalidades do software abordadas nas ações do software automatizado. A figura \ref{fig:blocklyDiagram} descreve de forma resumida, levando em consideração apenas as saídas relevantes, a integração do blockly exemplificando com algumas ações do software automatizador,
+                também será utilizada para traduzir a descrição para uma linguagem de programação tradicional que será usada pelo automatizador para rodar as automações, assim como oferecer uma área que permita montar a automação. Também atravéz da biblioteca será oferecida algumas nuncionalidades do software abordadas nas ações do software automatizado. A figura \ref{fig:blocklyDiagram} descreve de forma resumida, levando em consideração apenas as saídas relevantes e a integração do blockly exemplificando com algumas ações do software automatizador,
 
                 \begin{figure}[!htb]
                     {\centering
@@ -779,7 +779,9 @@
                     \item Por último, outro bloco que permita digitar valores que possam ser convertidos para texto, como números, texto em sí ou variáveis cujo valor possam ser convertidas para texto.
                 \end{itemize}
 
-            \subsection {Ações do software automatizador}
+                As ações do software automatizador observados em parte na figura \ref{fig:blocklyDiagram}, é um dos elementos concebidos durante a modelagem, necessários para que o usuário possa dizer ao automatizador, o que deve ser feito com a descrição da automação com o objetivo de fornecer as funcionalidades previstas no ponto 1, nestes componentes estão previstas as funções de salvamento, carregamento, execução e exclusão da automação.
+
+                Para todas as funções serão utilizadas capacidades existentes na biblioteca blockly, que é capaz de salvar a descrição de um quebra-cabeças já montado ou carrega-lo e permite também a exclusão de quebra cabeças já montados. Para executar a automação a descrição será traduzido para uma linguagem de programação específica por meio da biblioteca blockly e posteriormente o código gerado da automação será interpretada e executado.
 
             \subsection {Codificação}
 
@@ -803,53 +805,62 @@
                     A classe \texttt{JavascriptMsgr} trata tanto as mensagens vindas da aplicação \emph{web} como as mensagens enviadas do software, a imagem \ref{code:javascriptmsg.java} apresenta dois exemplos de métodos presentes na classe \texttt{JavascriptMsgr} em trechos distintos\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}, onde o primeiro envia uma mensagem para a aplicação web e o segundo recebe uma mensagem.
 
 
-                    \begin{figure}[!htb]
-                    \begin{lstlisting}
-                        // método que envia uma String contendo o arquivo XML gerado na ultima vez em que foi
-                        // salvo a blockly.mainWorkspace
+\begin{figure}[!htb]
+\begin{lstlisting}
+// método que envia uma String contendo o arquivo XML gerado na ultima vez em que foi
+// salvo a blockly.mainWorkspace
 
-                        public void loadBlocks(String xml) {
-                            com.sun.javafx.application.PlatformImpl.runAndWait(() ->{
-                                String escaped = StringEscapeUtils.escapeEcmaScript(xml);
-                                engine.executeScript("loadBlocks(\""+ escaped +"\")");
-                            });
-                        }
+public void loadBlocks(String xml) {
+    com.sun.javafx.application.PlatformImpl.runAndWait(() ->{
+        String escaped = StringEscapeUtils.escapeEcmaScript(xml);
+        engine.executeScript("loadBlocks(\""+ escaped +"\")");
+    });
+}
 
-                        // método que recebe um pedido para esperar enquanto não localizar uma imagem na
-                        // pasta raiz, recebe um endereço relativo na pasta raiz do software e um valor
-                        // de intervalo em milissegundos que deve esperar a cada procura sem sucesso
-                        public void waitImg (String imgSrc, int milisec){
-                            try {
-                                BufferedImage target = null;
-                                target = ImageIO.read(new File(imgSrc.substring(3)));
-                                BufferedImage screenshot =
-                                    robot.createScreenCapture(primaryScreenBounds);
-                                ImageSearch is = new ImageSearch(target);
+// método que recebe um pedido para esperar enquanto não localizar uma imagem na
+// pasta raiz, recebe um endereço relativo na pasta raiz do software e um valor
+// de intervalo em milissegundos que deve esperar a cada procura sem sucesso
+public void waitImg (String imgSrc, int milisec){
+    try {
+        BufferedImage target = null;
+        target = ImageIO.read(new File(imgSrc.substring(3)));
+        BufferedImage screenshot =
+            robot.createScreenCapture(primaryScreenBounds);
+        ImageSearch is = new ImageSearch(target);
 
-                                while(is.search(screenshot)[0] == -1){
-                                    screenshot = robot.createScreenCapture(primaryScreenBounds);
-                                    System.out.println("tried");
-                                    Thread.sleep(milisec);
-                                }
-                                System.out.println("match!");
-                            } catch (IOException | InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    \end{lstlisting}
-                        \caption{Dois métodos da classe mediadora da comunicação entre a aplicação web e o software}
-                    	\label{code:javascriptmsg.java}
-                    \end{figure}
+        while(is.search(screenshot)[0] == -1){
+            screenshot = robot.createScreenCapture(primaryScreenBounds);
+            System.out.println("tried");
+            Thread.sleep(milisec);
+        }
+        System.out.println("match!");
+    } catch (IOException | InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+\end{lstlisting}
+    \caption{Dois métodos da classe mediadora da comunicação entre a aplicação web e o software}
+	\label{code:javascriptmsg.java}
+\end{figure}
 
                     A classe possui diversos métodos que estendem as funcionalidades da aplicação \emph{web} e permitem ao software utilizar a biblioteca blockly para fornecer a biblioteca visual, gerar e executar código.
 
                 \subsubsection {Interação e pesquisa por regiões na tela do sistema operacional}
 
-                    A interação com o Sistema operacional é realizada por instâncias da classe \texttt{java.awt.Robot} capaz de gerar eventos de sistema, nativos. Apesar de ter sido desenvolvida com o objetivo principal de realizar testes automatizados e aplicações autoexecutáveis, por ser capaz de manipular \emph{mouse} e teclado em nível de sistema, pode ser utilizada para qualquer tarefa que busque automatizar o controle do sistema operacional.
+                    A interação com o Sistema operacional é realizada por instâncias da classe \texttt{java.awt.Robot} capaz de controlar os a entrada de teclado e \emph{mouse}, gerando eventos nativos do sistema operacional. Apesar de ter sido desenvolvida com o objetivo principal de realizar testes automatizados e aplicações autoexecutáveis, por ser capaz de manipular \emph{mouse} e teclado em nível de sistema, pode ser utilizada para qualquer tarefa que busque automatizar o controle do sistema operacional.
 
-                    Para encontrar as áreas a serem clicadas ou regiões a serem observadas na espera de uma mudança, foi desenvolvida a classe \texttt{ImageSearch} com uma solução própria de pesquisa otimizada para imagens, que analisa uma imagem capturada da tela do sistema em busca de referências exatas das áreas escolhidas pelos usuários.
+                    Para encontrar as áreas a serem clicadas ou regiões a serem observadas na espera de uma mudança, foi desenvolvida a classe \texttt{ImageSearch} com uma solução própria de pesquisa otimizada para imagens e desempenho, que analisa uma imagem capturada da tela do sistema em busca da primeira referência exata da área escolhida pelo usuário.
 
-                    Diversas outras soluções foram analisadas como a biblioteca OpenCV~\cite{openCV} ou ainda o \emph{framework} brasileiro de processamento de imagens em Java, Marvin~\cite{marvin}. Porém outras soluções traziam diversos problemas que não se justificavam, variando da necessidade de mais bibliotecas, adaptação a uma abordagem mais complicada e distante da necessidade do projeto ou ainda limitações em termos de plataformas.
+                    Diversas outras soluções foram analisadas como a biblioteca OpenCV~\cite{openCV} (que inclusive é utilizada pelo automatizador Sikuli) ou ainda o \emph{framework} brasileiro de processamento de imagens em Java, Marvin~\cite{marvin}. Porém outras soluções não apresentavam vantagens que melhorassem a abordagem de procura pelas regiões e traziam diversos problemas que não se justificavam, variando da necessidade de mais bibliotecas, adaptação a uma abordagem mais complicada e distante da necessidade do projeto ou ainda limitações em termos de plataformas.
+
+                    A abordagem do Sikulix, por exemplo, permite a procura por imagens não somente exatas, mas similares, em níves percentuais de similaridade configuráveis, utilizando o método matchTemplate() presente na biblioteca OpenCV, a abordagem também é consideravelmente mais rápida pelo fato de a biblioteca OpenCV ser uma biblioteca nativa. Apesar de aumentar a flexibilidade da localização da imagem permitindo variações, não apresentou resultados seguros no reconhecimento de campos de texto que fossem capturados e em algum momento durante a automação, tivessem seus valores alterados, como é possível observar na figura \ref{fig:sikulixNoMatch}. Outra problema observado é que a utilização da biblioteca resultaria na necessidade de um processo de instalação complexo desnecessário já que a biblioteca necessita instalação de binários nativos para o sistema operacional do usuário.
+
+                    \begin{figure}[!htb]
+                        {\centering
+                        \includegraphics[width=1.0\textwidth]{imagens/a.png}
+                        \caption{descrição visual da tarefa realizada pela classe. \texttt{ImageSearch}.}
+                        \label{fig:sikulixNoMatch}}
+                    \end{figure}
 
                     A abordagem é descrita na figura \ref{fig:ImageSearch}, se trata de extrair da área selecionada pelo usuário, dois \emph{pixels}, um com o maior valor de cor RGB dentre todos e outro com o menor valor dentre todos, assim como a distância 'x' e 'y' destes dois \emph{pixels} da origem. Por questões de otimização as cores nas imagens são analisadas como se fossem inteiros absolutos de 32 bits.
 
@@ -862,76 +873,22 @@
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=0.3\textwidth]{imagens/searchImage.png}
-                        \caption{descrição visual da tarefa realizada pela classe \texttt{ImageSearch}.}
+                        \caption{descrição visual da tarefa realizada pela classe. \texttt{ImageSearch}.}
                         \label{fig:ImageSearch}}
                     \end{figure}
 
                     \begin{figure}[!htb]
-                    \begin{lstlisting}
+                        {\centering
+                        \includegraphics[width=1.0\textwidth]{imagens/codeImageA.png}
+                        \caption{descrição do algoritmo de procura pelos máximos e mínimos contido na classe \texttt{ImageSearch}.}
+                        \label{fig:ImageSearch}}
+                    \end{figure}
 
-                        public final void storeTarget(BufferedImage t) {
-                        this.t = t; int rgb; tWidth = t.getWidth(); tHeight = t.getHeight();
-                        for(int x = 0; x < tWidth; x++) {
-                            for (int y = 0; y < tHeight; y++) {
-                                rgb = t.getRGB(x, y);
-                                if (Integer.compareUnsigned(rgb, max)>0) { max = rgb; maxX = x; maxY = y; }
-                                if (Integer.compareUnsigned(rgb, max)<0) { min = rgb; minX = x; minY = y; }
-                            }
-                        }
-                    }
-
-                    public final int[] search(BufferedImage i) {
-
-                        int iWidth, iHeight, point[] = new int[2];
-                        point[0] = -1; point[1] = -1;
-                        int startX[] = new int[cores], endX[] = new int[cores];
-                        int startY[] = new int[cores], endY[] = new int[cores];
-
-                        iWidth = i.getWidth()-tWidth; iHeight = i.getHeight()-tHeight;
-                        ExecutorService executor = Executors.newFixedThreadPool(cores);
-
-                        for (int q = 0 ; q < cores ; q++){
-                            startX[q] = (iWidth/cores)*q; startY[q] = 0;
-                            endX[q] = (iWidth/cores)*(q+1); endY[q] = iHeight;
-                            int fQuad = q;
-
-                            executor.execute(() -> {
-                                Thread.currentThread().setName("thread" + fQuad);
-                                int difference = 100; int rgbC;
-                                for (int x = startX[fQuad]; x < endX[fQuad]; x++) {
-                                    for (int y = startY[fQuad]; y < endY[fQuad]; y++) {
-                                        rgbC = i.getRGB(x + maxX, y + maxY);
-                                        if (rgbC == max) {
-                                            rgbC = i.getRGB(x + minX, y + minY);
-                                            if (rgbC == min) {
-                                                difference = 0;
-                                                for (int ty = 0; ty < tHeight; ty = ty +3) {
-                                                    for (int tx = 0; tx < tWidth; tx = tx +3) {
-                                                        difference += t.getRGB(tx, ty) - i.getRGB(x+tx, y+ty);
-                                                    }
-                                                }
-                                                if (difference == 0) {
-                                                    point[0] = x; point[1] = y;
-                                                    executor.shutdownNow();
-                                                }
-                                            }
-                                        }
-                                        if (difference == 0) break;
-                                    }
-                                    if (difference == 0) break;
-                                }
-                            });
-                        }
-                        try {
-                            executor.awaitTermination(1, TimeUnit.SECONDS);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        return point;
-                    }
-                    \end{lstlisting}
-                        \caption{Métodos que analisam a imagem da área e a imagem capturada da tela do sistema}
-                    	\label{code:ImageSearch.java}
+                    \begin{figure}[!htb]
+                        {\centering
+                        \includegraphics[width=1.0\textwidth]{imagens/codeImageA.png}
+                        \caption{descrição do algoritmo de procura pela região, utilizando máximos emínimos contido na classe \texttt{ImageSearch}.}
+                        \label{fig:ImageSearch}}
                     \end{figure}
 
                     O método \texttt{StoreTarget} percorre a imagem que o usuário selecionou para ser clicada ou analisada e compara o valor de cada \emph{pixel} com variáveis auxiliares, onde posteriormente sobrescreve o valor destas variáveis se o \emph{pixel} for realmente um valor maior ou menor do que os considerados anteriormente.
@@ -945,112 +902,60 @@
                     É possível observar os blocos na imagem \ref{fig:myblocks} e a descrição formal em JavaScript destes blocos na figura \ref{code:myBlocks.js}\ref{code:myBlocksGenerator.js}\footnote{código completo disponível em https://github.com/RomuloPBenedetti/TCC/tree/master/Software/src/}.
 
 
-                    \begin{figure}[!htb]
-                    \begin{lstlisting}
-                        Blockly.Blocks['click_single_special'] = {
-                          init: function() {
-                            this.appendDummyInput("imageInput")
-                                .appendField("clicar uma vez em:")
-                                .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
-                            this.setPreviousStatement(true, null);
-                            this.setNextStatement(true, null);
-                            this.setColour(60);
-                            this.setTooltip('Procura na sua tela pela região que a imagem representa e clica no centro uma veze, para escolher, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
-                          }
-                        };
+\begin{figure}[!htb]
+\begin{lstlisting}
+Blockly.Blocks['click_single_special'] = {
+  init: function() {
+    this.appendDummyInput("imageInput")
+        .appendField("clicar uma vez em:")
+        .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(60);
+    this.setTooltip('Procura na sua tela pela região que a imagem representa e clica no centro uma veze, para escolher, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
+  }
+};
 
-                        Blockly.Blocks['click_doble_special'] = {
-                          init: function() {
-                            this.appendDummyInput("imageInput")
-                                .appendField("clicar duas vezes em:")
-                                .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
-                            this.setPreviousStatement(true, null);
-                            this.setNextStatement(true, null);
-                            this.setColour(60);
-                            this.setTooltip('Procura na sua tela pela região que a imagem representa e clica no centro duas vezes, para escolher, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
-                            console.log(this.id);
-                          }
-                        };
+Blockly.Blocks['text_typer'] = {
+  init: function() {
+    this.appendDummyInput("textToType")
+        .appendField("digitar:")
+        .appendField(new Blockly.FieldTextInput("texto"), "text");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(60);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+\end{lstlisting}
+    \caption{Descrição do bloco de clique e do bloco de digitação na aplicação web e seus respectivos geradores de código}
+    \label{code:myBlocks.js}
+\end{figure}
 
-                        Blockly.Blocks['text_typer'] = {
-                          init: function() {
-                            this.appendDummyInput("textToType")
-                                .appendField("digitar:")
-                                .appendField(new Blockly.FieldTextInput("texto"), "text");
-                            this.setPreviousStatement(true, null);
-                            this.setNextStatement(true, null);
-                            this.setColour(60);
-                            this.setTooltip('');
-                            this.setHelpUrl('http://www.example.com/');
-                          }
-                        };
+\begin{figure}[!htb]
+\begin{lstlisting}
+Blockly.JavaScript['click_single_special'] = function(block) {
+  src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
+  running = 'if (running) {\n';
+  calling = "java.clickIn(\"" + src + '\",' + 1 + ');\n';
+  end =     '}\n';
+  var code = running + calling + end;
+  return code;
+};
 
-                        Blockly.Blocks['Image_Wait'] = {
-                          init: function() {
-                            this.appendDummyInput("imageInput")
-                                .appendField("esperar enquanto não encontrar:")
-                                .appendField(new Blockly.FieldImageButton("../images/icons/clickBlack.png", 30, 30, "", imageButtonEvent), "FieldImageButton");
-                            this.appendValueInput("miliToWait")
-                                .setCheck("Number")
-                                .setAlign(Blockly.ALIGN_RIGHT)
-                                .appendField("procurando a cada:");
-                            this.appendDummyInput()
-                                .appendField("milisegundos");
-                            this.setInputsInline(true);
-                            this.setPreviousStatement(true, null);
-                            this.setNextStatement(true, null);
-                            this.setColour(60);
-                            this.setTooltip('para escolher por que imagem esperar, clique na imagem branca do bloco, va ao local desejado aperte ctrl+shift+c, selecione onnde clicar com o mouse e aperte enter.');
-                            this.setHelpUrl('http://www.example.com/');
-                          }
-                        };
-                    \end{lstlisting}
-                        \caption{Descrição dos blocos na aplicação web e seus respectivos geradores de código}
-                        \label{code:myBlocks.js}
-                    \end{figure}
-
-                    \begin{figure}[!htb]
-                    \begin{lstlisting}
-                        Blockly.JavaScript['click_doble_special'] = function(block) {
-                          src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
-                          running = 'if (running) {\n';
-                          calling = '    running = java.clickIn(\"' + src + '\",' + 2 + ');\n';
-                          end =     '}\n';
-                          var code = running + calling + end;
-                          return code;
-                        };
-
-                        Blockly.JavaScript['click_single_special'] = function(block) {
-                          src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
-                          running = 'if (running) {\n';
-                          calling = "java.clickIn(\"" + src + '\",' + 1 + ');\n';
-                          end =     '}\n';
-                          var code = running + calling + end;
-                          return code;
-                        };
-
-                        Blockly.JavaScript['text_typer'] = function(block) {
-                          text = block.getFieldValue('text');
-                          running = 'if (running) {\n';
-                          calling = "    running = java.type(\"" + text + '\");\n';
-                          end =     '}\n';
-                          var code = running + calling + end;
-                          return code;
-                        };
-
-                        Blockly.JavaScript['Image_Wait'] = function(block) {
-                          src = (block.getFieldValue('FieldImageButton')).replaceAll("\\\\","\\\\");
-                          milisec = Blockly.JavaScript.valueToCode(block, 'miliToWait', Blockly.JavaScript.ORDER_ATOMIC) || '0'
-                          running = 'if (running) {\n';
-                          calling = '    java.waitImg(\"' + src + '\", '+ milisec + ');\n';
-                          end =     '}\n';
-                          var code = running + calling + end;
-                          return code;
-                        };
-                    \end{lstlisting}
-                        \caption{Geradores de código java dos blocos construidos}
-                        \label{code:myBlocksGenerator.js}
-                    \end{figure}
+Blockly.JavaScript['text_typer'] = function(block) {
+  text = block.getFieldValue('text');
+  running = 'if (running) {\n';
+  calling = "    running = java.type(\"" + text + '\");\n';
+  end =     '}\n';
+  var code = running + calling + end;
+  return code;
+};
+\end{lstlisting}
+    \caption{Descrição do bloco de clique e do bloco de digitação na aplicação web e seus respectivos geradores de código}
+    \label{code:myBlocks2.js}
+\end{figure}
 
                     Como é possível ver o bloco \texttt{Image\_Wait} e os blocos que representam as ações de clique de mouse, \texttt{click\_doble\_special} e \texttt{click\_single\_special} utilizam um campo próprio chamado \texttt{FieldImageButton}, desenvolvido observando-se o campo original presente na biblioteca Blockly \texttt{field\_image}\footnote{o código desta classe pode ser encontrado em https://github.com/google/blockly/}, este campo adiciona a imagem um \emph{eventListenner} que ao ser clicado envia uma mensagem que dá início a tarefa de captura de tela no software, que ao ser terminada pelo usuário, envia uma mensagem contendo o caminho da imagem da área selecionada pelo usuário que deve sofrer a ação do bloco junto com suas dimensões. Por sua vez a aplicação web atualiza a imagem do bloco para representar a área que o usuário escolheu.
 
@@ -1065,28 +970,6 @@
                         \includegraphics[width=1.0\textwidth]{imagens/blocosecodigo.png}
                         \caption{Exemplo de um quebra-cabeça}
                         \label{fig:blocosecodigo}}
-                    \end{figure}
-
-                    \begin{figure}[!htb]
-                    \begin{lstlisting}
-                        var running = true; var dias;
-
-                        for (dias = 1; dias <= 31; dias += 3) {
-                          for (var count = 0; count < 10; count++) {
-                            if (running) {
-                            java.clickIn("../images/icons/clickBlack.png",1);
-                            }
-                            if (running) {
-                                running = java.type("digitar alguma coisa");
-                            }
-                            if (running) {
-                                java.waitImg("../images/icons/clickBlack.png", 200);
-                            }
-                          }
-                        }
-                    \end{lstlisting}
-                        \caption{Exemplo do código gerado por este quebra-cabeça}
-                        \label{code:blocosecodigo.js}
                     \end{figure}
 
         \chapter {Resultados}
@@ -1227,8 +1110,19 @@
                         \item Subconjunto que realiza as operações de automação sobre o modelo. Inicialmente o modelo é executado, é chamada as função "estatico" descrita na figura \ref{fig:estaticoDia} e "escolhe cidade" descrita na figura \ref{fig:EscolheCidade} e em segida é escolhida a cultivar. Posteriormente, considerando o espaço de meses desejado para o caso de uso, é definida uma regra logica que impede a simulação de ocorrer em dias que não existam no calendário. Posteriormente caso o dia seja válido, a simulação é executada e espera-se pela validação da interface de que a simulação foi finalizada, para finalmente fechar o model para que possa ser executado novamente no próximo dia segundo a iteração descrita no segundo conjunto conjunto.
                     \end{enumerate}
 
+                    A função "estatico" descrita na figura \ref{fig:estaticoDia} preenche os campos que não variam dentre as várias simulações que nessecitam ser realizadas no caso deu uso, os campos preenchidos são concentração de CO2, densidade de plantas e o dia e mês da colheita. Na mesma imagem temos também a função "faz no dia", que preenche os campos que variam de acordo com o dia, sendo estes o dia, mês e ano do plantio, assim como o ano da colheita.
+
+                    Na figura \ref{fig:EscolheCidade} se encontra a função "escolhe cidade", esta função se encarrega de preencher os campos que variam junto da cidade. Insere o arquivo de dados meteorológicos da cidade, construindo um caminho juntando o endereço da pasta ao nome da cidade, que é inserido no seletor de texto. Na sequencia são preenchidos o local, selecionada a opção de simular com o balanço hídrico, onde é selecionado o solo correspondente a cidade atual e são definidos os valores estáticos para balanço hídrico que são a profundidade de maniva e profundidade máxima de raíz.
+
                 \subsection{Demais casos de uso}
 
+                    Para o caso de uso do conjunto de modelos DSSAT, o automatizador também é capaz de realizar a automação do fluxo principal, já que o mesmo apresenta necessidades similares ao do modelo Simanihot. Entretanto novamente não foi possível solucionar o fluxo de esceção, em especial o item 1 do fluxo de esceção do caso de uso do programa DSSAT necessita a abertura de um arquivo para avaliar os alertas de temperatura, tarefa que o automatizador não é capaz de realizar.
+
+                    O software desenvolvido não foi capaz de solucionar todos os pontos fundamentais do casos de uso do modelo SoySim, o que impossibilitou a construção de uma automação que solucionasse o problema descrito no caso de uso do modelo.
+
+                    O item 6 do fluxo principal do caso de uso indica que a automação deve copiar os dados a partir da linha 14 a 59 do arquivo de resultado TmpOut.txt e filtrar outros campos específicos específicos dentro do arquivo de resultado, para posteriormenta salvar todos os resultados coletados em um único arquivo de resultado. Como o software desenvolvido não é capaz de trabalhar com arquivos diretamente, o item 6 do fluxo principal do caso não pode ser resolvido.
+
+                    Também não foi possível resolver o fluxo secundário e de exceções. O item 1, 2 e 3 do fluxo de exceção não pode ser resolvido pois o automatizador desenvolvido não é capaz de tomar decições com base em eventos produzidos pelo automatizado, apenas esperar por eventos. O item 4 também não pode ser resolvido pois o automatizador desenvolvido não é capaz de pausar, cancelar ou recomeçãor uma automação e o fluxo secundário não pode ser resolvido pois é dependente do item 2 no fluxo de esceção.
 
         \chapter {Conclusão}
 
