@@ -99,7 +99,7 @@
 \institute{Centro de Tecnologia}
 \degree{Bacharel em Ciência da Computação}
 
-\trabalhoNumero{}
+\trabalhoNumero{412}
 \advisor[Profª.]{Drª.}{Charão}{Andrea Schwertner}
 \orientadoratrue
 
@@ -1188,7 +1188,7 @@
 
                 \subsection {Simanihot}
 
-                    As imagens \ref{fig:coreSimani,fig:EscolheCidade,fig:estaticoDia} demonstram um conjunto de quebra-cabeças capaz de automatizar o modelo Simanihot para o caso de uso coletado. O quebra-cabeças gerados soluciona o caso de uso dentro da lógica disponibilizada pelo conjunto de peças do software, conseguindo assim, realizar o problema principal do caso de uso, realizar diversas simulações com as variações especificadas. Algumas condições não fundamentais para a solução do caso de uso não puderam ser realizadas.
+                    As imagens \ref{fig:coreSimani}, \ref{fig:EscolheCidade} e \ref{fig:estaticoDia} abordam a demonstração lógica em um conjunto de quebra-cabeças capaz de automatizar o modelo Simanihot para o caso de uso coletado com um conjunto hipotético de arquivos de entrada. O quebra-cabeças gerados soluciona o caso de uso dentro da lógica disponibilizada pelo conjunto de peças do software, conseguindo assim, realizar o problema principal do caso de uso, realizar diversas simulações com as variações especificadas. Algumas condições não fundamentais para a solução do caso de uso não puderam ser realizadas.
 
                     O caso de uso do modelo Simanihot define no fluxo de exceção que, em caso de qualquer interação do usuário durante a tarefa de automação, deve se pausar a simulação e esperar que o usuário recomece a automação ou cancele. Também define que no caso de encontrar algum alerta de campo preenchido incorretamento, deve encerrar a automação e enviar o usuário para as pós condição.
 
@@ -1199,28 +1199,32 @@
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=1.0\textwidth]{imagens/coreSimani.png}
-                        \caption{Exemplo de um quebra-cabeça}
+                        \caption{Quebra-cabeça que descreve a parte principal da automação do caso de uso do modelo Simanihot, as regiões de interesse foram dermacadas para referência durante a explanação da automação do modelo.}
                         \label{fig:coreSimani}}
                     \end{figure}
 
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=0.6\textwidth]{imagens/EscolheCidade.png}
-                        \caption{Exemplo de um quebra-cabeça}
+                        \caption{Quebra-cabeça que descreve a função que realiza esconha das cidades no modelo, chamada pelo quebra cabeças principal apresentado na imagem \ref{fig:coreSimani}.}
                         \label{fig:EscolheCidade}}
                     \end{figure}
 
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=0.6\textwidth]{imagens/estaticoDia.png}
-                        \caption{Exemplo de um quebra-cabeça}
+                        \caption{Quebra-cabeças com duas funções, "estatico" que descrevem a parte constante da automação, que não varia nas repetições e "fazer no dia" que descreve as ações que são realizadas na iteração mais interna do quebra-cabeças proncipal. São chamada pelo quebra cabeças principal apresentado na imagem \ref{fig:coreSimani}.}
                         \label{fig:estaticoDia}}
                     \end{figure}
 
-                    Em sequência será analizada a descrição da automação observada no conjunto de imagens \ref{fig:coreSimani,fig:EscolheCidade,fig:estaticoDia}. Este conjunto de quebra cabeças se encontra visível em conjunto no automatizador, durante a execução, a automação ocorre da seguinte forma:
+                    Em sequência será analisada a descrição da automação observada no conjunto de figuras \ref{fig:coreSimani}, \ref{fig:EscolheCidade} e \ref{fig:estaticoDia}. Este conjunto de quebra cabeças se encontra visível em conjunto no automatizador, durante a execução, e representa uma dentre diversas formas de modelar a lógica e sequência de operações que levam a solução do caso de usos do modelo simanihot
+
+                    Analisando inicialmente a figura \ref{fig:coreSimani}, foi dividido os comonentes do quebra-cabeças em 3 conjuntos:
 
                     \begin{enumerate}[label*=\arabic*.]
-
+                        \item Este é o ponto inicial onde definimos alguns conjuntos de listas que são utilizadas durante a automação, inicialmente criamos as listas em forma de texto e posteriormente separamos os elementos por virgula. Dentre elas temos as cultivares que serão usadas, e os solos. O texto contendo as cidades, por sua vez, é convertido em uma lista diretamente na repetição mais externa do segundo conjunto de blocos.
+                        \item Neste subconjunto ocorrem as iterações necessárias para que o automatizador possa variar dentro das regras definidas nos casos de uso, as cidades, cultivares, ano mês e dia. a cada variação de dia, são rodados os blocos do terceiro subconjunto, interno ao segundo subconjunto
+                        \item Subconjunto que realiza as operações de automação sobre o modelo. Inicialmente o modelo é executado, é chamada as função "estatico" descrita na figura \ref{fig:estaticoDia} e "escolhe cidade" descrita na figura \ref{fig:EscolheCidade} e em segida é escolhida a cultivar. Posteriormente, considerando o espaço de meses desejado para o caso de uso, é definida uma regra logica que impede a simulação de ocorrer em dias que não existam no calendário. Posteriormente caso o dia seja válido, a simulação é executada e espera-se pela validação da interface de que a simulação foi finalizada, para finalmente fechar o model para que possa ser executado novamente no próximo dia segundo a iteração descrita no segundo conjunto conjunto.
                     \end{enumerate}
 
                 \subsection{Demais casos de uso}
