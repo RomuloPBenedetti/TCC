@@ -562,7 +562,7 @@
 
             \subsection{Modelagem do software Automatizador}
 
-                Feitas as observações de quais são as entradas e saídas do software que será automatizado e considerando que a automatização depende da interação entre ambos, é possível deduzir que a saída do automatizador\footnote{ Nos referiremos ao software automatizador como “automatizador” ou “software automatizador”.} precisa conter elementos do mesmo tipo que a entrada do software a ser automatizado, direcionada a entrada do software a ser automatizado.
+                Feitas as observações de quais são as entradas e saídas do software que será automatizado e considerando que a automatização depende da interação entre ambos, é possível deduzir que a saída do automatizador\footnote{ Nos referiremos ao software automatizador como “automatizador” ou “software automatizador”.}, precisa conter elementos do mesmo tipo que a entrada do software a ser automatizado, direcionada a entrada do software a ser automatizado.
 
                 Analogamente, podemos deduzir que a entrada do automatizador precisa conter elementos do mesmo tipo que a saída do software a ser automatizado. Como o software automatizado desconhece a existência do automatizador, o automatizador precisa procurar e filtrar, quando necessário, saídas do tipo que o software a ser automatizado gera.
 
@@ -592,7 +592,7 @@
 
                 A entrada de eventos ocorre seletivamente durante a automação, onde o software a ser automatizado é observado de acordo com regras definidas na descrição da automação em buscas de condições descritas pelo usuário na descrição da automação. Quando relevantes para a automação. Poderão resultar em alguma saída do automatizador, a depender da satisfação ou não da condição.
 
-                Já a entrada de dados pode vir tanto do usuário como do software a ser automatizado. Quando do usuário, são destinados a descrição da automação ou eventos, caso contrário, são buscados seletivamente durante a automação, no software a ser automatizado, dependendo de como a automação foi descrita pelo usuário. Podem produzir eventos quando inseridos pelo usuário que podem necessitar atenção do mesmo. Também alteram ou geram saídas destinadas ao software a ser automatizado, quando obtidos do software automatizado.
+                Já a entrada de dados pode vir tanto do usuário como do software a ser automatizado. Quando do usuário, são destinados a descrição da automação ou eventos, caso contrário, são buscados seletivamente durante a automação, no software a ser automatizado, dependendo de como a automação foi descrita pelo usuário. Podem produzir eventos quando inseridos pelo usuário que podem necessitar atenção do mesmo. Também alteram ou geram saídas destinadas ao software a ser automatizado quando obtidos do software automatizado.
 
                 Na saída do automatizador as ações são produtos da execução da automação descrita com os elementos de automação, destinadas ao software a ser automatizado. Podem produzir eventos ou dados como saída no software automatizado que são do interesse do automatizador.
 
@@ -610,23 +610,23 @@
 
                     Todos os três elementos anteriores estão diretamente acessíveis ao usuário devido ao fato de que o usuário interage com eles, entretanto, apenas estes elementos sozinhos não são capazes de realizar e coordenar adequadamente suas funções e interações entre si, muito menos delegar os resultados destas funções e interações aos seus destinatários, seja este o software automatizado ou o usuário.
 
-                    Quem faz este papel são os elementos de controle do automatizador que não estão diretamente acessíveis ao usuário, porém respondem as interações do mesmo com os outros elementos descritos, realizando as tarefas requisitadas pelos componentes assim como o envio e recebimento de informações entre eles pertinentes para as tarefas requisitadas, com o objetivo de concretizar as funcionalidades definidas na coleta de requisitos assim como o objetivo final, automatizar o software a ser automatizado.
+                    Quem faz este papel são os elementos de controle do automatizador que não estão diretamente acessíveis ao usuário, porém respondem as interações do mesmo com os outros elementos descritos, realizando as tarefas requisitadas pelos componentes assim como o envio e recebimento de informações entre eles que são pertinentes para as tarefas requisitadas, com o objetivo de concretizar as funcionalidades definidas na coleta de requisitos assim como o objetivo final, automatizar o software a ser automatizado.
 
                     São descritos na figura \ref{fig:automatIO} como engrenagens e são os componentes responsáveis por controlar o automatizador, sendo responsáveis por diversas tarefas dentro do software automatizador, dentre elas:
 
                     \begin{itemize}
-                        \item Carregamento de todos os elementos do automatizador com as propriedades e estado necessários na inicialização do automatizador.
-                        \item intercomunicação entre todos os componentes quando requisitados por algum componente por intermédio do usuário.
-                        \item realização das tarefas e do processamentos requisitados pelos componentes a depender da funcionalidade que eles representam e dado que eles contem.
+                        \item Carregamento de todos os elementos do automatizador com as propriedades e estados necessários na inicialização do automatizador.
+                        \item intercomunicação entre todos os componentes quando requisitado por algum componente por intermédio do usuário.
+                        \item realização das tarefas e dos processamentos requisitados pelos componentes a depender da funcionalidade que eles representam e dados que eles contêm.
                         \item Apresentação de eventos e transmissão de informações dos mesmos para os outros componentes ou vice-versa.
                         \item Coordenador na tarefa de utilização dos elementos de automação pelo usuário para serem usados na descrição da automação.
-                        \item realização das ações do software automatizador como executar, salvar, excluir ou carregar uma automatização salva.
+                        \item realização das ações do software automatizador como executar, salvar, excluir ou carregar uma automação salva.
                         \item Criação e delegação das informações de saída produzidas pelas tarefas descritas nessa lista.
                     \end{itemize}
 
         \section {Desenvolvimento do software}
 
-            Com o software modelado é preciso criar os componentes idealizados, no desenvolvimento do software serão analisadas soluções para estes componentes, procurando as melhores soluções viáveis para satisfazer o objetivo deste projeto e requisitos elencados, embasando-se em observações feitas durante a concepção e modelagem para posteriormente, codificar o software, onde alguns trechos relevantes da codificação serão apresentadas e discutidas.
+            Com o software modelado é preciso criar os componentes idealizados, no desenvolvimento do software serão analisadas soluções para estes componentes, procurando as melhores soluções viáveis para satisfazer o objetivo deste projeto e requisitos elencados, embasando-se em observações feitas durante a concepção e modelagem para posteriormente, codificar o software, onde alguns trechos relevantes da codificação, serão apresentados e discutidos.
 
             \subsection {Interação com o software a ser automatizado}
 
@@ -636,7 +636,7 @@
 
                 \emph{Handles} são identificadores únicos que fornecem encapsulamento abstrato e opaco para recursos internos do software que neste caso queremos automatizar, eles podem ser utilizados para identificar qualquer recurso dentro do software, indo além dos recursos observados apenas na interface, podem ser identificadores da janela do software, de um botão ou até mesmo, componentes internos como listas, \emph{threads} dentre outras estruturas e recursos utilizadas pelo software. Os \emph{windows handles} são uma abstração particular dos recursos de um software em sistemas operacionais Windows. Em sistemas operacionais UNIX, uma abstração similar são \emph{file descriptors}.
 
-                \emph{Windows controls} por sua vez são também abstrações em sistemas Windows, são janelas filhos que o software usa em conjunto com outra janela que tornam possível a interação do usuário com o software. Em sistemas UNIX não existe uma abordagem padrão, já que alguns componentes de \emph{frameworks} mais modernos podem ser acessíveis apenas na aplicação cliente e não no servidor X, isso quando consideramos que o servidor de vídeo em uso é o servidor X. Um exemplo de \emph{framework} que permite acessar estes componentes em aplicações GTK é o ATK.
+                \emph{Windows controls} por sua vez são também abstrações em sistemas Windows, são janelas filhos que o software usa em conjunto com outra janela que tornam possível a interação do usuário com o software. Em sistemas UNIX não existe uma abordagem padrão, já que alguns componentes de \emph{frameworks} mais modernos podem ser acessíveis apenas na aplicação cliente e não no servidor X, isso quando consideramos que o servidor de vídeo em uso é o servidor X. Um exemplo de \emph{framework} que permite acessar estes componentes em aplicações GTK é o ATK~\cite{atk}.
 
                 O método de captura e execução é baseado em captura e análise de imagens obtidas da tela do computador com o intuito de localizar elementos para posteriormente indicar uma interação padrão do usuário a ser realizada no elemento localizado, como ações de mouse e teclado. Outra abordagem ainda seria gravar a interação do usuário como movimentação do mouse e locais clicados e digitados. A abordagem é a mesma independente do sistema operacional.
 
@@ -648,14 +648,14 @@
                     \hline
                     \emph{Windows handles} \\
                     \hline
-                    {\bf contras:} \\
+                    {\bf prós:} \\
                     \begin{itemize}
                         \item Permitem um nível bastante refinado de automação e em alguns casos permitem alterar profundamente o comportamento do programa ao mudar o comportamento de componentes e inclusive o estado das informações internas do mesmo.
-                        \item É mais flexível e menos dependente de padrões que o método \emph{Windows controls}. Também oferece acesso a mais recurso e propriedades do software que o método \emph{Windows controls}.
+                        \item É mais flexível e menos dependente de padrões que o método \emph{windows controls}. Também oferece acesso a mais recurso e propriedades do software que o método \emph{windows controls}.
                     \end{itemize}
                     \\ {\bf contras:} \\
                     \begin{itemize}
-                        \item A utilização em geral só é pratica em aplicações que o usuário conheça internamente o funcionamento, sendo relevante fazer um uso cauteloso já que \emph{handles} são intencionalmente abstratos. \emph{Handles} variam de seção para seção do programa e podem ser descartados durante a existência do programa ou simplesmente não representarem mais o mesmo elemento.
+                        \item A utilização em geral só é prática em aplicações que o usuário conheça internamente o funcionamento, sendo relevante fazer um uso cauteloso já que \emph{handles} são intencionalmente abstratos. \emph{Handles} variam de seção para seção do programa e podem ser descartados durante a existência do programa ou simplesmente não representarem mais o mesmo elemento.
                     \end{itemize}
                     \\ \hline
                 \end{tabularx}
@@ -664,18 +664,18 @@
                     \hline
                     \emph{Windows controls} \\
                     \hline
-                    {\bf Prós:} \\
+                    {\bf prós:} \\
                     \begin{itemize}
                         \item Não depende da visibilidade dos \emph{controls}. \emph{Controls} que não estejam visíveis também estão ao alcance da ferramenta de automação já que a mesma tem acesso a todas as propriedades do programa.
                         \item É possível alterar o comportamento do programa já que é possível definir qualquer estado possível para um \emph{control} em específico.
                         \item A interação do automatizador é mais próxima do contexto interno do programa, enviando, por exemplo, eventos diretamente para os \emph{listeners} em botões, isso garante maior exatidão no comportamento o que é mais relevante nos casos em que se busca testar o softwares.
-                        \item por não exigir muito processamento extra, análise complexa de dados e não depender da resposta da interface, é relativamente rápido.
-                        \item é uma abordagem mais estável que o método baseado em \emph{windows handles} já que os \emph{controls} são mais previsíveis e padronizados.
+                        \item Por não exigir muito processamento extra, análise complexa de dados e não depender da resposta da interface, é relativamente rápido.
+                        \item É uma abordagem mais estável que o método baseado em \emph{windows handles} já que os \emph{controls} são mais previsíveis e padronizados.
                         \item Permite um grande reaproveitamento e reutilização em condições diversas se comparado ao método baseado em captura e execução.
                     \end{itemize}
                     \\ {\bf contras:} \\
                     \begin{itemize}
-                        \item É limitado a \emph{controls} conhecidos pelo software e API automatizadora, exigindo um mapeamento de componentes customizados que diferem dos componentes tradicionais conhecidos pela API. Num exemplo, o software automatizador AutoIt apenas trabalha com os \emph{controls} padronizados da Microsoft \footnote{esta informação pode ser encontrada na documentação do software AutoIt; https://www.autoitscript.com/autoit3/docs/intro/controls.htm}.
+                        \item É limitado a \emph{controls} conhecidos pelo software e API, exigindo um mapeamento de componentes customizados que diferem dos componentes tradicionais conhecidos pela API. Num exemplo, o software automatizador AutoIt apenas trabalha com os \emph{controls} padronizados da Microsoft \footnote{esta informação pode ser encontrada na documentação do software AutoIt; https://www.autoitscript.com/autoit3/docs/intro/controls.htm}.
                         \item Ainda exige um conhecimento relativo do comportamento do software a ser automatizado por parte do usuário, quais são os estados dos \emph{controls} e qual é o significado dos estados do mesmo.
                         \item Da mesma forma que no método baseado em \emph{Windows handles}, alterar livremente as propriedades dos \emph{controls} do software que se quer automatizar é perigoso já que pode levar a estados e condições inconsistentes dentro do software a ser automatizado, já que é possível definir qualquer estado possível para o \emph{control} manipulado.
                     \end{itemize}
@@ -757,7 +757,7 @@
                 Outra parte do objetivo geral consiste em utilizar a biblioteca de programação visual Blockly. A escolha da biblioteca se deu por alguns motivos que a tornaram adequada para o desenvolvimento deste software:
 
                 \begin{itemize}
-                    \item oferecia objetivamente suporta a diversos idiomas, por ser uma propriedade fundamental dentro do contexto de conhecimentos dominados pelos usuários, ou seja, o idioma em sí do usuário.
+                    \item Oferecia objetivamente suporta a diversos idiomas, por ser uma propriedade fundamental dentro do contexto de conhecimentos dominados pelos usuários, ou seja, o idioma em sí do usuário.
                     \item Permite abordar a programação em um paradigma imperativo, procedural podendo ser estruturada, paradigmas mais próximo de como o usuário raciocina a solução de tarefas.
                     \item É uma biblioteca voltada para desenvolvedores, de código aberto, permitindo a exploração, adaptação e expansão do código original oferecendo a flexibilidade necessária para a solução do objetivo e doa requisitos elencados de uma forma viável e gratuita.
                     \item Não é uma linguagem de programação em si, muito menos de aplicação especializada, oferecendo componentes genéricos que permitem a construção de programas e resolução de problemas diversos em uma abordagem de programação visual desacoplada de uma linguagem tradicional, que posteriormente pode ser traduzida para uma linguagem tradicional, o que a torna bastante flexível, permitindo a abordagem de problemas como a automação de uma forma mais abstrata e especializada.
@@ -766,7 +766,7 @@
 
                 A biblioteca sera utilizada para definir um vocabulário da elementos de linguagem visual, os elementos de automação, de forma a oferecer componentes que permitam expressar a lógicos necessária para definir as repetições, ordem das operações assim como a criação de elementos que expressem as ações de automação elencadas nos requisitos, dentro da abordagem de captura e execução. A biblioteca irá se encarregar de fazer algumas validações da montagem, verificando a validade ou não dos encaixes entre os elementos e impedindo que elementos não compatíveis sejam conectados.
 
-                também será utilizada para traduzir a descrição para uma linguagem de programação tradicional que será usada pelo automatizador para rodar as automações, assim como oferecer uma área que permita montar a automação. Também através da biblioteca será oferecida algumas funcionalidades do software abordadas nas ações do software automatizado. A figura \ref{fig:BlocklyDiagram} descreve de forma resumida, levando em consideração apenas as saídas relevantes e a integração do Blockly exemplificando com algumas ações do software automatizador,
+                também será utilizada para traduzir a descrição para uma linguagem de programação tradicional que será usada pelo automatizador para rodar as automações, assim como oferecer uma área que permita montar a automação. Também através da biblioteca será oferecida algumas funcionalidades do software abordadas nas ações do software automatizado. A figura \ref{fig:BlocklyDiagram} descreve de forma resumida, levando em consideração apenas as saídas relevantes e a integração do Blockly exemplificando com algumas ações do software automatizador.
 
                 \begin{figure}[!htb]
                     {\centering
@@ -794,12 +794,12 @@
 
                 \subsubsection {Integração do Blockly em uma aplicação Java}
 
-                    Em um primeiro momento, com o objetivo de rodar o Blockly, uma biblioteca JavaScript 100\% \emph{client side} dependente de um ambiente web, em uma aplicação java, optou-se por uma solução que envolve uma aplicação JavaFX com um cliente \emph{web} embutido, descrita de forma geral na imagem \ref{fig:struct}.
+                    Em um primeiro momento, com o objetivo de rodar o Blockly, uma biblioteca JavaScript 100\% \emph{client side} dependente de um ambiente web, em uma aplicação java, optou-se por uma solução que envolve uma aplicação JavaFX por fornecer uma \emph{web engine} com suporte para JavaScript, mais um cliente \emph{web} embutido, descrita de forma geral na imagem \ref{fig:struct}.
 
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=1.0\textwidth]{imagens/struct.png}
-                        \caption{Estrutura geral da solução.}
+                        \caption{Estrutura geral da solução cliente/servidor.}
                         \label{fig:struct}}
                     \end{figure}
 
@@ -867,7 +867,7 @@ public void waitImg (String imgSrc, int milisec){
                     \begin{figure}[!htb]
                         {\centering
                         \includegraphics[width=1.0\textwidth]{imagens/a.png}
-                        \caption{descrição visual da tarefa realizada pela classe. \texttt{ImageSearch}.}
+                        \caption{Imprecisão observado no método de procura em imagens do software Sikuli. \texttt{ImageSearch}.}
                         \label{fig:sikulixNoMatch}}
                     \end{figure}
 
@@ -1060,7 +1060,7 @@ Blockly.JavaScript['text_typer'] = function(block) {
                         \item Observe que o sétimo bloco permite mutabilidade que pode ser configurada clicando na engrenagem destacada no sétimo bloco. O bloco de criação de texto composto, por padrão, apenas permite a concatenação de duas entradas. Antes de dar início a automação o bloco foi mudado, é possível adicionar quantos itens se quer como entrada no bloco de união na janela de mutação que surge ao clicar no botão de mutação do sétimo bloco, alterando assim o número de entradas do bloco de criação de texto composto.
                     \end{enumerate}
                     \item Devolve um valor de texto que o bloco anterior concatenará, no início de uma variável de texto, junto com outras duas variáveis, contendo um espaço.
-                    \item devolve o valor armazenado no contador na iteração atual, que pode ser um valor de 1 até 5 dependendo em qual ponto da iteração a automação se encontra. O bloco anterior concatenará, no meio de uma variável de texto, junto com outras duas variáveis.
+                    \item Devolve o valor armazenado no contador na iteração atual, que pode ser um valor de 1 até 5 dependendo em qual ponto da iteração a automação se encontra. O bloco anterior concatenará, no meio de uma variável de texto, junto com outras duas variáveis.
                     \item Devolve um valor de texto que o bloco anterior concatenará, no fim de uma variável de texto, junto com outras duas variáveis, contendo um espaço.
                 \end{enumerate}
 
@@ -1073,8 +1073,8 @@ Blockly.JavaScript['text_typer'] = function(block) {
 
                 \begin{itemize}
                     \item O software não é capaz de suavizar a criticidade com a qual procura os campos a serem clicados, logo qualquer diferença já torna impossível para o software localizar o campo novamente.
-                    \item O software não é capaz de se deslocar pela interface do sistema operacional, ir para a área de trabalho ou navegar entre as janelas abertas do sistema.
-                    \item O software não é capaz de editar arquivos de texto. Embora possua diversas capacidades para processar textos dentre seus blocos, não ha nenhum bloco capaz de abrir um arquivo armazenado em alguma pasta do sistema ou ainda ler texto da tela.
+                    \item Não é capaz de se deslocar pela interface do sistema operacional, ir para a área de trabalho ou navegar entre as janelas abertas do sistema.
+                    \item Também não é capaz de editar arquivos de texto. Embora possua diversas capacidades para processar textos dentre seus blocos, não ha nenhum bloco capaz de abrir um arquivo armazenado em alguma pasta do sistema ou ainda ler texto da tela.
                     \item Apesar de ser capaz de esperar por mudanças gráficas na tela, o software não é capaz de tomar decisões lógicas na ocorrência de uma mudança gráfica, habilidade relevante para o tratamento de erros ou seguimento de múltiplos fluxos.
                 \end{itemize}
 
@@ -1137,16 +1137,17 @@ Blockly.JavaScript['text_typer'] = function(block) {
 
         \chapter {Conclusão}
 
-            A proposta inicial deste trabalho consistia principalmente em apresentar uma solução de automação de interfaces gráficas de forma simplificada com base na biblioteca de programação visual Blockly dentro do contexto de modelos de simulação de culturas agrícolas. Entretanto o resultado final desta pesquisa trata-se não de uma solução total dos problemas apresentados, mas de um software que oferece a possibilidade de automatização de alguns problemas com um escopo não tão grande como o dos problemas propostos, com base nas conclusões tomada durante o desenvolvimento, a partir dos percalços e da análise constante da amplitude da proposta e das necessidades durante a validação das abordagens em questão.
+            A proposta inicial deste trabalho consistia principalmente em apresentar uma solução de automação de interfaces gráficas de forma simplificada com base na biblioteca de programação visual Blockly dentro do contexto de modelos de simulação de culturas agrícolas. Entretanto o resultado final desta pesquisa trata-se não de uma solução total dos problemas apresentados, mas de um software que oferece a possibilidade de automatização de alguns problemas com um escopo não tão grande como o dos problemas propostos, com base nas conclusões tomadas durante o desenvolvimento, a partir dos percalços e da análise constante da amplitude da proposta e das necessidades durante a validação das abordagens em questão.
 
-            Como contribuição este trabalho apresentou uma abordagem diferenciada na programação de tarefas automatizadas expondo de forma mais simplificada lógica comum em linguagens de programação e \emph{script} tradicionais, fornecendo uma ferramenta que pode descrever de forma muito flexível interações com a interface gráfica e permitindo em algum nível realizar a automatização de parte das tarefas maçantes presentes na interação com interfaces gráficas de modelos matemáticos de simulação de culturas agrícolas mais simples.
+            Como contribuição este trabalho apresentou uma abordagem diferenciada na programação de tarefas automatizadas expondo de forma mais simplificada lógica comum em linguagens de programação e \emph{script} tradicionais, fornecendo uma ferramenta que pode descrever de forma muito flexível interações com a interface gráfica, permitindo em algum nível realizar a automatização de parte ou totalidade das tarefas maçantes presentes na interação com interfaces gráficas de modelos matemáticos de simulação de culturas agrícolas para os casos mais simples.
 
             A lista a seguir, não exaustiva, expõe em ordem de relevância, uma lista de algumas melhorias que poderiam ser incorporadas em uma nova versão deste projeto:
 
             \begin{itemize}
             	\item Tratar arquivos com conteúdo de texto, permitindo copiar arquivos para outros locais, criar arquivos com novas informações, renomeá-los e processar e extrair informações destes textos.
+                \item Investigar possíveis exceções que podem ocorrer durante a automação, como por exemplo, a abertura indesejada de um programa, sem a solicitação do usuário e que pode bloquear a tela
                 \item Refinar a forma com a qual o programa localiza e clica nos elementos gráficos, seja pela adição de procura por similaridades e áreas não exatas, ou por novos métodos para definição da área onde se deve clicar.
-                \item Expandir a interação com o sistema operacional de forma que o software possa procurar dentre diversas janelas e na área de trabalho.
+                \item Expandir a interação com o sistema operacional de forma que o software possa interagir enquanto procura para acessar diversas janelas ou área de trabalho, que poderiam não estar visíveis antes.
             	\item Fornecer \emph{feedback} visual ao finalizar automatizações ou receber erros durante a execução de uma automatização.
             	\item Obter uma forma mais eficiente de captura de tela já que a captura de tela realizada pela classe \texttt{Robot} além de lenta pode produzir artefatos e não capturar alguns elementos dinâmicos de alguns programas.
                 \item Oferecer blocos que simplifiquem elementos lógicos já presentes na biblioteca Blockly permitindo a formulação de quebra-cabeças de automatização mais simples.
